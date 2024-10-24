@@ -1,7 +1,0 @@
-format: jb-article
-root: docs/index
-sections:
-- file: docs/hub_deployment
-- file: docs/notebooks_materials
-- file: docs/support_resources
-- file: docs/getting_started
