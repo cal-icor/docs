@@ -13,7 +13,7 @@ kernelspec:
 
 # Getting Started
 
-# InfoBlox
+## InfoBlox
   We use a SPA to control access to the DNS records for cal-icor. In order to login do the following:
   1. Visit https://infoblox.net.berkeley.edu
   2. Use SSO Login
