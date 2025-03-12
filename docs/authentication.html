@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Getting Started &#8212; Cal-ICOR Documentation</title>
+    <title>Authentication &#8212; Cal-ICOR Documentation</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/getting_started';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/authentication';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Hub Resources" href="hub_resources.html" />
-    <link rel="prev" title="Cal ICOR" href="index.html" />
+    <link rel="next" title="User Environments" href="user_environments.html" />
+    <link rel="prev" title="Hub Resources" href="hub_resources.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -172,9 +172,9 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hub_resources.html">Hub Resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_environments.html">User Environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks_materials.html">Notebooks and Material Sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support_resources.html">Support Resources</a></li>
@@ -232,7 +232,7 @@
       
       
       
-      <li><a href="../_sources/docs/getting_started.md" target="_blank"
+      <li><a href="../_sources/docs/authentication.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -303,9 +303,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -316,19 +314,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Getting Started</h1>
+    <h1>Authentication</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterhub">Jupyterhub</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -338,15 +328,21 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="getting-started">
-<span id="id1"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h1>
-<section id="jupyterhub">
-<h2>Jupyterhub<a class="headerlink" href="#jupyterhub" title="Link to this heading">#</a></h2>
-<p>Your institution will have a hub dedicated at an address that will look like this:</p>
-<ul class="simple">
-<li><p>&lt;institution&gt;.jupyter.cal-icor.org</p></li>
+  <section id="authentication">
+<h1>Authentication<a class="headerlink" href="#authentication" title="Link to this heading">#</a></h1>
+<p>We have a series of options in regards to authentication.</p>
+<ul>
+<li><h4 class="rubric" id="cilogon-org"><a class="reference external" href="http://CiLogon.org">CiLogon.org</a></h4>
+<p>We try to leverage <a class="reference external" href="https://www.cilogon.org/faq">CILogon</a>, an authentication service  operated by the National Center for Supercomputing Applications at the University of Illinois, as the first option.</p>
+<p>Many higher education institutions are already registered with CiLogon, If your school is already listed this becomes very simple.</p>
+</li>
+<li><h4 class="rubric" id="microsoft-or-google-as-third-party-provider">Microsoft or Google as Third-Party Provider</h4>
+<p>Many other institutions use Google or MicroSoft as a third-party identity provider, CiLogon handles these as well.</p>
+</li>
+<li><h4 class="rubric" id="github-com"><a class="reference external" href="http://Github.com">Github.com</a></h4>
+<p>In some cases, your institution may not allow CiLogon to authenticate, in this case we configure a <a class="reference external" href="https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations">GitHub organization</a> for you; you can manage authentication via the GitHub organization.</p>
+</li>
 </ul>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -380,20 +376,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="hub_resources.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Cal ICOR</p>
+        <p class="prev-next-title">Hub Resources</p>
       </div>
     </a>
     <a class="right-next"
-       href="hub_resources.html"
+       href="user_environments.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Hub Resources</p>
+        <p class="prev-next-title">User Environments</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -403,21 +399,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterhub">Jupyterhub</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
