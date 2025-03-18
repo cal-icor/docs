@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="User Environments" href="user_environments.html" />
-    <link rel="prev" title="Hub Resources" href="hub_resources.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -173,7 +173,6 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hub_resources.html">Hub Resources</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_environments.html">User Environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks_materials.html">Notebooks and Material Sharing</a></li>
@@ -303,7 +302,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -319,6 +320,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cilogon">CILogon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microsoft-or-google">Microsoft or Google</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -330,19 +341,20 @@ document.write(`
                   
   <section id="authentication">
 <h1>Authentication<a class="headerlink" href="#authentication" title="Link to this heading">#</a></h1>
-<p>We have a series of options in regards to authentication.</p>
-<ul>
-<li><h4 class="rubric" id="cilogon-org"><a class="reference external" href="http://CiLogon.org">CiLogon.org</a></h4>
-<p>We try to leverage <a class="reference external" href="https://www.cilogon.org/faq">CILogon</a>, an authentication service  operated by the National Center for Supercomputing Applications at the University of Illinois, as the first option.</p>
-<p>Many higher education institutions are already registered with CiLogon, If your school is already listed this becomes very simple.</p>
-</li>
-<li><h4 class="rubric" id="microsoft-or-google-as-third-party-provider">Microsoft or Google as Third-Party Provider</h4>
-<p>Many other institutions use Google or MicroSoft as a third-party identity provider, CiLogon handles these as well.</p>
-</li>
-<li><h4 class="rubric" id="github-com"><a class="reference external" href="http://Github.com">Github.com</a></h4>
-<p>In some cases, your institution may not allow CiLogon to authenticate, in this case we configure a <a class="reference external" href="https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations">GitHub organization</a> for you; you can manage authentication via the GitHub organization.</p>
-</li>
-</ul>
+<p>We offer multiple authentication options to accommodate different institutional setups.</p>
+<section id="cilogon">
+<h2>CILogon<a class="headerlink" href="#cilogon" title="Link to this heading">#</a></h2>
+<p>Our primary authentication method is <a class="reference external" href="https://www.cilogon.org/faq">CILogon</a>, a service operated by the National Center for Supercomputing Applications at the University of Illinois.</p>
+<p>Many higher education institutions are already registered with CILogon, making authentication straightforward if your school is listed.</p>
+</section>
+<section id="microsoft-or-google">
+<h2>Microsoft or Google<a class="headerlink" href="#microsoft-or-google" title="Link to this heading">#</a></h2>
+<p>For institutions that use <strong>Google</strong> or <strong>Microsoft</strong> as their identity provider, CILogon can integrate with these services for seamless authentication.</p>
+</section>
+<section id="github">
+<h2>GitHub<a class="headerlink" href="#github" title="Link to this heading">#</a></h2>
+<p>If your institution does not support CILogon authentication, we can configure a <a class="reference external" href="https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations">GitHub organization</a> for you. This allows you to manage authentication through GitHub.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -376,12 +388,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="hub_resources.html"
+       href="getting_started.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Hub Resources</p>
+        <p class="prev-next-title">Getting Started</p>
       </div>
     </a>
     <a class="right-next"
@@ -399,6 +411,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cilogon">CILogon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microsoft-or-google">Microsoft or Google</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

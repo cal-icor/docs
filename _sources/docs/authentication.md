@@ -1,23 +1,14 @@
----
-jupytext:
-  text_representation:
-    extension: .md
-    format_name: myst
-kernelspec:
-  display_name: Python 3
-  language: python
-  name: python3
----
-## Authentication
-We have a series of options in regards to authentication. 
+## Authentication  
 
-- #### CiLogon.org 
-  We try to leverage [CILogon](https://www.cilogon.org/faq), an authentication service  operated by the National Center for Supercomputing Applications at the University of Illinois, as the first option.
+We offer multiple authentication options to accommodate different institutional setups.  
 
-  Many higher education institutions are already registered with CiLogon, If your school is already listed this becomes very simple.
+### CILogon  
+Our primary authentication method is [CILogon](https://www.cilogon.org/faq), a service operated by the National Center for Supercomputing Applications at the University of Illinois.  
 
-- #### Microsoft or Google as Third-Party Provider
-  Many other institutions use Google or MicroSoft as a third-party identity provider, CiLogon handles these as well.
+Many higher education institutions are already registered with CILogon, making authentication straightforward if your school is listed.  
 
-- #### Github.com
-  In some cases, your institution may not allow CiLogon to authenticate, in this case we configure a [GitHub organization](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations) for you; you can manage authentication via the GitHub organization.
+### Microsoft or Google  
+For institutions that use **Google** or **Microsoft** as their identity provider, CILogon can integrate with these services for seamless authentication.  
+
+### GitHub  
+If your institution does not support CILogon authentication, we can configure a [GitHub organization](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations) for you. This allows you to manage authentication through GitHub.  
