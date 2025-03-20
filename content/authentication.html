@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Home &#8212; Cal-ICOR Documentation</title>
+    <title>Authentication &#8212; Cal-ICOR Documentation</title>
   
   
   
@@ -57,10 +57,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/authentication';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Getting Started" href="getting_started.html" />
+    <link rel="next" title="User Environments" href="user_environments.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,8 +124,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -143,7 +142,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="index.html">
   
   
   
@@ -172,9 +171,9 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_environments.html">User Environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks_materials.html">Notebooks and Material Sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support_resources.html">Support Resources</a></li>
@@ -232,7 +231,7 @@
       
       
       
-      <li><a href="../_sources/docs/index.md" target="_blank"
+      <li><a href="../_sources/content/authentication.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -316,7 +315,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Home</h1>
+    <h1>Authentication</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -326,7 +325,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-offer">What We Offer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cilogon">CILogon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microsoft-or-google">Microsoft or Google</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a></li>
 </ul>
             </nav>
         </div>
@@ -338,23 +339,22 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="home">
-<h1>Home<a class="headerlink" href="#home" title="Link to this heading">#</a></h1>
-<p>Welcome to the CAL-ICOR JupyterHub Deployment documentation.</p>
-<section id="what-we-offer">
-<h2>What We Offer<a class="headerlink" href="#what-we-offer" title="Link to this heading">#</a></h2>
-<p>Our goal is to provide California educational institutions with a free, online computing resource using JupyterHub. This platform supports data science and development work through JupyterLab, VS Code, Shiny, and RStudio.</p>
-<p>This documentation is a living resource covering the following topics:</p>
-<ul class="simple">
-<li><p><strong>Getting Started</strong></p></li>
-<li><p><strong>Authentication</strong></p></li>
-<li><p><strong>User Environments</strong></p></li>
-<li><p><strong>Notebook and Material Sharing</strong></p></li>
-<li><p><strong>Support Resources</strong></p></li>
-</ul>
+  <section id="authentication">
+<h1>Authentication<a class="headerlink" href="#authentication" title="Link to this heading">#</a></h1>
+<p>We offer multiple authentication options to accommodate different institutional setups.</p>
+<section id="cilogon">
+<h2>CILogon<a class="headerlink" href="#cilogon" title="Link to this heading">#</a></h2>
+<p>Our primary authentication method is <a class="reference external" href="https://www.cilogon.org/faq">CILogon</a>, a service operated by the National Center for Supercomputing Applications at the University of Illinois.</p>
+<p>Many higher education institutions are already registered with CILogon, making authentication straightforward if your school is listed.</p>
 </section>
-<div class="toctree-wrapper compound">
-</div>
+<section id="microsoft-or-google">
+<h2>Microsoft or Google<a class="headerlink" href="#microsoft-or-google" title="Link to this heading">#</a></h2>
+<p>For institutions that use <strong>Google</strong> or <strong>Microsoft</strong> as their identity provider, CILogon can integrate with these services for seamless authentication.</p>
+</section>
+<section id="github">
+<h2>GitHub<a class="headerlink" href="#github" title="Link to this heading">#</a></h2>
+<p>If your institution does not support CILogon authentication, we can configure a <a class="reference external" href="https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations">GitHub organization</a> for you. This allows you to manage authentication through GitHub.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -370,7 +370,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./docs"
+            path: "./content"
         },
         predefinedOutput: true
     }
@@ -387,12 +387,21 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="right-next"
+    <a class="left-prev"
        href="getting_started.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Getting Started</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="user_environments.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Getting Started</p>
+        <p class="prev-next-title">User Environments</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -412,7 +421,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-offer">What We Offer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cilogon">CILogon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microsoft-or-google">Microsoft or Google</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a></li>
 </ul>
   </nav></div>
 
