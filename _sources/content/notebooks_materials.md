@@ -1,5 +1,5 @@
 # Notebooks and Material Sharing
 
-We also have a repository of notebooks used for various courses. You can find the repository here.
+We showcase Jupyter Notebook-based courses that highlight interactive and data-driven learning. Our goal is to build a collaborative community where educators contribute, share, and refine courses designed around Jupyter notebooks. By fostering an open and supportive environment, we aim to make high-quality, interactive learning materials more accessible and widely available.
 
-If you would like to contribute your own work to this library of notebooks please go here.
+Our current courses and documentation related to creating Jupyter notebooks are found [here](https://cal-icor.github.io/textbook/intro.html). 
