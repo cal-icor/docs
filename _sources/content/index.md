@@ -6,7 +6,7 @@ Welcome to the CAL-ICOR JupyterHub Deployment documentation.
 Our goal is to provide California educational institutions with a free, online computing resource using JupyterHub. This platform supports data science and development work through JupyterLab, VS Code, Shiny, and RStudio.
 
 This documentation is a living resource covering the following topics:
-- **Getting Started**
+- **[Getting Started](content/getting_started.html)**
 - **Authentication**
 - **User Environments**
 - **Notebook and Material Sharing**
