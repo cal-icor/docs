@@ -1,4 +1,3 @@
-(acceptable_use)=
 # Cal-ICOR Acceptable Use Policy
 
 :::{admonition} This is not a legal document
@@ -23,8 +22,14 @@ Infrastructure by a participating Institution.
 **Institution Representative**: An individual who is authorized to grant access to
 Cal-ICOR Managed Infrastructure on behalf of a participating Institution.
 
+**Cloud Provider**: Any third-party cloud service provider that Cal-ICOR uses
+to provide computing resources to Authorized Users.  This includes, but is not
+limited to, Amazon Web Services (AWS), Google Cloud Platform (GCP), and
+Microsoft Azure (Azure).
+
 **Cal-ICOR Managed Infrastructure**: Any web service, program, or cloud
-infrastructure that Cal-ICOR manages on behalf of a participating Institution.
+infrastructure that Cal-ICOR manages on behalf of a participating Institution
+and hosted by a Cloud Provider.
 
 ## Acceptable Use Policy
 
@@ -40,14 +45,14 @@ policy, the more restrictive policy takes precedence.
 As an Authorized User of Cal-ICOR Managed Infrastructure, you are expected to:
 - Use only the Cal-ICOR Managed Infrastructure and accounts for which you have
   authorization.
-- Not store, process or transmit any sensitive data (e.g., personally
+- Not store, process or transmit any sensitive data (e.g., grades, personally
   identifiable information, protected health information, etc.).  If you are
   unsure whether the data you are using is sensitive, please contact your
   Institution Representative or Cal-ICOR staff.
 - Not use another individual's account, or attempt to capture or guess other
   users' passwords.  You may not enable unauthorized users to access
   infrastructure managed by Cal-ICOR by providing them access to your account.
-- You are individually responsible for appropriate use of all resources
+- Be individually responsible for appropriate use of all resources
   provided to you, including your interactive computing session, networking
   infrastructure on your hub, and the software and hardware you use.
 - Comply with and contractual and licence agreements that Cal-ICOR is bound to
@@ -61,8 +66,8 @@ As an Authorized User of Cal-ICOR Managed Infrastructure, you are expected to:
   member.
 - Not attempt to use Cal-ICOR Managed Infrastructure for the purposes of
   [mining cryptocurrencies](https://en.wikipedia.org/wiki/Cryptocurrency#Mining)
-  unless explicitly given permission by your Institution *and* Cal-ICOR for
-  research purposes.
+  unless explicitly given permission by your Institution Representitive *and*
+  Cal-ICOR staff for research purposes.
 - Not deliberately perform acts that waste computer resources or
   unfairly monopolize resources to the exclusion of others.  Cal-ICOR Managed
   Infrastructure resources are not unlimited.  Network bandwidth and storage

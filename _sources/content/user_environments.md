@@ -1,4 +1,3 @@
-(user_environments)=
 # User Environments 
 
 - #### Resources
