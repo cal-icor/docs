@@ -1,4 +1,5 @@
-## Authentication  
+(authentication)=
+# Authentication  
 
 We offer multiple authentication options to accommodate different institutional setups.  
 

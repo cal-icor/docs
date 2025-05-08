@@ -1,4 +1,5 @@
-# Getting Started
+(getting_started)=
+## Getting Started
 
 ### Get a Hub
 If you need a hub configured for your institution or would like to set up a meeting, please email: sean.smorris@berkeley.edu
