@@ -5,5 +5,5 @@ sections:
 - file: content/authentication
 - file: content/user_environments
 - file: content/notebooks_materials
-- file: content/acceptable_use
+- file: content/policy/index.md
 - file: content/support_resources
