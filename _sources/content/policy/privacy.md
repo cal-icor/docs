@@ -5,8 +5,8 @@
 The following document is not a legal document, and is not legally binding.
 
 It is instead provided to provide guidelines, set expectations and a general
-understanding of the policies ass applied to Cal-ICOR's Jupyterhub service and
-managed cloud infrastructure.
+understanding of the policies as applied to Cal-ICOR's Jupyterhub service and
+Cal-ICOR Managed Infrastructure.
 :::
 
 ## Terminology
