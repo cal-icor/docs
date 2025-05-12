@@ -13,7 +13,7 @@ This documentation is a living resource covering the following topics:
 - **[Authentication](authentication)**
 - **[User Environments](user_environments)**
 - **[Notebook and Material Sharing](notebooks_materials)**
-- **[Acceptable Use and Privacy Policies](policy)**
+- **[Acceptable Use and Privacy Policies](policy/index.md)**
 - **[Support Resources](support_resources)**
 
 Feel free to explore the links above for more information on each topic.
