@@ -129,7 +129,7 @@ functions.
 When you're ready, create a PR. The deployment workflow is as follows:
 
 1. Get all authed-up for `chartpress` by performing the
-   [documented steps](rebuild-hub-image.qmd).
+   [documented steps](rebuild_hub_image).
 2. Run `chartpress --push` from the root
    `cal-icor-hubs/` directory. If this succeeds, check your `git
    status` and add
@@ -152,7 +152,7 @@ to change/add/update any packages, you'll need to do the following:
 5. Check your git status and diffs, and create a pull request if
    necessary.
 6. Get all authed-up for `chartpress` by performing the
-   [documented steps](rebuild-hub-image.qmd).
+   [documented steps](rebuild_hub_image).
 7. Run `chartpress --push` from the root
    `cal-icor-hubs/` directory. If this succeeds, check your `git
    status` and add
