@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Cal-ICOR Acceptable Use Policy &#8212; Cal-ICOR Documentation</title>
+    <title>Monitoring and Alerting &#8212; Cal-ICOR Documentation</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/policy/acceptable_use';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/admin/monitoring_alerting';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Cal-ICOR Privacy Policy" href="privacy.html" />
-    <link rel="prev" title="User policies" href="index.html" />
+    <link rel="next" title="Creating a New Hub" href="new_hub.html" />
+    <link rel="prev" title="Administrator Guide" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -176,17 +176,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../authentication.html">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_environments.html">User Environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks_materials.html">Notebooks and Material Sharing</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">User policies</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Cal-ICOR Acceptable Use Policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="privacy.html">Cal-ICOR Privacy Policy</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../policy/index.html">User policies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../policy/acceptable_use.html">Cal-ICOR Acceptable Use Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/privacy.html">Cal-ICOR Privacy Policy</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../support_resources.html">Support Resources</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../admin/index.html">Administrator Guide</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../admin/monitoring_alerting.html">Monitoring and Alerting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../admin/new_hub.html">Creating a New Hub</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../admin/rebuild_hub_image.html">Customize the Hub Docker Image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../admin/calendar_scaler.html">Calendar Node Pool Autoscaler</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Administrator Guide</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Monitoring and Alerting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new_hub.html">Creating a New Hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rebuild_hub_image.html">Customize the Hub Docker Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar_scaler.html">Calendar Node Pool Autoscaler</a></li>
 </ul>
 </details></li>
 </ul>
@@ -243,7 +243,7 @@
       
       
       
-      <li><a href="../../_sources/content/policy/acceptable_use.md" target="_blank"
+      <li><a href="../../_sources/content/admin/monitoring_alerting.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -327,7 +327,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Cal-ICOR Acceptable Use Policy</h1>
+    <h1>Monitoring and Alerting</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -337,8 +337,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology">Terminology</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acceptable-use-policy">Acceptable Use Policy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring">Monitoring</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-the-prometheus-server">Accessing the Prometheus Server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-standard-port">Using the standard port</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-an-alternative-port">Using an alternative port</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafana">Grafana</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alerting">Alerting</a></li>
 </ul>
             </nav>
         </div>
@@ -350,91 +356,68 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="cal-icor-acceptable-use-policy">
-<h1>Cal-ICOR Acceptable Use Policy<a class="headerlink" href="#cal-icor-acceptable-use-policy" title="Link to this heading">#</a></h1>
-<div class="warning admonition">
-<p class="admonition-title">This is not a legal document</p>
-<p>The following document is not a legal document, and is not legally binding.</p>
-<p>It is instead provided to provide guidelines, set expectations and a general
-understanding of the policies as applied to Cal-ICOR’s Jupyterhub service and
-Cal-ICOR Managed Infrastructure.</p>
-</div>
-<section id="terminology">
-<h2>Terminology<a class="headerlink" href="#terminology" title="Link to this heading">#</a></h2>
-<p><strong>Cal-ICOR</strong>: The Cal-ICOR project, which is a collaboration between the University
-of California, Berkeley and the California Learning Lab.</p>
-<p><strong>Institution</strong>: Any institution that is a participant in the Cal-ICOR project.</p>
-<p><strong>Authorized User</strong>: Any individual who has been granted access to Cal-ICOR Managed
-Infrastructure by a participating Institution.</p>
-<p><strong>Institution Representative</strong>: An individual who is authorized to grant access to
-Cal-ICOR Managed Infrastructure on behalf of a participating Institution.</p>
-<p><strong>Cloud Provider</strong>: Any third-party cloud service provider that Cal-ICOR uses
-to provide computing resources to Authorized Users.  This includes, but is not
-limited to, Amazon Web Services (AWS), Google Cloud Platform (GCP), and
-Microsoft Azure (Azure).</p>
-<p><strong>Cal-ICOR Managed Infrastructure</strong>: Any web service, program, or cloud
-infrastructure that Cal-ICOR manages on behalf of a participating Institution
-and hosted by a Cloud Provider.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="monitoring-and-alerting">
+<h1>Monitoring and Alerting<a class="headerlink" href="#monitoring-and-alerting" title="Link to this heading">#</a></h1>
+<section id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Link to this heading">#</a></h2>
+<p>We use <a class="reference external" href="https://prometheus.io/">Prometheus</a> for monitoring and alerting.
+Prometheus is an open-source systems monitoring and alerting toolkit originally
+built at SoundCloud. It has a large ecosystem of integrations and is widely
+used in the industry. Prometheus collects metrics from configured targets at
+specified intervals, evaluates rule expressions, and can trigger alerts if
+certain conditions are met. It also provides a powerful query language (PromQL)
+for querying and aggregating metrics data.</p>
+<section id="accessing-the-prometheus-server">
+<h3>Accessing the Prometheus Server<a class="headerlink" href="#accessing-the-prometheus-server" title="Link to this heading">#</a></h3>
+<p>It can be useful to interact with the cluster’s prometheus server while
+developing dashboards in grafana. You will need to forward a local port
+to the prometheus server’s pod.</p>
 </section>
-<section id="acceptable-use-policy">
-<h2>Acceptable Use Policy<a class="headerlink" href="#acceptable-use-policy" title="Link to this heading">#</a></h2>
-<p>This policy does not supercede or nullify any part of the Acceptable Use
-Policies that apply to your community (e.g., Institution Acceptable Use
-Policies).  In addition you must comply with the policies and guidelines for
-any specific set of resources to which you have been granted access (e.g.,
-policies from Cloud Providers).</p>
-<p>When other policies that you are bound by are more restrictive than this
-policy, the more restrictive policy takes precedence.</p>
-<p>As an Authorized User of Cal-ICOR Managed Infrastructure, you are expected to:</p>
-<ul class="simple">
-<li><p>Use only the Cal-ICOR Managed Infrastructure and accounts for which you have
-authorization.</p></li>
-<li><p>Not store, process or transmit any sensitive data (e.g., grades, personally
-identifiable information, protected health information, etc.).  If you are
-unsure whether the data you are using is sensitive, please contact your
-Institution Representative or Cal-ICOR staff.</p></li>
-<li><p>Not use another individual’s account, or attempt to capture or guess other
-users’ passwords.  You may not enable unauthorized users to access
-infrastructure managed by Cal-ICOR by providing them access to your account.</p></li>
-<li><p>Be individually responsible for appropriate use of all resources
-provided to you, including your interactive computing session, networking
-infrastructure on your hub, and the software and hardware you use.</p></li>
-<li><p>Comply with and contractual and licence agreements that Cal-ICOR is bound to
-respecting certain third party resources.</p></li>
-<li><p>Make a reasonable effort to protect your passwords and to secure resources
-against unauthorized use or access.  Where applicable you must configure
-access to other cloud services or data in a way that reasonably prevents
-unauthorized users from accessing them.</p></li>
-<li><p>Not attempt to access restricted portions of the network or any Cal-ICOR
-Managed Infrastructure without appropriate authorization by a Cal-ICOR staff
-member.</p></li>
-<li><p>Not attempt to use Cal-ICOR Managed Infrastructure for the purposes of
-<a class="reference external" href="https://en.wikipedia.org/wiki/Cryptocurrency#Mining">mining cryptocurrencies</a>
-unless explicitly given permission by your Institution Representitive <em>and</em>
-Cal-ICOR staff for research purposes.</p></li>
-<li><p>Not deliberately perform acts that waste computer resources or
-unfairly monopolize resources to the exclusion of others.  Cal-ICOR Managed
-Infrastructure resources are not unlimited.  Network bandwidth and storage
-capacity have finite limits, and all users connected to the network have a
-responsibility to conserve these resources.</p></li>
-<li><p>Not use Cal-ICOR Managed Infrastructure and/or network resources in
-conjunction with the execution of programs, software, processes, or automated
-transaction-based commands that are intended to disrupt (or that could
-reasonably be expected to disrupt) other computer or network users, or damage
-or degrade performance, software or hardware components of a system.</p></li>
-<li><p>Not use the Cal-ICOR Managed Infrastructure to distribute or facilitate the
-sending of unsolicited or unlawful (i) email or other messages, or (ii)
-promotions of any kind;</p></li>
-<li><p>Not use the Cal-ICOR Managed Infrastructure to engage in or promote any other
-fraudulent, deceptive or illegal activities.</p></li>
-<li><p>Not use the Cal-ICOR Managed Infrastructure to process, store or transmit
-material, including any Customer Data, in violation of any Law or any third
-party rights, including without limitation privacy rights;</p></li>
-<li><p>Not use the Cal-ICOR Managed Infrastructure in any circumstances where failure
-could lead to death, personal injury or environmental damage, and you further
-acknowledge that the Cal-ICOR Managed Infrastructure is not designed or intended
-for such use.</p></li>
-</ul>
+<section id="using-the-standard-port">
+<h3>Using the standard port<a class="headerlink" href="#using-the-standard-port" title="Link to this heading">#</a></h3>
+<p>Listen on port 9090 locally, forwarding to the prometheus server’s port
+<code class="docutils literal notranslate"><span class="pre">9090</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>-n<span class="w"> </span>support<span class="w"> </span>port-forward<span class="w"> </span>deployment/support-prometheus-server<span class="w"> </span><span class="m">9090</span>
+</pre></div>
+</div>
+<p>then visit <a class="reference external" href="http://localhost:9090">http://localhost:9090</a>.</p>
+</section>
+<section id="using-an-alternative-port">
+<h3>Using an alternative port<a class="headerlink" href="#using-an-alternative-port" title="Link to this heading">#</a></h3>
+<p>Listen on port 8000 locally, forwarding to the prometheus server’s port <code class="docutils literal notranslate"><span class="pre">9090</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>-n<span class="w"> </span>support<span class="w"> </span>port-forward<span class="w"> </span>deployment/support-prometheus-server<span class="w"> </span><span class="m">8000</span>:9090
+</pre></div>
+</div>
+<p>then visit <a class="reference external" href="http://localhost:8000">http://localhost:8000</a></p>
+</section>
+<section id="grafana">
+<h3>Grafana<a class="headerlink" href="#grafana" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://grafana.com/">Grafana</a> is used to visualize the metrics collected by
+Prometheus. Grafana is an open-source analytics and monitoring solution that
+integrates with various data sources, including Prometheus. It provides a rich
+set of visualization options and allows users to create custom dashboards for
+monitoring their systems.</p>
+<p>Our Grafana instance is hosted at
+<a class="reference external" href="https://grafana.cal-icor.org">https://grafana.cal-icor.org</a>. You can log in
+using your GitHub credentials if you’re part of the <code class="docutils literal notranslate"><span class="pre">Grafana</span> <span class="pre">Access</span></code> team. If
+you need access, please contact the CAL-ICOR team by creating a Github issue in
+the <a class="reference external" href="https://github.com/cal-icor/cal-icor-hubs/issues">cal-icor/cal-icor-hubs</a>
+repository.</p>
+<p>Upstream documentation is found
+<a class="reference external" href="https://jupyterhub-grafana.readthedocs.io/en/latest/index.html">here</a></p>
+</section>
+</section>
+<section id="alerting">
+<h2>Alerting<a class="headerlink" href="#alerting" title="Link to this heading">#</a></h2>
+<p>We have set up alerting rules in Grafana and GCP Monitoring to notify the
+Cal-ICOR team of any issues with the JupyterHub deployment. These alerts are
+based on the metrics collected by Prometheus and are designed to help us
+proactively monitor the health and performance of the system.</p>
+<p>The alerts are configured to trigger notifications via
+<a class="reference external" href="https://cal-icor.pagerduty.com">PagerDuty</a> and email, ensuring that the team
+is promptly informed of any critical issues that may arise. The alerts cover
+various aspects of the JupyterHub deployment, including resource usage, system
+performance, and user activity.</p>
 </section>
 </section>
 
@@ -451,7 +434,7 @@ for such use.</p></li>
         },
         kernelOptions: {
             name: "python3",
-            path: "./content/policy"
+            path: "./content/admin"
         },
         predefinedOutput: true
     }
@@ -474,15 +457,15 @@ for such use.</p></li>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">User policies</p>
+        <p class="prev-next-title">Administrator Guide</p>
       </div>
     </a>
     <a class="right-next"
-       href="privacy.html"
+       href="new_hub.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Cal-ICOR Privacy Policy</p>
+        <p class="prev-next-title">Creating a New Hub</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -502,8 +485,14 @@ for such use.</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology">Terminology</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acceptable-use-policy">Acceptable Use Policy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring">Monitoring</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-the-prometheus-server">Accessing the Prometheus Server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-standard-port">Using the standard port</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-an-alternative-port">Using an alternative port</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafana">Grafana</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alerting">Alerting</a></li>
 </ul>
   </nav></div>
 

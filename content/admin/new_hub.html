@@ -1,0 +1,865 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Creating a New Hub &#8212; Cal-ICOR Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/admin/new_hub';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Customize the Hub Docker Image" href="rebuild_hub_image.html" />
+    <link rel="prev" title="Monitoring and Alerting" href="monitoring_alerting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo-trans.png" class="logo__image only-light" alt="Cal-ICOR Documentation - Home"/>
+    <script>document.write(`<img src="../../_static/logo-trans.png" class="logo__image only-dark" alt="Cal-ICOR Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_environments.html">User Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks_materials.html">Notebooks and Material Sharing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../policy/index.html">User policies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../policy/acceptable_use.html">Cal-ICOR Acceptable Use Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../policy/privacy.html">Cal-ICOR Privacy Policy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_resources.html">Support Resources</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Administrator Guide</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="monitoring_alerting.html">Monitoring and Alerting</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Creating a New Hub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rebuild_hub_image.html">Customize the Hub Docker Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calendar_scaler.html">Calendar Node Pool Autoscaler</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/admin/new_hub.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Creating a New Hub</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-create-a-new-hub">Why create a new hub?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-a-new-hub">Configuring a New Hub</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name-the-hub">Name the hub</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-deployment-needs">Determine deployment needs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-node-pool">Creating a new node pool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-filestore-instance">Creating a new filestore instance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-locally">Create the hub deployment locally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentication">Authentication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-deployment-s-hubploy-yaml">Review the deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-placeholder-node-pool">Create placeholder node pool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-staging">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Hubs using a custom single-user server image</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-prod">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="creating-a-new-hub">
+<h1>Creating a New Hub<a class="headerlink" href="#creating-a-new-hub" title="Link to this heading">#</a></h1>
+<section id="why-create-a-new-hub">
+<h2>Why create a new hub?<a class="headerlink" href="#why-create-a-new-hub" title="Link to this heading">#</a></h2>
+<p>When an institution would like to join the CAL-ICOR JupyterHub deployment, we
+create a new hub for them. This is typically done when a new course or
+department is created, or when a new instructor would like to use the
+JupyterHub deployment for their course. The new hub will be created in the same
+GKE cluster as the existing hubs, but will have its own set of resources
+and configurations. This allows us to manage the resources and
+configurations for each hub independently, while still benefiting from
+the shared infrastructure of the GKE cluster.</p>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
+<p>Working installs of the following utilities:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pypi.org/project/chartpress/">chartpress</a></p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/cookiecutter/">cookiecutter</a></p></li>
+<li><p><a class="reference external" href="https://cloud.google.com/sdk/docs/install">gcloud</a></p></li>
+<li><p><a class="reference external" href="https://github.com/berkeley-dsep-infra/hubploy">hubploy</a></p></li>
+<li><p><a class="reference external" href="https://kubernetes.io/docs/tasks/tools/">kubectl</a></p></li>
+<li><p><a class="reference external" href="https://github.com/mozilla/sops/releases">sops</a></p></li>
+</ul>
+<p>The easiest way to install <code class="docutils literal notranslate"><span class="pre">chartpress</span></code>, <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code> and <code class="docutils literal notranslate"><span class="pre">hubploy</span></code> is to
+run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">dev-requirements.txt</span></code> from the root of the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code>
+repo.</p>
+<p>Proper access to the following systems:</p>
+<ul class="simple">
+<li><p>Google Cloud IAM: <em>owner</em></p></li>
+<li><p>Write access to the <a class="reference external" href="https://github.com/cal-icor/cal-icor-hubs">CaliICOR hubs repo</a></p></li>
+<li><p>Owner or admin access to the <a class="reference external" href="https://github.com/cal-icor/">cal-icor Github organization</a></p></li>
+</ul>
+</section>
+<section id="configuring-a-new-hub">
+<h2>Configuring a New Hub<a class="headerlink" href="#configuring-a-new-hub" title="Link to this heading">#</a></h2>
+<section id="name-the-hub">
+<h3>Name the hub<a class="headerlink" href="#name-the-hub" title="Link to this heading">#</a></h3>
+<p>Choose the hub name, which is typically the name of the institution joining our
+community.  It may also include the name of a course or department.  This is a
+permanant name, so be sure to check with the instructor and/or department
+before proceeding.  The name should be all lowercase, and can include
+letters, numbers, and hyphens.  The name should not include any spaces or
+special characters.  The name should be unique within the CAL-ICOR
+JupyterHub deployment.  The name should be short and easy to remember.</p>
+</section>
+<section id="determine-deployment-needs">
+<h3>Determine deployment needs<a class="headerlink" href="#determine-deployment-needs" title="Link to this heading">#</a></h3>
+<p>Before creating a new hub, have a discussion with the instructor about
+the system requirements, frequency of assignments and how much storage
+will be required for the course. Typically, there are three general
+“types” of hub: Heavy usage, general and small courses.</p>
+<p>Small courses will usually have one or two assignments per semester, and
+may only have 20 or fewer users.</p>
+<p>General courses have up to ~500 users, but don’t have large amount of
+data or require upgraded compute resources.</p>
+<p>Heavy usage courses can potentially have thousands of users, require
+upgraded node specs and/or have Terabytes of data each semester.</p>
+<p>Both general and heavy usage courses typically have weekly assignments.</p>
+<p>Small courses (and some general usage courses) can use either or both of
+a shared node pool and filestore to save money (Basic HDD filestore
+instances start at 1T).</p>
+<p>This is also a good time to determine if there are any specific software
+packages/libraries that need to be installed, as well as what
+language(s) the course will be using. This will determine which image to
+use, and if we will need to add additional packages to the image build.</p>
+<p>If you’re going to use an existing node pool and/or filestore instance,
+you can skip either or both of the following steps and pick back up at
+the <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code>.</p>
+<p>When creating a new hub, we also make sure to label the filestore and
+GKE/node pool resources with both <code class="docutils literal notranslate"><span class="pre">hub</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&lt;nodepool|filestore&gt;-deployment</span></code>. 99.999% of the time, the values for
+all three of these labels will be <code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;</span></code>.</p>
+</section>
+<section id="creating-a-new-node-pool">
+<h3>Creating a new node pool<a class="headerlink" href="#creating-a-new-node-pool" title="Link to this heading">#</a></h3>
+<p>Create the node pool:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>container<span class="w"> </span>node-pools<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;user-&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--labels<span class="o">=</span><span class="nv">hub</span><span class="o">=</span>&lt;hubname&gt;,nodepool-deployment<span class="o">=</span>&lt;hubname&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node-labels<span class="w"> </span>hub.jupyter.org/pool-name<span class="o">=</span>&lt;hubname&gt;-pool<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--machine-type<span class="w"> </span><span class="s2">&quot;n2-highmem-8&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--enable-autoscaling<span class="w"> </span>--min-nodes<span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="w"> </span>--max-nodes<span class="w"> </span><span class="s2">&quot;20&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span><span class="s2">&quot;cal-icor-hubs&quot;</span><span class="w"> </span>--cluster<span class="w"> </span><span class="s2">&quot;spring-2025&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--region<span class="w"> </span><span class="s2">&quot;us-central1&quot;</span><span class="w"> </span>--node-locations<span class="w"> </span><span class="s2">&quot;us-central1-b&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node-taints<span class="w"> </span>hub.jupyter.org_dedicated<span class="o">=</span>user:NoSchedule<span class="w"> </span>--tags<span class="w"> </span>hub-cluster<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--image-type<span class="w"> </span><span class="s2">&quot;COS_CONTAINERD&quot;</span><span class="w"> </span>--disk-type<span class="w"> </span><span class="s2">&quot;pd-balanced&quot;</span><span class="w"> </span>--disk-size<span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="w">  </span><span class="se">\</span>
+<span class="w">  </span>--metadata<span class="w"> </span>disable-legacy-endpoints<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--scopes<span class="w"> </span><span class="s2">&quot;https://www.googleapis.com/auth/devstorage.read_only&quot;</span>,<span class="s2">&quot;https://www.googleapis.com/auth/logging.write&quot;</span>,<span class="s2">&quot;https://www.googleapis.com/auth/monitoring&quot;</span>,<span class="s2">&quot;https://www.googleapis.com/auth/servicecontrol&quot;</span>,<span class="s2">&quot;https://www.googleapis.com/auth/service.management.readonly&quot;</span>,<span class="s2">&quot;https://www.googleapis.com/auth/trace.append&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-enable-autoupgrade<span class="w"> </span>--enable-autorepair<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--max-surge-upgrade<span class="w"> </span><span class="m">1</span><span class="w"> </span>--max-unavailable-upgrade<span class="w"> </span><span class="m">0</span><span class="w"> </span>--max-pods-per-node<span class="w"> </span><span class="s2">&quot;110&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="creating-a-new-filestore-instance">
+<h3>Creating a new filestore instance<a class="headerlink" href="#creating-a-new-filestore-instance" title="Link to this heading">#</a></h3>
+<p>Before you create a new filestore instance, be sure you know the
+capacity required. The smallest amount you can allocate is 1T, but
+larger hubs may require more. Confer with the admins and people
+instructing the course and determine how much they think they will need.</p>
+<p>We can easily scale capacity up, but not down.</p>
+<p>From the command line, first fill in the instance name
+(<code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;</span></code>) and <code class="docutils literal notranslate"><span class="pre">&lt;capacity&gt;</span></code>, and then execute the
+following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>filestore<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--zone<span class="w"> </span><span class="s2">&quot;us-central1-b&quot;</span><span class="w"> </span>--tier<span class="o">=</span><span class="s2">&quot;BASIC_HDD&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--file-share<span class="o">=</span><span class="nv">capacity</span><span class="o">=</span>1TiB,name<span class="o">=</span>shares<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--network<span class="o">=</span><span class="nv">name</span><span class="o">=</span>default,connect-mode<span class="o">=</span>DIRECT_PEERING
+</pre></div>
+</div>
+<p>Or, from the web console, click on the horizontal bar icon at the top
+left corner.</p>
+<ol class="arabic simple">
+<li><p>Access “Filestore” &gt; “Instances” and click on “Create Instance”.</p></li>
+<li><p>Name the instance <code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;</span></code></p></li>
+<li><p>Instance Type is <code class="docutils literal notranslate"><span class="pre">Basic</span></code>, Storage Type is <code class="docutils literal notranslate"><span class="pre">HDD</span></code>.</p></li>
+<li><p>Allocate capacity.</p></li>
+<li><p>Set the region to <code class="docutils literal notranslate"><span class="pre">us-central1</span></code> and Zone to <code class="docutils literal notranslate"><span class="pre">us-central1-b</span></code>.</p></li>
+<li><p>Set the VPC network to <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p></li>
+<li><p>Set the File share name to <code class="docutils literal notranslate"><span class="pre">shares</span></code>.</p></li>
+<li><p>Click “Create” and wait for it to be deployed.</p></li>
+<li><p>Once it’s deployed, select the instance and copy the “NFS mount
+point”.</p></li>
+</ol>
+<p>Your new (but empty) NFS filestore must be seeded with a pair of
+directories. We run a utility VM for NFS filestore management; follow
+the steps below to connect to this utility VM, mount your new filestore,
+and create &amp; configure the required directories.</p>
+<p>You can run the following command in gcloud terminal to log in to the
+NFS utility VM:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>ssh<span class="w"> </span>nfsserver<span class="w"> </span>--zone<span class="o">=</span>us-central1-b<span class="w"> </span>--tunnel-through-iap
+</pre></div>
+</div>
+<p>Alternatively, launch <a class="reference external" href="http://console.cloud.google.com">console.cloud.google.com</a> &gt; Select <em>cal-icor-hubs</em> as the
+project name.</p>
+<ol class="arabic simple">
+<li><p>Click on the three horizontal bar icon at the top left corner.</p></li>
+<li><p>Access “Compute Engine” &gt; “VM instances” &gt; and search for
+“nfs-server-01”.</p></li>
+<li><p>Select “Open in browser window” option to access NFS server via
+GUI.</p></li>
+</ol>
+<p>Back in the NFS utility VM shell, mount the new share:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>/export/&lt;hubname&gt;-filestore
+mount<span class="w"> </span>&lt;filestore<span class="w"> </span>share<span class="w"> </span>IP&gt;:/shares<span class="w"> </span>/export/&lt;hubname&gt;-filestore
+</pre></div>
+</div>
+<p>Create <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories owned by <code class="docutils literal notranslate"><span class="pre">1000:1000</span></code> under
+<code class="docutils literal notranslate"><span class="pre">/export/&lt;hubname&gt;-filestore/&lt;hubname&gt;</span></code>. The path <em>might</em> differ if your
+hub has special home directory storage needs. Consult admins if that’s
+the case. Here is the command to create the directory with appropriate
+permissions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>install<span class="w"> </span>-d<span class="w"> </span>-o<span class="w"> </span><span class="m">1000</span><span class="w"> </span>-g<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/staging<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/prod
+</pre></div>
+</div>
+<p>Check whether the directories have permissions similar to the below
+directories:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w">     </span><span class="m">45</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">20</span>:33<span class="w"> </span>jupyter-filestore
+drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w">     </span><span class="m">33</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">4</span><span class="w">  </span><span class="m">2025</span><span class="w"> </span>dvc-filestore
+drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w">  </span><span class="m">16384</span><span class="w"> </span>May<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">18</span>:45<span class="w"> </span>lacc-filestore
+</pre></div>
+</div>
+</section>
+<section id="create-the-hub-deployment-locally">
+<h3>Create the hub deployment locally<a class="headerlink" href="#create-the-hub-deployment-locally" title="Link to this heading">#</a></h3>
+<p>From the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/deployments</span></code> directory, run <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code>. This sets up
+the hub’s configuration directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cookiecutter<span class="w"> </span>template/
+</pre></div>
+</div>
+<p>The cookiecutter template will prompt you to provide the following information:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;hub_name&gt;</span></code>: Enter the chosen name of the hub.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;institution&gt;</span></code>: Enter the name of the institution.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;instution_url&gt;</span></code>: Enter the URL of the institution.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;institution_logo_url&gt;</span></code>: Enter the URL of the institution’s logo.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;landing_page_branch&gt;</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">main</span></code>, do not change unless the hub requires a different authentication method than CILogon or Github Auth.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;project_name&gt;</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code>, do not change.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;cluster_name&gt;</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">spring-2025</span></code>, do not change.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;pool_name&gt;</span></code>: Name of the node pool (shared or individual) to deploy on.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hub_filestore_share</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">shares</span></code>, do not change.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hub_filestore_ip</span></code>: Enter the IP address of the filestore instance. This is available from the web console.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hub_filestore_capacity</span></code>: Enter the allocated storage capacity. This is available from the web console.</p></li>
+</ul>
+<p>This will generate a directory with the name of the hub you provided
+with a skeleton configuration and all the necessary secrets.</p>
+</section>
+<section id="configure-filestore-security-settings-and-gcp-billing-labels">
+<h3>Configure filestore security settings and GCP billing labels<a class="headerlink" href="#configure-filestore-security-settings-and-gcp-billing-labels" title="Link to this heading">#</a></h3>
+<p>If you have created a new filestore instance, you will now need to apply
+the <code class="docutils literal notranslate"><span class="pre">ROOT_SQUASH</span></code> settings. Please ensure that you’ve already created
+the hub’s root directory and both <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories,
+otherwise you will lose write access to the share. We also attach labels
+to a new filestore instance for tracking individual and full hub costs.</p>
+<p>Skip this step if you are using an existing/shared filestore.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>filestore<span class="w"> </span>instances<span class="w"> </span>update<span class="w"> </span>&lt;filestore-instance-name&gt;<span class="w"> </span>--zone<span class="o">=</span>us-central1-b<span class="w">  </span><span class="se">\</span>
+<span class="w">       </span>--update-labels<span class="o">=</span><span class="nv">hub</span><span class="o">=</span>&lt;hubname&gt;,filestore-deployment<span class="o">=</span>&lt;hubname&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>--flags-file<span class="o">=</span>&lt;hubname&gt;/config/filestore/squash-flags.json
+</pre></div>
+</div>
+</section>
+<section id="authentication">
+<h3>Authentication<a class="headerlink" href="#authentication" title="Link to this heading">#</a></h3>
+<p>TODO</p>
+</section>
+<section id="ci-cd-and-single-user-server-image">
+<h3>CI/CD and single-user server image<a class="headerlink" href="#ci-cd-and-single-user-server-image" title="Link to this heading">#</a></h3>
+<p>CI/CD is managed through Github Actions, and the relevant workflows are located
+in <code class="docutils literal notranslate"><span class="pre">.github/workflows/</span></code>.  Deploying all hubs are managed via Pull Request
+Labels, which are applied automatically on PR creation.</p>
+<p>To ensure the new hub is deployed, all that needs to be done is add a new entry
+(alphabetically) in <code class="docutils literal notranslate"><span class="pre">.github/labeler.yml</span></code> under the <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">add</span> <span class="pre">hub-specific</span> <span class="pre">labels</span> <span class="pre">for</span> <span class="pre">deployment</span> <span class="pre">changes</span></code> stanza:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="s">&quot;hub:</span><span class="nv"> </span><span class="s">&lt;hubname&gt;&quot;</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;deployments/&lt;hubname&gt;/**&quot;</span>
+</pre></div>
+</div>
+<section id="hubs-using-a-custom-single-user-server-image">
+<h4>Hubs using a custom single-user server image<a class="headerlink" href="#hubs-using-a-custom-single-user-server-image" title="Link to this heading">#</a></h4>
+<p>TODO</p>
+</section>
+<section id="review-the-deployment-s-hubploy-yaml">
+<h4>Review the deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code><a class="headerlink" href="#review-the-deployment-s-hubploy-yaml" title="Link to this heading">#</a></h4>
+<p>Next, review <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> inside your project directory to confirm that
+looks cromulent.  An example from the <code class="docutils literal notranslate"><span class="pre">jupyter</span></code> hub:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">images</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">images</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-central1-docker.pkg.dev/cal-icor-hubs/user-images/base-user-image:&lt;image tag OR &quot;PLACEHOLDER&quot;&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="create-placeholder-node-pool">
+<h3>Create placeholder node pool<a class="headerlink" href="#create-placeholder-node-pool" title="Link to this heading">#</a></h3>
+<p>Node pools have a configured minimum size, but our cluster has the
+ability to set aside additional placeholder nodes. These are nodes that
+get spun up in anticipation of the pool needing to suddenly grow in
+size, for example when large classes begin.</p>
+<p>If you are deploying to a shared node pool, there is no need to perform
+this step.</p>
+<p>Otherwise, you’ll need to add the placeholder settings in
+<code class="docutils literal notranslate"><span class="pre">node-placeholder/values.yaml</span></code>.</p>
+<p>The node placeholder pod should have enough RAM allocated to it that it
+needs to be kicked out to get even a single user pod on the node - but
+not so big that it can’t run on a node where other system pods are
+running! To do this, we’ll find out how much memory is allocatable to
+pods on that node, then subtract the sum of all non-user pod memory
+requests and an additional 256Mi of “wiggle room”. This final number
+will be used to allocate RAM for the node placeholder.</p>
+<ol class="arabic">
+<li><p>Launch a server on https://<em>hubname</em>.cal-icor.org</p></li>
+<li><p>Get the node name (it will look something like
+<code class="docutils literal notranslate"><span class="pre">gke-spring-2025-user-base-fc70ea5b-67zs</span></code>):
+<code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">nodes</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">*hubname*</span> <span class="pre">|</span> <span class="pre">awk</span> <span class="pre">'{print</span> <span class="pre">$1}'</span></code></p></li>
+<li><p>Get the total amount of memory allocatable to pods on this node and
+convert to bytes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>node<span class="w"> </span>&lt;nodename&gt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.allocatable.memory}&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Get the total memory used by non-user pods/containers on this node.
+We explicitly ignore <code class="docutils literal notranslate"><span class="pre">notebook</span></code> and <code class="docutils literal notranslate"><span class="pre">pause</span></code>. Convert to bytes and
+get the sum:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>-A<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="s1">&#39;component!=user-placeholder&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--field-selector<span class="w"> </span>spec.nodeName<span class="o">=</span>&lt;nodename&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{range .items[*].spec.containers[*]}{.name}{&quot;\t&quot;}{.resources.requests.memory}{&quot;\n&quot;}{end}&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;pause|notebook&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Subtract the second number from the first, and then subtract another
+277872640 bytes (256Mi) for “wiggle room”.</p></li>
+<li><p>Add an entry for the new placeholder node config in <code class="docutils literal notranslate"><span class="pre">values.yaml</span></code>:</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">data102</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">nodeSelector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">hub.jupyter.org/pool-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data102-pool</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># Some value slightly lower than allocatable RAM on the node pool</span>
+<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60929654784</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>For reference, here’s example output from collecting and calculating
+the values for <code class="docutils literal notranslate"><span class="pre">data102</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>gcpdev<span class="o">)</span><span class="w"> </span>➜<span class="w">  </span>~<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>data102<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print$1}&#39;</span>
+gke-spring-2024-user-data102-2023-01-05-e02d4850-t478
+<span class="o">(</span>gcpdev<span class="o">)</span><span class="w"> </span>➜<span class="w">  </span>~<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>node<span class="w"> </span>gke-spring-2024-user-data102-2023-01-05-e02d4850-t478<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.allocatable.memory}&#39;</span><span class="w"> </span><span class="c1"># convert to bytes</span>
+60055600Ki%
+<span class="o">(</span>gcpdev<span class="o">)</span><span class="w"> </span>➜<span class="w">  </span>~<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>-A<span class="w"> </span>pod<span class="w"> </span>-l<span class="w"> </span><span class="s1">&#39;component!=user-placeholder&#39;</span><span class="w"> </span><span class="se">\</span>
+--field-selector<span class="w"> </span>spec.nodeName<span class="o">=</span>gke-spring-2024-user-data102-2023-01-05-e02d4850-t478<span class="w"> </span><span class="se">\</span>
+-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{range .items[*].spec.containers[*]}{.name}{&quot;\t&quot;}{.resources.requests.memory}{&quot;\n&quot;}{end}&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;pause|notebook&#39;</span><span class="w"> </span><span class="c1"># convert all values to bytes, sum them</span>
+calico-node
+fluentbit<span class="w">       </span>100Mi
+fluentbit-gke<span class="w">   </span>100Mi
+gke-metrics-agent<span class="w">       </span>60Mi
+ip-masq-agent<span class="w">   </span>16Mi
+kube-proxy
+prometheus-node-exporter
+<span class="o">(</span>gcpdev<span class="o">)</span><span class="w"> </span>➜<span class="w">  </span>~<span class="w"> </span><span class="c1"># subtract the sum of the second command&#39;s values from the first value, then subtract another 277872640 bytes for wiggle room</span>
+<span class="o">(</span>gcpdev<span class="o">)</span><span class="w"> </span>➜<span class="w">  </span>~<span class="w"> </span><span class="c1"># in this case:  (60055600Ki - (100Mi + 100Mi + 60Mi + 16Mi)) - 256Mi</span>
+<span class="o">(</span>gcpdev<span class="o">)</span><span class="w"> </span>➜<span class="w">  </span>~<span class="w"> </span><span class="c1"># (61496934400 - (104857600 + 104857600 + 16777216 + 62914560)) - 277872640 == 60929654784</span>
+</pre></div>
+</div>
+<p>Besides setting defaults, we can dynamically change the placeholder
+counts by either adding new, or editing existing, <a class="reference internal" href="calendar_scaler.html"><span class="std std-doc">calendar
+events</span></a>.
+This is useful for large courses which can have placeholder nodes set
+aside for predicatable periods of heavy ramp up.</p>
+</section>
+<section id="commit-and-deploy-to-staging">
+<h3>Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code><a class="headerlink" href="#commit-and-deploy-to-staging" title="Link to this heading">#</a></h3>
+<p>Commit the hub directory, and make a PR to the the <code class="docutils literal notranslate"><span class="pre">staging</span></code> branch in
+the GitHub repo.</p>
+<section id="id1">
+<h4>Hubs using a custom single-user server image<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>If this hub is using a custom image, and you’re using <code class="docutils literal notranslate"><span class="pre">PLACEHOLDER</span></code> for the
+image tag in <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code>, be sure to remove the hub-specific Github
+label that is automatically attached to this pull request.  It will look
+something like <code class="docutils literal notranslate"><span class="pre">hub:</span> <span class="pre">&lt;hubname&gt;</span></code>.  If you don’t do this the deployment will
+fail as the image sha of <code class="docutils literal notranslate"><span class="pre">PLACEHOLDER</span></code> doesn’t exist.</p>
+<p>After this PR is merged, perform the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> in your image repo.  This will
+trigger the workflow that builds the image, pushes it to the Artifact Registry,
+and finally creates a commit that updates the image hash in <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> and
+pushes to the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code> repo.  Once this is merged in to <code class="docutils literal notranslate"><span class="pre">staging</span></code>, the
+deployment pipeline will run and your hub will finally be deployed.</p>
+</section>
+<section id="hubs-inheriting-an-existing-single-user-server-image">
+<h4>Hubs inheriting an existing single-user server image<a class="headerlink" href="#hubs-inheriting-an-existing-single-user-server-image" title="Link to this heading">#</a></h4>
+<p>Your hub’s deployment will proceed automatically through the CI/CD pipeline.</p>
+<p>It might take a few minutes for HTTPS to work, but after that you
+can log into it at <a class="reference external" href="https://">https://</a>&lt;hub_name&gt;-staging.cal-icor.org.
+Test it out and make sure things work as you think they should.</p>
+</section>
+</section>
+<section id="commit-and-deploy-to-prod">
+<h3>Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code><a class="headerlink" href="#commit-and-deploy-to-prod" title="Link to this heading">#</a></h3>
+<p>Make a PR from the <code class="docutils literal notranslate"><span class="pre">staging</span></code> branch to the <code class="docutils literal notranslate"><span class="pre">prod</span></code> branch. When this
+PR is merged, it’ll deploy the production hub. It might take a few
+minutes for HTTPS to work, but after that you can log into it at
+<a class="reference external" href="https://">https://</a>&lt;hub_name&gt;.cal-icor.org. Test it out and make
+sure things work as you think they should.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/admin"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="monitoring_alerting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Monitoring and Alerting</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="rebuild_hub_image.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Customize the Hub Docker Image</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-create-a-new-hub">Why create a new hub?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-a-new-hub">Configuring a New Hub</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name-the-hub">Name the hub</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-deployment-needs">Determine deployment needs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-node-pool">Creating a new node pool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-filestore-instance">Creating a new filestore instance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-locally">Create the hub deployment locally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentication">Authentication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-deployment-s-hubploy-yaml">Review the deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-placeholder-node-pool">Create placeholder node pool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-staging">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Hubs using a custom single-user server image</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-prod">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Cal-ICOR gang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
