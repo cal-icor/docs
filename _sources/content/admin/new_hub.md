@@ -327,7 +327,23 @@ for deployment changes` stanza:
 
 #### Hubs using a custom single-user server image
 
-TODO
+If this hub will be using its own image, then follow the
+[instructions here](new_image) to create the new image and repository.  In this
+case, the image tag will be `PLACEHOLDER` and will be updated AFTER your PR to
+`cal-icor-hubs` is merged.
+
+*NOTE:* The changes to the `cal-icor-hubs` repo are required to be merged
+BEFORE the new image configuration is pushed to `main` in the image repo.  This
+is due to the image building/pushing workflow requiring this deployment's
+`hubploy.yaml` to be present in the `deployments/<hubname>/` subdirectory, as
+it updates the image tag.
+
+#### Hubs inheriting an existing single-user server image
+
+If this hub will inherit an existing image, the `create_deployment.sh`
+script will have created a `hubploy.yaml` file in the `deployments/<hubname>/`
+directory.  This file will have the image tag from an existing deployment which
+will contain the latest image hash.
 
 #### Review the deployment's `hubploy.yaml`
 
@@ -452,7 +468,7 @@ deployment pipeline will run and your hub will finally be deployed.
 Your hub's deployment will proceed automatically through the CI/CD pipeline.
 
 It might take a few minutes for HTTPS to work, but after that you
-can log into it at <https://>\<hub_name\>-staging.cal-icor.org.
+can log into it at `https://<hub_name>-staging.cal-icor.org`.
 Test it out and make sure things work as you think they should.
 
 ### Commit and deploy to `prod`

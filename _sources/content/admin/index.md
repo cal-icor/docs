@@ -13,4 +13,6 @@ monitoring_alerting
 new_hub
 rebuild_hub_image
 calendar_scaler
+new_image
+repo2docker_local
 ```

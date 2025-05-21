@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Administrator Guide &#8212; Cal-ICOR Documentation</title>
+    <title>Test User Images Locally &#8212; Cal-ICOR Documentation</title>
   
   
   
@@ -57,11 +57,10 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/admin/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/admin/repo2docker_local';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Monitoring and Alerting" href="monitoring_alerting.html" />
-    <link rel="prev" title="Support Resources" href="../support_resources.html" />
+    <link rel="prev" title="Create a New Single User Image" href="new_image.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,13 +181,13 @@
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../support_resources.html">Support Resources</a></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Administrator Guide</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Administrator Guide</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="monitoring_alerting.html">Monitoring and Alerting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="new_hub.html">Creating a New Hub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rebuild_hub_image.html">Customize the Hub Docker Image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="calendar_scaler.html">Calendar Node Pool Autoscaler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="new_image.html">Create a New Single User Image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="repo2docker_local.html">Test User Images Locally</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Test User Images Locally</a></li>
 </ul>
 </details></li>
 </ul>
@@ -245,7 +244,7 @@
       
       
       
-      <li><a href="../../_sources/content/admin/index.md" target="_blank"
+      <li><a href="../../_sources/content/admin/repo2docker_local.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -316,7 +315,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -327,11 +328,24 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Administrator Guide</h1>
+    <h1>Test User Images Locally</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-usage">Common Usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-apple-silicon">On Apple Silicon</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-py-default">docker-py (default)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-cli"><code class="docutils literal notranslate"><span class="pre">docker</span></code> CLI</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -341,106 +355,62 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="administrator-guide">
-<h1>Administrator Guide<a class="headerlink" href="#administrator-guide" title="Link to this heading">#</a></h1>
-<p>This section is intended for administrators of the CAL-ICOR JupyterHub
-deployment. It contains information on managing the system, user accounts, and
-other administrative tasks.</p>
-<p>These documents are heavily based on the
-<a class="reference external" href="https://docs.datahub.berkeley.edu/">UC Berkeley Datahub documentation</a>, which
-is the inspiration for the CAL-ICOR JupyterHub deployment.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="monitoring_alerting.html">Monitoring and Alerting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="monitoring_alerting.html#monitoring">Monitoring</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="monitoring_alerting.html#accessing-the-prometheus-server">Accessing the Prometheus Server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="monitoring_alerting.html#using-the-standard-port">Using the standard port</a></li>
-<li class="toctree-l3"><a class="reference internal" href="monitoring_alerting.html#using-an-alternative-port">Using an alternative port</a></li>
-<li class="toctree-l3"><a class="reference internal" href="monitoring_alerting.html#grafana">Grafana</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="monitoring_alerting.html#alerting">Alerting</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="new_hub.html">Creating a New Hub</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="new_hub.html#why-create-a-new-hub">Why create a new hub?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new_hub.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new_hub.html#configuring-a-new-hub">Configuring a New Hub</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#name-the-hub">Name the hub</a></li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#determine-deployment-needs">Determine deployment needs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="new_hub.html#placing-this-hub-on-shared-resourses-node-pool-and-filestore">Placing this hub on shared resourses (node pool and filestore)</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#creating-a-new-node-pool">Creating a new node pool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#creating-a-new-filestore-instance">Creating a new filestore instance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#create-the-hub-deployment-in-the-repo">Create the hub deployment in the repo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#authentication">Authentication</a></li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="new_hub.html#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
-<li class="toctree-l4"><a class="reference internal" href="new_hub.html#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>
-<li class="toctree-l4"><a class="reference internal" href="new_hub.html#review-the-deployment-s-hubploy-yaml">Review the deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#create-placeholder-node-pool">Create placeholder node pool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#commit-and-deploy-to-staging">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="new_hub.html#id1">Hubs using a custom single-user server image</a></li>
-<li class="toctree-l4"><a class="reference internal" href="new_hub.html#id2">Hubs inheriting an existing single-user server image</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#commit-and-deploy-to-prod">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#create-the-alerts-for-the-new-hub">Create the alerts for the new hub</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="rebuild_hub_image.html">Customize the Hub Docker Image</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="rebuild_hub_image.html#updating-the-hub-image-version">Updating the Hub Image Version</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="rebuild_hub_image.html#steps-to-update-the-hub-image">Steps to Update the Hub Image</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="rebuild_hub_image.html#getting-authenticated">Getting Authenticated</a></li>
-<li class="toctree-l4"><a class="reference internal" href="rebuild_hub_image.html#updating-building-and-pushing-the-hub-image">Updating, Building, and Pushing the Hub Image</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="calendar_scaler.html">Calendar Node Pool Autoscaler</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="calendar_scaler.html#why-scale-node-pools-with-google-calendar">Why scale node pools with Google Calendar?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calendar_scaler.html#structure">Structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calendar_scaler.html#calendar-autoscaler">Calendar Autoscaler</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="calendar_scaler.html#how-the-scaler-works">How the scaler works</a></li>
-<li class="toctree-l3"><a class="reference internal" href="calendar_scaler.html#updating-the-scaler-config">Updating the scaler config</a></li>
-<li class="toctree-l3"><a class="reference internal" href="calendar_scaler.html#working-on-testing-and-deploying-the-calendar-scaler">Working on, testing and deploying the calendar scaler</a></li>
-<li class="toctree-l3"><a class="reference internal" href="calendar_scaler.html#changing-python-imports">Changing python imports</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="calendar_scaler.html#monitoring">Monitoring</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="new_image.html">Create a New Single User Image</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="new_image.html#image-repository-settings">Image Repository Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new_image.html#your-fork-s-repository-settings">Your Fork’s Repository Settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="new_image.html#enable-artifact-registry-pushing">Enable Artifact Registry Pushing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="new_image.html#configure-hubploy">Configure <code class="docutils literal notranslate"><span class="pre">hubploy</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="new_image.html#subscribe-to-github-repo-in-slack">Subscribe to GitHub Repo in Slack</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new_image.html#modify-the-image">Modify the Image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new_image.html#submit-pull-requests">Submit Pull Requests</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="repo2docker_local.html">Test User Images Locally</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="repo2docker_local.html#common-usage">Common Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="repo2docker_local.html#on-apple-silicon">On Apple Silicon</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="repo2docker_local.html#docker-py-default">docker-py (default)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="repo2docker_local.html#docker-cli"><code class="docutils literal notranslate"><span class="pre">docker</span></code> CLI</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="test-user-images-locally">
+<h1>Test User Images Locally<a class="headerlink" href="#test-user-images-locally" title="Link to this heading">#</a></h1>
+<p>You should use <code class="docutils literal notranslate"><span class="pre">repo2docker</span></code> to build and test the image on your own device before you push and create a PR. It is often faster to do this first before using CI/CD since you can take advantage of local caching and rapid iteration. There’s no need to waste Github Action minutes to test build images when you can do this on your own device.</p>
+<section id="common-usage">
+<h2>Common Usage<a class="headerlink" href="#common-usage" title="Link to this heading">#</a></h2>
+<p>One can simply run <code class="docutils literal notranslate"><span class="pre">repo2docker</span> <span class="pre">/path/to/image/assets</span></code>. For example if one has changed into the directory containing the <code class="docutils literal notranslate"><span class="pre">repo2docker</span></code> files (such as <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> and/or <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>), the command would be:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>repo2docker<span class="w"> </span>.
+</pre></div>
 </div>
+<p>This works on Linux and Windows Subsystem for Linux (WSL). It will build the image, then launch jupyter server and display a localhost URL. Copy the URL and paste it into a local web browser.</p>
+<p>If you just want to build the image without also running the server,
+add the <code class="docutils literal notranslate"><span class="pre">--no-run</span></code> argument:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>repo2docker<span class="w"> </span>--no-run<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="on-apple-silicon">
+<h2>On Apple Silicon<a class="headerlink" href="#on-apple-silicon" title="Link to this heading">#</a></h2>
+<p>Apple’s ARM-based CPUs (the “M” chips) are different from those run on the virtual machines in our clusters. macOS is capable of emulating x86_64/amd64, but it is necessary to optimize docker for this emulation, and to explicitly tell your local docker runtime that the images should be built on the <code class="docutils literal notranslate"><span class="pre">linux/amd64</span></code> platform.</p>
+<p>In Docker’s settings:</p>
+<ul class="simple">
+<li><p>Under <strong>General</strong> &gt; <strong>Virtual Machine Options</strong>, either enable both <strong>Apple Virtualization framework</strong> and <strong>Use Rosetta for x86_64/amd64 emulation on Apple Silicon</strong>, or enable <strong>Docker VMM</strong>.</p></li>
+<li><p>Under <strong>Resources</strong> it is also recommended to raise the memory limit to at least 4GB.</p></li>
+</ul>
+<p>There are two methods for building <code class="docutils literal notranslate"><span class="pre">linux/amd64</span></code> images. The default uses <code class="docutils literal notranslate"><span class="pre">repo2docker</span></code>’s support for <code class="docutils literal notranslate"><span class="pre">docker-py</span></code>, while the second uses a <code class="docutils literal notranslate"><span class="pre">repo2docker</span></code> plugin that can invoke your local docker command-line interface.</p>
+<section id="docker-py-default">
+<h3>docker-py (default)<a class="headerlink" href="#docker-py-default" title="Link to this heading">#</a></h3>
+<p>Run <code class="docutils literal notranslate"><span class="pre">jupyter-repo2docker</span></code> with the following arguments:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repo2docker<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--Repo2Docker.platform<span class="o">=</span>linux/amd64<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">PLAYWRIGHT_BROWSERS_PATH</span><span class="o">=</span>/srv/conda<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--user-id<span class="o">=</span><span class="m">1000</span><span class="w"> </span>--user-name<span class="o">=</span>jovyan<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target-repo-dir<span class="o">=</span>/home/jovyan/.cache<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>.
+</pre></div>
+</div>
+<p>where the final parameter is the path to the assets or <code class="docutils literal notranslate"><span class="pre">.</span></code> if they are in the current directory.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--user-id</span></code> and <code class="docutils literal notranslate"><span class="pre">--user-name</span></code> options are for non-Dockerfile based builds. Images with Dockerfiles do not need those options.</p>
+<p>Note that you may see (possibly harmless) architecture mismatch warnings with this method.</p>
+</section>
+<section id="docker-cli">
+<h3><code class="docutils literal notranslate"><span class="pre">docker</span></code> CLI<a class="headerlink" href="#docker-cli" title="Link to this heading">#</a></h3>
+<p>You can instruct <code class="docutils literal notranslate"><span class="pre">repo2docker</span></code> to use your machine’s local <code class="docutils literal notranslate"><span class="pre">docker</span></code> executable directly rather than the default of <code class="docutils literal notranslate"><span class="pre">docker-py</span></code>. You will first need to install <a class="reference external" href="https://github.com/manics/repo2podman">repo2podman</a>, a plugin that lets you use any container runtime with a command-line user interface similar to that of <code class="docutils literal notranslate"><span class="pre">docker</span></code>. This is useful if you want to leverage <a class="reference external" href="https://github.com/docker/buildx/">docker buildx</a> (for things like multi-stage builds) or if you want to use an alternative executable like <code class="docutils literal notranslate"><span class="pre">podman</span></code>. This also eliminates architecture mismatch warnings.</p>
+<div class="warning admonition">
+<p class="admonition-title">WSL + repo2podman</p>
+<p>repo2podman reportedly does not work yet on WSL.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repo2docker<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--Repo2Docker.platform<span class="o">=</span>linux/amd64<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">PLAYWRIGHT_BROWSERS_PATH</span><span class="o">=</span>/srv/conda<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--engine<span class="w"> </span>podman<span class="w"> </span>--PodmanEngine.podman_executable<span class="o">=</span>docker<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>.
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -474,22 +444,13 @@ is the inspiration for the CAL-ICOR JupyterHub deployment.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../support_resources.html"
+       href="new_image.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Support Resources</p>
+        <p class="prev-next-title">Create a New Single User Image</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="monitoring_alerting.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Monitoring and Alerting</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -497,6 +458,26 @@ is the inspiration for the CAL-ICOR JupyterHub deployment.</p>
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-usage">Common Usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-apple-silicon">On Apple Silicon</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-py-default">docker-py (default)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-cli"><code class="docutils literal notranslate"><span class="pre">docker</span></code> CLI</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
