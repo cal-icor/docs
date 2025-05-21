@@ -46,8 +46,8 @@ JupyterHub deployment.  The name should be short and easy to remember.
 
 ### Determine deployment needs
 
-Before creating a new hub, have a discussion with the instructor about
-the system requirements, frequency of assignments and how much storage
+Before creating a new hub, have a discussion with the instition rep/instructor
+about the system requirements, frequency of assignments and how much storage
 will be required for the course. Typically, there are three general
 "types" of hub: Heavy usage, general and small courses.
 
@@ -71,9 +71,11 @@ packages/libraries that need to be installed, as well as what
 language(s) the course will be using. This will determine which image to
 use, and if we will need to add additional packages to the image build.
 
+#### Placing this hub on shared resourses (node pool and filestore)
+
 If you're going to use an existing node pool and/or filestore instance,
 you can skip either or both of the following steps and pick back up at
-the `cookiecutter`.
+[Create the hub deployment in the `cal-icor-hubs` repo](#create-the-hub-deployment-in-the-repo).
 
 When creating a new hub, we also make sure to label the filestore and
 GKE/node pool resources with both `hub` and
@@ -183,16 +185,74 @@ drwxr-xr-x 4 ubuntu ubuntu     33 Apr  4  2025 dvc-filestore
 drwxr-xr-x 4 ubuntu ubuntu  16384 May 16 18:45 lacc-filestore
 ```
 
-### Create the hub deployment locally
+### Create the hub deployment in the repo
 
-From the `cal-icor-hubs/deployments` directory, run `cookiecutter`. This sets up
-the hub's configuration directory:
+First, you will need to create a new hub deployment configuration file in
+`cal-icor-hubs/_deploy_configs/`.  In that directory, there will be a template
+named `institution-example.yaml`, and you can just `cp` that and name the new
+file `<institution or hubnname>.yaml`.
+
+After you create the new config, edit it and fill in the blanks (for the
+authentication bits, please refer to the
+[authentication section below](#authentication)).
+
+From the root `cal-icor-hubs/` directory, you will run
+`create_deployment.sh <institution or hubname>`. This sets up the hub's
+configuration directory in `cal-icor-hubs/deployments/`.
+
+:::{admonition} Important note about `create_deployment.sh`!
+:class: warning
+If this hub is being deployed on the default shared resources (base-pool and
+shared Filestore) you just need to pass the deployment name to the script.
+
+If you are deploying to a new node pool or different Filestore instance, you
+need to add the `-m` flag, which will allow you to confirm each step of the
+cookiecutter process and change whatever fields that you need.
+:::
+
+Here's an example for a hub being deployed on the default shared resouces:
 
 ``` bash
-cookiecutter template/
+$ cat _deploy_configs/newschool.yaml
+# This is an example of a configuration file for a JupyterHub deployment.
+# This file should be renamed to <name of deployment>.yaml and kept in the
+# _deploy_configs directory.
+hub_name: newschool
+institution: newschool
+institution_url: https://example.edu
+institution_logo_url: https://example.edu/logo.png
+landing_page_branch: main
+prod:
+  client: asdf
+  secret: asdffdsa
+staging:
+  client: 1324
+  secret: 12344312
+admin_emails:
+  - sknapp@berkeley.edu
+  - sean.smorris@berkeley.edu
+authenticator_class: cilogon
+authenticator_class_instance: "CILogonOAuthenticator"
+idp_url:   http://login.microsoftonline.com/common/oauth2/v2.0/authorize
+idp_allowed_domains:
+  - example.edu
+  - whee.edu
 ```
 
-The cookiecutter template will prompt you to provide the following information:
+``` bash
+./create_deployment.sh newschool
+newschool cookiecutter template configured successfully.
+Encrypted file saved as: deployments/newschool/secrets/prod.yaml
+Deleted file: deployments/newschool/secrets/prod.plain.yaml
+Secret file generation and encryption completed.
+Encrypted file saved as: deployments/newschool/secrets/staging.yaml
+Deleted file: deployments/newschool/secrets/staging.plain.yaml
+Secret file generation and encryption completed.
+```
+
+If you pass the `-m` flag to the script, the cookiecutter template will be read
+in from your config, and then prompt you to confirm or make changes to the
+following information:
 
 - `<hub_name>`: Enter the chosen name of the hub.
 - `<institution>`: Enter the name of the institution.
@@ -205,19 +265,29 @@ The cookiecutter template will prompt you to provide the following information:
 - `hub_filestore_share`: Default is `shares`, do not change.
 - `hub_filestore_ip`: Enter the IP address of the filestore instance. This is available from the web console.
 - `hub_filestore_capacity`: Enter the allocated storage capacity. This is available from the web console.
+- `authenticator_class`: Default is `cilogon`, do not change unless the hub requires a different authentication method.
+- `authenticator_class_instance`: Default is `CILogonOAuthenticator`, do not change unless the hub requires a different authentication method.
+- `idp_url`: The endpoint for Google or Microsoft authentication. This is available from the partnered institution.
+- `idp`: Currently unused?
+- `admin_emails`: Enter the email addresses of the admins for the hub. This is a comma-separated list.
+- `client_id_staging`: Enter the client ID for the staging hub. This is available from Cilogon.
+- `client_secret_staging`: Enter the client secret for the staging hub. This is available from Cilogon.
+- `client_id_prod`: Enter the client ID for the production hub. This is available from Cilogon.
+- `client_secret_prod`: Enter the client secret for the production hub. This is available from Cilogon.
+- `idp_allowed_domains`: Enter the allowed domains for the hub. This is a comma-separated list.
 
 This will generate a directory with the name of the hub you provided
 with a skeleton configuration and all the necessary secrets.
 
 ### Configure filestore security settings and GCP billing labels
 
+Skip this step if you are using an existing/shared filestore.
+
 If you have created a new filestore instance, you will now need to apply
 the `ROOT_SQUASH` settings. Please ensure that you've already created
 the hub's root directory and both `staging` and `prod` directories,
 otherwise you will lose write access to the share. We also attach labels
 to a new filestore instance for tracking individual and full hub costs.
-
-Skip this step if you are using an existing/shared filestore.
 
 ``` bash
 gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b  \
@@ -227,7 +297,18 @@ gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b
 
 ### Authentication
 
-TODO
+Go to the [CILogon](https://cilogon.org/) website and create a new
+application.  This will give you a client ID and secret that you will
+need to add to the `hub_name.yaml` file you created earlier.  The
+application name should be the name of the hub, and the redirect URL
+should be `https://<hubname>-staging.cal-icor.org/hub/oauth_callback`
+and `https://<hubname>.cal-icor.org/hub/oauth_callback`.  The
+application type should be `Web application`.
+
+You will need to create two applications, one for the staging hub and one for the
+production hub.
+
+TODO: Add instructions for creating a Github OAuth app.
 
 ### CI/CD and single-user server image
 
@@ -261,13 +342,13 @@ images:
 
 ### Create placeholder node pool
 
+If you are deploying to a shared node pool, there is no need to perform
+this step.
+
 Node pools have a configured minimum size, but our cluster has the
 ability to set aside additional placeholder nodes. These are nodes that
 get spun up in anticipation of the pool needing to suddenly grow in
 size, for example when large classes begin.
-
-If you are deploying to a shared node pool, there is no need to perform
-this step.
 
 Otherwise, you'll need to add the placeholder settings in
 `node-placeholder/values.yaml`.
@@ -307,9 +388,9 @@ will be used to allocate RAM for the node placeholder.
 6. Add an entry for the new placeholder node config in `values.yaml`:
 
 ```yaml
-data102:
+new-institution:
   nodeSelector:
-    hub.jupyter.org/pool-name: data102-pool
+    hub.jupyter.org/pool-name: new-institution-pool
   resources:
     requests:
       # Some value slightly lower than allocatable RAM on the node pool
@@ -381,3 +462,18 @@ PR is merged, it'll deploy the production hub. It might take a few
 minutes for HTTPS to work, but after that you can log into it at
 <https://>\<hub_name\>.cal-icor.org. Test it out and make
 sure things work as you think they should.
+
+### Create the alerts for the new hub
+
+From the `scripts` directory, run the following command to create the
+alerts for the new hub:
+
+``` bash
+./create_alerts.py --create --namespaces <hubname>
+```
+
+After that's done, you need to enable the alerts in GCP:
+
+``` bash
+./create_alerts.py --enable --namespaces <hubname>
+```

@@ -341,10 +341,13 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-a-new-hub">Configuring a New Hub</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name-the-hub">Name the hub</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-deployment-needs">Determine deployment needs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-deployment-needs">Determine deployment needs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#placing-this-hub-on-shared-resourses-node-pool-and-filestore">Placing this hub on shared resourses (node pool and filestore)</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-node-pool">Creating a new node pool</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-filestore-instance">Creating a new filestore instance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-locally">Create the hub deployment locally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-in-the-repo">Create the hub deployment in the repo</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentication">Authentication</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
@@ -359,6 +362,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-prod">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-alerts-for-the-new-hub">Create the alerts for the new hub</a></li>
 </ul>
 </li>
 </ul>
@@ -420,8 +424,8 @@ JupyterHub deployment.  The name should be short and easy to remember.</p>
 </section>
 <section id="determine-deployment-needs">
 <h3>Determine deployment needs<a class="headerlink" href="#determine-deployment-needs" title="Link to this heading">#</a></h3>
-<p>Before creating a new hub, have a discussion with the instructor about
-the system requirements, frequency of assignments and how much storage
+<p>Before creating a new hub, have a discussion with the instition rep/instructor
+about the system requirements, frequency of assignments and how much storage
 will be required for the course. Typically, there are three general
 “types” of hub: Heavy usage, general and small courses.</p>
 <p>Small courses will usually have one or two assignments per semester, and
@@ -438,13 +442,16 @@ instances start at 1T).</p>
 packages/libraries that need to be installed, as well as what
 language(s) the course will be using. This will determine which image to
 use, and if we will need to add additional packages to the image build.</p>
+<section id="placing-this-hub-on-shared-resourses-node-pool-and-filestore">
+<h4>Placing this hub on shared resourses (node pool and filestore)<a class="headerlink" href="#placing-this-hub-on-shared-resourses-node-pool-and-filestore" title="Link to this heading">#</a></h4>
 <p>If you’re going to use an existing node pool and/or filestore instance,
 you can skip either or both of the following steps and pick back up at
-the <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code>.</p>
+<a class="reference internal" href="#create-the-hub-deployment-in-the-repo"><span class="xref myst">Create the hub deployment in the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code> repo</span></a>.</p>
 <p>When creating a new hub, we also make sure to label the filestore and
 GKE/node pool resources with both <code class="docutils literal notranslate"><span class="pre">hub</span></code> and
 <code class="docutils literal notranslate"><span class="pre">&lt;nodepool|filestore&gt;-deployment</span></code>. 99.999% of the time, the values for
 all three of these labels will be <code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;</span></code>.</p>
+</section>
 </section>
 <section id="creating-a-new-node-pool">
 <h3>Creating a new node pool<a class="headerlink" href="#creating-a-new-node-pool" title="Link to this heading">#</a></h3>
@@ -536,14 +543,66 @@ drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </spa
 </pre></div>
 </div>
 </section>
-<section id="create-the-hub-deployment-locally">
-<h3>Create the hub deployment locally<a class="headerlink" href="#create-the-hub-deployment-locally" title="Link to this heading">#</a></h3>
-<p>From the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/deployments</span></code> directory, run <code class="docutils literal notranslate"><span class="pre">cookiecutter</span></code>. This sets up
-the hub’s configuration directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cookiecutter<span class="w"> </span>template/
+<section id="create-the-hub-deployment-in-the-repo">
+<h3>Create the hub deployment in the repo<a class="headerlink" href="#create-the-hub-deployment-in-the-repo" title="Link to this heading">#</a></h3>
+<p>First, you will need to create a new hub deployment configuration file in
+<code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/_deploy_configs/</span></code>.  In that directory, there will be a template
+named <code class="docutils literal notranslate"><span class="pre">institution-example.yaml</span></code>, and you can just <code class="docutils literal notranslate"><span class="pre">cp</span></code> that and name the new
+file <code class="docutils literal notranslate"><span class="pre">&lt;institution</span> <span class="pre">or</span> <span class="pre">hubnname&gt;.yaml</span></code>.</p>
+<p>After you create the new config, edit it and fill in the blanks (for the
+authentication bits, please refer to the
+<a class="reference internal" href="#authentication"><span class="xref myst">authentication section below</span></a>).</p>
+<p>From the root <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/</span></code> directory, you will run
+<code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span> <span class="pre">&lt;institution</span> <span class="pre">or</span> <span class="pre">hubname&gt;</span></code>. This sets up the hub’s
+configuration directory in <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/deployments/</span></code>.</p>
+<div class="warning admonition">
+<p class="admonition-title">Important note about <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span></code>!</p>
+<p>If this hub is being deployed on the default shared resources (base-pool and
+shared Filestore) you just need to pass the deployment name to the script.</p>
+<p>If you are deploying to a new node pool or different Filestore instance, you
+need to add the <code class="docutils literal notranslate"><span class="pre">-m</span></code> flag, which will allow you to confirm each step of the
+cookiecutter process and change whatever fields that you need.</p>
+</div>
+<p>Here’s an example for a hub being deployed on the default shared resouces:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>_deploy_configs/newschool.yaml
+<span class="c1"># This is an example of a configuration file for a JupyterHub deployment.</span>
+<span class="c1"># This file should be renamed to &lt;name of deployment&gt;.yaml and kept in the</span>
+<span class="c1"># _deploy_configs directory.</span>
+hub_name:<span class="w"> </span>newschool
+institution:<span class="w"> </span>newschool
+institution_url:<span class="w"> </span>https://example.edu
+institution_logo_url:<span class="w"> </span>https://example.edu/logo.png
+landing_page_branch:<span class="w"> </span>main
+prod:
+<span class="w">  </span>client:<span class="w"> </span>asdf
+<span class="w">  </span>secret:<span class="w"> </span>asdffdsa
+staging:
+<span class="w">  </span>client:<span class="w"> </span><span class="m">1324</span>
+<span class="w">  </span>secret:<span class="w"> </span><span class="m">12344312</span>
+admin_emails:
+<span class="w">  </span>-<span class="w"> </span>sknapp@berkeley.edu
+<span class="w">  </span>-<span class="w"> </span>sean.smorris@berkeley.edu
+authenticator_class:<span class="w"> </span>cilogon
+authenticator_class_instance:<span class="w"> </span><span class="s2">&quot;CILogonOAuthenticator&quot;</span>
+idp_url:<span class="w">   </span>http://login.microsoftonline.com/common/oauth2/v2.0/authorize
+idp_allowed_domains:
+<span class="w">  </span>-<span class="w"> </span>example.edu
+<span class="w">  </span>-<span class="w"> </span>whee.edu
 </pre></div>
 </div>
-<p>The cookiecutter template will prompt you to provide the following information:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./create_deployment.sh<span class="w"> </span>newschool
+newschool<span class="w"> </span>cookiecutter<span class="w"> </span>template<span class="w"> </span>configured<span class="w"> </span>successfully.
+Encrypted<span class="w"> </span>file<span class="w"> </span>saved<span class="w"> </span>as:<span class="w"> </span>deployments/newschool/secrets/prod.yaml
+Deleted<span class="w"> </span>file:<span class="w"> </span>deployments/newschool/secrets/prod.plain.yaml
+Secret<span class="w"> </span>file<span class="w"> </span>generation<span class="w"> </span>and<span class="w"> </span>encryption<span class="w"> </span>completed.
+Encrypted<span class="w"> </span>file<span class="w"> </span>saved<span class="w"> </span>as:<span class="w"> </span>deployments/newschool/secrets/staging.yaml
+Deleted<span class="w"> </span>file:<span class="w"> </span>deployments/newschool/secrets/staging.plain.yaml
+Secret<span class="w"> </span>file<span class="w"> </span>generation<span class="w"> </span>and<span class="w"> </span>encryption<span class="w"> </span>completed.
+</pre></div>
+</div>
+<p>If you pass the <code class="docutils literal notranslate"><span class="pre">-m</span></code> flag to the script, the cookiecutter template will be read
+in from your config, and then prompt you to confirm or make changes to the
+following information:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;hub_name&gt;</span></code>: Enter the chosen name of the hub.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;institution&gt;</span></code>: Enter the name of the institution.</p></li>
@@ -556,18 +615,28 @@ the hub’s configuration directory:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">hub_filestore_share</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">shares</span></code>, do not change.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">hub_filestore_ip</span></code>: Enter the IP address of the filestore instance. This is available from the web console.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">hub_filestore_capacity</span></code>: Enter the allocated storage capacity. This is available from the web console.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">authenticator_class</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">cilogon</span></code>, do not change unless the hub requires a different authentication method.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">authenticator_class_instance</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">CILogonOAuthenticator</span></code>, do not change unless the hub requires a different authentication method.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">idp_url</span></code>: The endpoint for Google or Microsoft authentication. This is available from the partnered institution.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">idp</span></code>: Currently unused?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">admin_emails</span></code>: Enter the email addresses of the admins for the hub. This is a comma-separated list.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client_id_staging</span></code>: Enter the client ID for the staging hub. This is available from Cilogon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client_secret_staging</span></code>: Enter the client secret for the staging hub. This is available from Cilogon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client_id_prod</span></code>: Enter the client ID for the production hub. This is available from Cilogon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client_secret_prod</span></code>: Enter the client secret for the production hub. This is available from Cilogon.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">idp_allowed_domains</span></code>: Enter the allowed domains for the hub. This is a comma-separated list.</p></li>
 </ul>
 <p>This will generate a directory with the name of the hub you provided
 with a skeleton configuration and all the necessary secrets.</p>
 </section>
 <section id="configure-filestore-security-settings-and-gcp-billing-labels">
 <h3>Configure filestore security settings and GCP billing labels<a class="headerlink" href="#configure-filestore-security-settings-and-gcp-billing-labels" title="Link to this heading">#</a></h3>
+<p>Skip this step if you are using an existing/shared filestore.</p>
 <p>If you have created a new filestore instance, you will now need to apply
 the <code class="docutils literal notranslate"><span class="pre">ROOT_SQUASH</span></code> settings. Please ensure that you’ve already created
 the hub’s root directory and both <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories,
 otherwise you will lose write access to the share. We also attach labels
 to a new filestore instance for tracking individual and full hub costs.</p>
-<p>Skip this step if you are using an existing/shared filestore.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>filestore<span class="w"> </span>instances<span class="w"> </span>update<span class="w"> </span>&lt;filestore-instance-name&gt;<span class="w"> </span>--zone<span class="o">=</span>us-central1-b<span class="w">  </span><span class="se">\</span>
 <span class="w">       </span>--update-labels<span class="o">=</span><span class="nv">hub</span><span class="o">=</span>&lt;hubname&gt;,filestore-deployment<span class="o">=</span>&lt;hubname&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">       </span>--flags-file<span class="o">=</span>&lt;hubname&gt;/config/filestore/squash-flags.json
@@ -576,7 +645,16 @@ to a new filestore instance for tracking individual and full hub costs.</p>
 </section>
 <section id="authentication">
 <h3>Authentication<a class="headerlink" href="#authentication" title="Link to this heading">#</a></h3>
-<p>TODO</p>
+<p>Go to the <a class="reference external" href="https://cilogon.org/">CILogon</a> website and create a new
+application.  This will give you a client ID and secret that you will
+need to add to the <code class="docutils literal notranslate"><span class="pre">hub_name.yaml</span></code> file you created earlier.  The
+application name should be the name of the hub, and the redirect URL
+should be <code class="docutils literal notranslate"><span class="pre">https://&lt;hubname&gt;-staging.cal-icor.org/hub/oauth_callback</span></code>
+and <code class="docutils literal notranslate"><span class="pre">https://&lt;hubname&gt;.cal-icor.org/hub/oauth_callback</span></code>.  The
+application type should be <code class="docutils literal notranslate"><span class="pre">Web</span> <span class="pre">application</span></code>.</p>
+<p>You will need to create two applications, one for the staging hub and one for the
+production hub.</p>
+<p>TODO: Add instructions for creating a Github OAuth app.</p>
 </section>
 <section id="ci-cd-and-single-user-server-image">
 <h3>CI/CD and single-user server image<a class="headerlink" href="#ci-cd-and-single-user-server-image" title="Link to this heading">#</a></h3>
@@ -606,12 +684,12 @@ looks cromulent.  An example from the <code class="docutils literal notranslate"
 </section>
 <section id="create-placeholder-node-pool">
 <h3>Create placeholder node pool<a class="headerlink" href="#create-placeholder-node-pool" title="Link to this heading">#</a></h3>
+<p>If you are deploying to a shared node pool, there is no need to perform
+this step.</p>
 <p>Node pools have a configured minimum size, but our cluster has the
 ability to set aside additional placeholder nodes. These are nodes that
 get spun up in anticipation of the pool needing to suddenly grow in
 size, for example when large classes begin.</p>
-<p>If you are deploying to a shared node pool, there is no need to perform
-this step.</p>
 <p>Otherwise, you’ll need to add the placeholder settings in
 <code class="docutils literal notranslate"><span class="pre">node-placeholder/values.yaml</span></code>.</p>
 <p>The node placeholder pod should have enough RAM allocated to it that it
@@ -646,9 +724,9 @@ get the sum:</p>
 277872640 bytes (256Mi) for “wiggle room”.</p></li>
 <li><p>Add an entry for the new placeholder node config in <code class="docutils literal notranslate"><span class="pre">values.yaml</span></code>:</p></li>
 </ol>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">data102</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">new-institution</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">nodeSelector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">hub.jupyter.org/pool-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data102-pool</span>
+<span class="w">    </span><span class="nt">hub.jupyter.org/pool-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new-institution-pool</span>
 <span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
 <span class="w">      </span><span class="c1"># Some value slightly lower than allocatable RAM on the node pool</span>
@@ -716,6 +794,18 @@ PR is merged, it’ll deploy the production hub. It might take a few
 minutes for HTTPS to work, but after that you can log into it at
 <a class="reference external" href="https://">https://</a>&lt;hub_name&gt;.cal-icor.org. Test it out and make
 sure things work as you think they should.</p>
+</section>
+<section id="create-the-alerts-for-the-new-hub">
+<h3>Create the alerts for the new hub<a class="headerlink" href="#create-the-alerts-for-the-new-hub" title="Link to this heading">#</a></h3>
+<p>From the <code class="docutils literal notranslate"><span class="pre">scripts</span></code> directory, run the following command to create the
+alerts for the new hub:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./create_alerts.py<span class="w"> </span>--create<span class="w"> </span>--namespaces<span class="w"> </span>&lt;hubname&gt;
+</pre></div>
+</div>
+<p>After that’s done, you need to enable the alerts in GCP:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./create_alerts.py<span class="w"> </span>--enable<span class="w"> </span>--namespaces<span class="w"> </span>&lt;hubname&gt;
+</pre></div>
+</div>
 </section>
 </section>
 </section>
@@ -788,10 +878,13 @@ sure things work as you think they should.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-a-new-hub">Configuring a New Hub</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name-the-hub">Name the hub</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-deployment-needs">Determine deployment needs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-deployment-needs">Determine deployment needs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#placing-this-hub-on-shared-resourses-node-pool-and-filestore">Placing this hub on shared resourses (node pool and filestore)</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-node-pool">Creating a new node pool</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-filestore-instance">Creating a new filestore instance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-locally">Create the hub deployment locally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-in-the-repo">Create the hub deployment in the repo</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentication">Authentication</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
@@ -806,6 +899,7 @@ sure things work as you think they should.</p>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-prod">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-alerts-for-the-new-hub">Create the alerts for the new hub</a></li>
 </ul>
 </li>
 </ul>
