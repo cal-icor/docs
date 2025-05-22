@@ -593,7 +593,9 @@ idp_allowed_domains:
 <span class="w">  </span>-<span class="w"> </span>whee.edu
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./create_deployment.sh<span class="w"> </span>newschool
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./create_deployment.sh<span class="w"> </span>-g<span class="w"> </span>shaneknapp<span class="w"> </span>newschool
+Switched<span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>branch<span class="w"> </span><span class="s1">&#39;add-newschool-deployment&#39;</span>
+Created<span class="w"> </span>new<span class="w"> </span>branch:<span class="w"> </span>add-newschool-deployment
 newschool<span class="w"> </span>cookiecutter<span class="w"> </span>template<span class="w"> </span>configured<span class="w"> </span>successfully.
 Encrypted<span class="w"> </span>file<span class="w"> </span>saved<span class="w"> </span>as:<span class="w"> </span>deployments/newschool/secrets/prod.yaml
 Deleted<span class="w"> </span>file:<span class="w"> </span>deployments/newschool/secrets/prod.plain.yaml
@@ -601,6 +603,58 @@ Secret<span class="w"> </span>file<span class="w"> </span>generation<span class=
 Encrypted<span class="w"> </span>file<span class="w"> </span>saved<span class="w"> </span>as:<span class="w"> </span>deployments/newschool/secrets/staging.yaml
 Deleted<span class="w"> </span>file:<span class="w"> </span>deployments/newschool/secrets/staging.plain.yaml
 Secret<span class="w"> </span>file<span class="w"> </span>generation<span class="w"> </span>and<span class="w"> </span>encryption<span class="w"> </span>completed.
+Added<span class="w"> </span>newschool<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>labeler.yml<span class="w"> </span>file.
+✓<span class="w"> </span>Label<span class="w"> </span><span class="s2">&quot;hub: newschool&quot;</span><span class="w"> </span>created<span class="w"> </span><span class="k">in</span><span class="w"> </span>cal-icor/cal-icor-hubs
+Created<span class="w"> </span>GitHub<span class="w"> </span>label<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool.
+Adding<span class="w"> </span>all<span class="w"> </span>changes<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool<span class="w"> </span>to<span class="w"> </span>feature<span class="w"> </span>branch:
+M<span class="w"> </span>.github/labeler.yml
+??<span class="w"> </span>deployments/newschool/
+Adding<span class="w"> </span>deployments/newschool/<span class="w"> </span>to<span class="w"> </span>staging.
+Adding<span class="w"> </span>.github/labeler.yml<span class="w"> </span>to<span class="w"> </span>staging.
+Committing<span class="w"> </span>changes<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool<span class="w"> </span>with<span class="w"> </span>message<span class="w"> </span>Add<span class="w"> </span>newschool<span class="w"> </span>deployment..
+yamllint.................................................................Passed
+ruff.................................................<span class="o">(</span>no<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>check<span class="o">)</span>Skipped
+ruff-format..........................................<span class="o">(</span>no<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>check<span class="o">)</span>Skipped
+pyupgrade............................................<span class="o">(</span>no<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>check<span class="o">)</span>Skipped
+isort................................................<span class="o">(</span>no<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>check<span class="o">)</span>Skipped
+black................................................<span class="o">(</span>no<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>check<span class="o">)</span>Skipped
+flake8...............................................<span class="o">(</span>no<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>check<span class="o">)</span>Skipped
+Ensure<span class="w"> </span>secrets<span class="w"> </span>are<span class="w"> </span>encrypted<span class="w"> </span>with<span class="w"> </span>sops...................................Passed
+codespell................................................................Passed
+fix<span class="w"> </span>end<span class="w"> </span>of<span class="w"> </span>files.........................................................Passed
+fix<span class="w"> </span>requirements.txt.................................<span class="o">(</span>no<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>check<span class="o">)</span>Skipped
+check<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">case</span><span class="w"> </span>conflicts.................................................Passed
+check<span class="w"> </span>that<span class="w"> </span>executables<span class="w"> </span>have<span class="w"> </span>shebangs.................<span class="o">(</span>no<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>check<span class="o">)</span>Skipped
+<span class="o">[</span>add-newschool-deployment<span class="w"> </span>745c6fd<span class="o">]</span><span class="w"> </span>Add<span class="w"> </span>newschool<span class="w"> </span>deployment.
+<span class="w"> </span><span class="m">9</span><span class="w"> </span>files<span class="w"> </span>changed,<span class="w"> </span><span class="m">274</span><span class="w"> </span>insertions<span class="o">(</span>+<span class="o">)</span>
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>deployments/newschool/config/common.yaml
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>deployments/newschool/config/filestore/squash-flags.json
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>deployments/newschool/config/prod.yaml
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>deployments/newschool/config/staging.yaml
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>deployments/newschool/hubploy.yaml
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>deployments/newschool/secrets/gke-key.json
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>deployments/newschool/secrets/prod.yaml
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>deployments/newschool/secrets/staging.yaml
+Pushing<span class="w"> </span>add-newschool-deployment<span class="w"> </span>to<span class="w"> </span>origin
+Enumerating<span class="w"> </span>objects:<span class="w"> </span><span class="m">21</span>,<span class="w"> </span><span class="k">done</span>.
+Counting<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">21</span>/21<span class="o">)</span>,<span class="w"> </span><span class="k">done</span>.
+Delta<span class="w"> </span>compression<span class="w"> </span>using<span class="w"> </span>up<span class="w"> </span>to<span class="w"> </span><span class="m">24</span><span class="w"> </span>threads
+Compressing<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">16</span>/16<span class="o">)</span>,<span class="w"> </span><span class="k">done</span>.
+Writing<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">17</span>/17<span class="o">)</span>,<span class="w"> </span><span class="m">8</span>.01<span class="w"> </span>KiB<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">8</span>.01<span class="w"> </span>MiB/s,<span class="w"> </span><span class="k">done</span>.
+Total<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="o">(</span>delta<span class="w"> </span><span class="m">5</span><span class="o">)</span>,<span class="w"> </span>reused<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>delta<span class="w"> </span><span class="m">0</span><span class="o">)</span>,<span class="w"> </span>pack-reused<span class="w"> </span><span class="m">0</span>
+remote:<span class="w"> </span>Resolving<span class="w"> </span>deltas:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">5</span>/5<span class="o">)</span>,<span class="w"> </span>completed<span class="w"> </span>with<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="nb">local</span><span class="w"> </span>objects.
+remote:
+remote:<span class="w"> </span>Create<span class="w"> </span>a<span class="w"> </span>pull<span class="w"> </span>request<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;add-newschool-deployment&#39;</span><span class="w"> </span>on<span class="w"> </span>GitHub<span class="w"> </span>by<span class="w"> </span>visiting:
+remote:<span class="w">      </span>https://github.com/shaneknapp/cal-icor-hubs/pull/new/add-newschool-deployment
+remote:
+To<span class="w"> </span>github.com:shaneknapp/cal-icor-hubs.git
+<span class="w"> </span>*<span class="w"> </span><span class="o">[</span>new<span class="w"> </span>branch<span class="o">]</span><span class="w">      </span>add-newschool-deployment<span class="w"> </span>-&gt;<span class="w"> </span>add-newschool-deployment
+Creating<span class="w"> </span>a<span class="w"> </span>pull<span class="w"> </span>request<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool<span class="w"> </span>on<span class="w"> </span>branch<span class="w"> </span>add-newschool-deployment
+<span class="o">[</span><span class="s1">&#39;gh&#39;</span>,<span class="w"> </span><span class="s1">&#39;pr&#39;</span>,<span class="w"> </span><span class="s1">&#39;new&#39;</span>,<span class="w"> </span><span class="s1">&#39;-t Add newschool deployment.&#39;</span>,<span class="w"> </span><span class="s1">&#39;-Rcal-icor/cal-icor-hubs&#39;</span>,<span class="w"> </span><span class="s1">&#39;-Hshaneknapp:add-newschool-deployment&#39;</span>,<span class="w"> </span><span class="s1">&#39;-Bstaging&#39;</span>,<span class="w"> </span><span class="s1">&#39;-lhub: newschool&#39;</span>,<span class="w"> </span><span class="s1">&#39;-b Add newschool deployment.&#39;</span><span class="o">]</span>
+
+Creating<span class="w"> </span>pull<span class="w"> </span>request<span class="w"> </span><span class="k">for</span><span class="w"> </span>shaneknapp:add-newschool-deployment<span class="w"> </span>into<span class="w"> </span>staging<span class="w"> </span><span class="k">in</span><span class="w"> </span>cal-icor/cal-icor-hubs
+
+https://github.com/cal-icor/cal-icor-hubs/pull/124
 </pre></div>
 </div>
 <p>If you pass the <code class="docutils literal notranslate"><span class="pre">-m</span></code> flag to the script, the cookiecutter template will be read
@@ -664,12 +718,8 @@ production hub.</p>
 <p>CI/CD is managed through Github Actions, and the relevant workflows are located
 in <code class="docutils literal notranslate"><span class="pre">.github/workflows/</span></code>.  Deploying all hubs are managed via Pull Request
 Labels, which are applied automatically on PR creation.</p>
-<p>To ensure the new hub is deployed, all that needs to be done is add a new entry
-(alphabetically) in <code class="docutils literal notranslate"><span class="pre">.github/labeler.yml</span></code> under the <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">add</span> <span class="pre">hub-specific</span> <span class="pre">labels</span> <span class="pre">for</span> <span class="pre">deployment</span> <span class="pre">changes</span></code> stanza:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="s">&quot;hub:</span><span class="nv"> </span><span class="s">&lt;hubname&gt;&quot;</span><span class="p p-Indicator">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;deployments/&lt;hubname&gt;/**&quot;</span>
-</pre></div>
-</div>
+<p>This label will be created automatically when you run
+<code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span></code>, and will look like <code class="docutils literal notranslate"><span class="pre">hub:</span> <span class="pre">&lt;hubname&gt;</span></code>.</p>
 <section id="hubs-using-a-custom-single-user-server-image">
 <h4>Hubs using a custom single-user server image<a class="headerlink" href="#hubs-using-a-custom-single-user-server-image" title="Link to this heading">#</a></h4>
 <p>If this hub will be using its own image, then follow the

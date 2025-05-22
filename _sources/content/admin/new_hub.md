@@ -240,7 +240,9 @@ idp_allowed_domains:
 ```
 
 ``` bash
-./create_deployment.sh newschool
+./create_deployment.sh -g shaneknapp newschool
+Switched to a new branch 'add-newschool-deployment'
+Created new branch: add-newschool-deployment
 newschool cookiecutter template configured successfully.
 Encrypted file saved as: deployments/newschool/secrets/prod.yaml
 Deleted file: deployments/newschool/secrets/prod.plain.yaml
@@ -248,6 +250,58 @@ Secret file generation and encryption completed.
 Encrypted file saved as: deployments/newschool/secrets/staging.yaml
 Deleted file: deployments/newschool/secrets/staging.plain.yaml
 Secret file generation and encryption completed.
+Added newschool to the labeler.yml file.
+✓ Label "hub: newschool" created in cal-icor/cal-icor-hubs
+Created GitHub label for newschool.
+Adding all changes for newschool to feature branch:
+M .github/labeler.yml
+?? deployments/newschool/
+Adding deployments/newschool/ to staging.
+Adding .github/labeler.yml to staging.
+Committing changes for newschool with message Add newschool deployment..
+yamllint.................................................................Passed
+ruff.................................................(no files to check)Skipped
+ruff-format..........................................(no files to check)Skipped
+pyupgrade............................................(no files to check)Skipped
+isort................................................(no files to check)Skipped
+black................................................(no files to check)Skipped
+flake8...............................................(no files to check)Skipped
+Ensure secrets are encrypted with sops...................................Passed
+codespell................................................................Passed
+fix end of files.........................................................Passed
+fix requirements.txt.................................(no files to check)Skipped
+check for case conflicts.................................................Passed
+check that executables have shebangs.................(no files to check)Skipped
+[add-newschool-deployment 745c6fd] Add newschool deployment.
+ 9 files changed, 274 insertions(+)
+ create mode 100644 deployments/newschool/config/common.yaml
+ create mode 100644 deployments/newschool/config/filestore/squash-flags.json
+ create mode 100644 deployments/newschool/config/prod.yaml
+ create mode 100644 deployments/newschool/config/staging.yaml
+ create mode 100644 deployments/newschool/hubploy.yaml
+ create mode 100644 deployments/newschool/secrets/gke-key.json
+ create mode 100644 deployments/newschool/secrets/prod.yaml
+ create mode 100644 deployments/newschool/secrets/staging.yaml
+Pushing add-newschool-deployment to origin
+Enumerating objects: 21, done.
+Counting objects: 100% (21/21), done.
+Delta compression using up to 24 threads
+Compressing objects: 100% (16/16), done.
+Writing objects: 100% (17/17), 8.01 KiB | 8.01 MiB/s, done.
+Total 17 (delta 5), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (5/5), completed with 4 local objects.
+remote:
+remote: Create a pull request for 'add-newschool-deployment' on GitHub by visiting:
+remote:      https://github.com/shaneknapp/cal-icor-hubs/pull/new/add-newschool-deployment
+remote:
+To github.com:shaneknapp/cal-icor-hubs.git
+ * [new branch]      add-newschool-deployment -> add-newschool-deployment
+Creating a pull request for newschool on branch add-newschool-deployment
+['gh', 'pr', 'new', '-t Add newschool deployment.', '-Rcal-icor/cal-icor-hubs', '-Hshaneknapp:add-newschool-deployment', '-Bstaging', '-lhub: newschool', '-b Add newschool deployment.']
+
+Creating pull request for shaneknapp:add-newschool-deployment into staging in cal-icor/cal-icor-hubs
+
+https://github.com/cal-icor/cal-icor-hubs/pull/124
 ```
 
 If you pass the `-m` flag to the script, the cookiecutter template will be read
@@ -316,14 +370,8 @@ CI/CD is managed through Github Actions, and the relevant workflows are located
 in `.github/workflows/`.  Deploying all hubs are managed via Pull Request
 Labels, which are applied automatically on PR creation.
 
-To ensure the new hub is deployed, all that needs to be done is add a new entry
-(alphabetically) in `.github/labeler.yml` under the `# add hub-specific labels
-for deployment changes` stanza:
-
-``` yaml
-"hub: <hubname>":
-  - "deployments/<hubname>/**"
-```
+This label will be created automatically when you run
+`create_deployment.sh`, and will look like `hub: <hubname>`.
 
 #### Hubs using a custom single-user server image
 
