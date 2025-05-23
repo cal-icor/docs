@@ -546,8 +546,9 @@ configuration directory in <code class="docutils literal notranslate"><span clas
 <p>If this hub is being deployed on the default shared resources (base-pool and
 shared Filestore) you just need to pass the deployment name to the script.</p>
 <p>If you are deploying to a new node pool or different Filestore instance, you
-need to add the <code class="docutils literal notranslate"><span class="pre">-m</span></code> flag, which will allow you to confirm each step of the
-cookiecutter process and change whatever fields that you need.</p>
+can change the <code class="docutils literal notranslate"><span class="pre">hub_filestore_instance</span></code> and <code class="docutils literal notranslate"><span class="pre">hub_filestore_ip</span></code> in the
+<code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;.yaml</span></code> file you created above. The script will then use the correct
+filestore instance and IP address when creating the deployment.</p>
 </div>
 <p>Here’s an example for a hub being deployed on the default shared resouces:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>_deploy_configs/newschool.yaml

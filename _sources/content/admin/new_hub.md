@@ -185,8 +185,9 @@ If this hub is being deployed on the default shared resources (base-pool and
 shared Filestore) you just need to pass the deployment name to the script.
 
 If you are deploying to a new node pool or different Filestore instance, you
-need to add the `-m` flag, which will allow you to confirm each step of the
-cookiecutter process and change whatever fields that you need.
+can change the `hub_filestore_instance` and `hub_filestore_ip` in the
+`<hubname>.yaml` file you created above. The script will then use the correct
+filestore instance and IP address when creating the deployment.
 :::
 
 Here's an example for a hub being deployed on the default shared resouces:
