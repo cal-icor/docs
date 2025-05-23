@@ -528,23 +528,6 @@ GUI.</p></li>
 mount<span class="w"> </span>&lt;filestore<span class="w"> </span>share<span class="w"> </span>IP&gt;:/shares<span class="w"> </span>/export/&lt;hubname&gt;-filestore
 </pre></div>
 </div>
-<p>Create <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories owned by <code class="docutils literal notranslate"><span class="pre">1000:1000</span></code> under
-<code class="docutils literal notranslate"><span class="pre">/export/&lt;hubname&gt;-filestore/&lt;hubname&gt;</span></code>. The path <em>might</em> differ if your
-hub has special home directory storage needs. Consult admins if that’s
-the case. Here is the command to create the directory with appropriate
-permissions:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>install<span class="w"> </span>-d<span class="w"> </span>-o<span class="w"> </span><span class="m">1000</span><span class="w"> </span>-g<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>/export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/staging<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>/export/&lt;hubname&gt;-filestore/&lt;hubname&gt;/prod
-</pre></div>
-</div>
-<p>Check whether the directories have permissions similar to the below
-directories:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w">     </span><span class="m">45</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">20</span>:33<span class="w"> </span>jupyter-filestore
-drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w">     </span><span class="m">33</span><span class="w"> </span>Apr<span class="w">  </span><span class="m">4</span><span class="w">  </span><span class="m">2025</span><span class="w"> </span>dvc-filestore
-drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </span>ubuntu<span class="w"> </span>ubuntu<span class="w">  </span><span class="m">16384</span><span class="w"> </span>May<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">18</span>:45<span class="w"> </span>lacc-filestore
-</pre></div>
-</div>
 </section>
 <section id="create-the-hub-deployment-in-the-repo">
 <h3>Create the hub deployment in the repo<a class="headerlink" href="#create-the-hub-deployment-in-the-repo" title="Link to this heading">#</a></h3>
@@ -556,7 +539,7 @@ file <code class="docutils literal notranslate"><span class="pre">&lt;institutio
 authentication bits, please refer to the
 <a class="reference internal" href="#authentication"><span class="xref myst">authentication section below</span></a>).</p>
 <p>From the root <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/</span></code> directory, you will run
-<code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span> <span class="pre">&lt;institution</span> <span class="pre">or</span> <span class="pre">hubname&gt;</span></code>. This sets up the hub’s
+<code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span> <span class="pre">-g</span> <span class="pre">&lt;github</span> <span class="pre">username&gt;</span> <span class="pre">&lt;institution</span> <span class="pre">or</span> <span class="pre">hubname&gt;</span></code>. This sets up the hub’s
 configuration directory in <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/deployments/</span></code>.</p>
 <div class="warning admonition">
 <p class="admonition-title">Important note about <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span></code>!</p>
@@ -572,6 +555,8 @@ cookiecutter process and change whatever fields that you need.</p>
 <span class="c1"># This file should be renamed to &lt;name of deployment&gt;.yaml and kept in the</span>
 <span class="c1"># _deploy_configs directory.</span>
 hub_name:<span class="w"> </span>newschool
+hub_filestore_instance:<span class="w"> </span>shared-filestore
+hub_filestore_ip:<span class="w"> </span><span class="m">10</span>.183.114.2
 institution:<span class="w"> </span>newschool
 institution_url:<span class="w"> </span>https://example.edu
 institution_logo_url:<span class="w"> </span>https://example.edu/logo.png
@@ -591,24 +576,27 @@ idp_url:<span class="w">   </span>http://login.microsoftonline.com/common/oauth2
 idp_allowed_domains:
 <span class="w">  </span>-<span class="w"> </span>example.edu
 <span class="w">  </span>-<span class="w"> </span>whee.edu
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./create_deployment.sh<span class="w"> </span>-g<span class="w"> </span>shaneknapp<span class="w"> </span>newschool
+allow_all:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="sb">```</span>
+
+<span class="sb">```</span><span class="w"> </span>bash
+./create_deployment.sh<span class="w"> </span>-g<span class="w"> </span>shaneknapp<span class="w"> </span>newschool
+Creating<span class="w"> </span>directories<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool<span class="w"> </span>on<span class="w"> </span>filestore.
 Switched<span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>branch<span class="w"> </span><span class="s1">&#39;add-newschool-deployment&#39;</span>
 Created<span class="w"> </span>new<span class="w"> </span>branch:<span class="w"> </span>add-newschool-deployment
-newschool<span class="w"> </span>cookiecutter<span class="w"> </span>template<span class="w"> </span>configured<span class="w"> </span>successfully.
+Populating<span class="w"> </span>deployment<span class="w"> </span>config<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool.
+Generating<span class="w"> </span>newschool<span class="w"> </span>cookiecutter<span class="w"> </span>template.
+Generating<span class="w"> </span>and<span class="w"> </span>encrypting<span class="w"> </span>secrets<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool.
+Secret<span class="w"> </span>file<span class="w"> </span>generation<span class="w"> </span>and<span class="w"> </span>encryption<span class="w"> </span>beginning.
 Encrypted<span class="w"> </span>file<span class="w"> </span>saved<span class="w"> </span>as:<span class="w"> </span>deployments/newschool/secrets/prod.yaml
 Deleted<span class="w"> </span>file:<span class="w"> </span>deployments/newschool/secrets/prod.plain.yaml
-Secret<span class="w"> </span>file<span class="w"> </span>generation<span class="w"> </span>and<span class="w"> </span>encryption<span class="w"> </span>completed.
+Secret<span class="w"> </span>file<span class="w"> </span>generation<span class="w"> </span>and<span class="w"> </span>encryption<span class="w"> </span>beginning.
 Encrypted<span class="w"> </span>file<span class="w"> </span>saved<span class="w"> </span>as:<span class="w"> </span>deployments/newschool/secrets/staging.yaml
 Deleted<span class="w"> </span>file:<span class="w"> </span>deployments/newschool/secrets/staging.plain.yaml
-Secret<span class="w"> </span>file<span class="w"> </span>generation<span class="w"> </span>and<span class="w"> </span>encryption<span class="w"> </span>completed.
+Creating<span class="w"> </span>repo<span class="w"> </span>and<span class="w"> </span>github<span class="w"> </span>labels<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool.
 Added<span class="w"> </span>newschool<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>labeler.yml<span class="w"> </span>file.
 ✓<span class="w"> </span>Label<span class="w"> </span><span class="s2">&quot;hub: newschool&quot;</span><span class="w"> </span>created<span class="w"> </span><span class="k">in</span><span class="w"> </span>cal-icor/cal-icor-hubs
 Created<span class="w"> </span>GitHub<span class="w"> </span>label<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool.
-Adding<span class="w"> </span>all<span class="w"> </span>changes<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool<span class="w"> </span>to<span class="w"> </span>feature<span class="w"> </span>branch:
-M<span class="w"> </span>.github/labeler.yml
-??<span class="w"> </span>deployments/newschool/
+Staging<span class="w"> </span>new<span class="w"> </span>deployment<span class="w"> </span>files<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool.
 Adding<span class="w"> </span>deployments/newschool/<span class="w"> </span>to<span class="w"> </span>staging.
 Adding<span class="w"> </span>.github/labeler.yml<span class="w"> </span>to<span class="w"> </span>staging.
 Committing<span class="w"> </span>changes<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool<span class="w"> </span>with<span class="w"> </span>message<span class="w"> </span>Add<span class="w"> </span>newschool<span class="w"> </span>deployment..
@@ -625,7 +613,7 @@ fix<span class="w"> </span>end<span class="w"> </span>of<span class="w"> </span>
 fix<span class="w"> </span>requirements.txt.................................<span class="o">(</span>no<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>check<span class="o">)</span>Skipped
 check<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">case</span><span class="w"> </span>conflicts.................................................Passed
 check<span class="w"> </span>that<span class="w"> </span>executables<span class="w"> </span>have<span class="w"> </span>shebangs.................<span class="o">(</span>no<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>check<span class="o">)</span>Skipped
-<span class="o">[</span>add-newschool-deployment<span class="w"> </span>745c6fd<span class="o">]</span><span class="w"> </span>Add<span class="w"> </span>newschool<span class="w"> </span>deployment.
+<span class="o">[</span>add-newschool-deployment<span class="w"> </span>51f7d02<span class="o">]</span><span class="w"> </span>Add<span class="w"> </span>newschool<span class="w"> </span>deployment.
 <span class="w"> </span><span class="m">9</span><span class="w"> </span>files<span class="w"> </span>changed,<span class="w"> </span><span class="m">274</span><span class="w"> </span>insertions<span class="o">(</span>+<span class="o">)</span>
 <span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>deployments/newschool/config/common.yaml
 <span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>deployments/newschool/config/filestore/squash-flags.json
@@ -649,12 +637,13 @@ remote:<span class="w">      </span>https://github.com/shaneknapp/cal-icor-hubs/
 remote:
 To<span class="w"> </span>github.com:shaneknapp/cal-icor-hubs.git
 <span class="w"> </span>*<span class="w"> </span><span class="o">[</span>new<span class="w"> </span>branch<span class="o">]</span><span class="w">      </span>add-newschool-deployment<span class="w"> </span>-&gt;<span class="w"> </span>add-newschool-deployment
+Creating<span class="w"> </span>pull<span class="w"> </span>request<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool.
 Creating<span class="w"> </span>a<span class="w"> </span>pull<span class="w"> </span>request<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool<span class="w"> </span>on<span class="w"> </span>branch<span class="w"> </span>add-newschool-deployment
-<span class="o">[</span><span class="s1">&#39;gh&#39;</span>,<span class="w"> </span><span class="s1">&#39;pr&#39;</span>,<span class="w"> </span><span class="s1">&#39;new&#39;</span>,<span class="w"> </span><span class="s1">&#39;-t Add newschool deployment.&#39;</span>,<span class="w"> </span><span class="s1">&#39;-Rcal-icor/cal-icor-hubs&#39;</span>,<span class="w"> </span><span class="s1">&#39;-Hshaneknapp:add-newschool-deployment&#39;</span>,<span class="w"> </span><span class="s1">&#39;-Bstaging&#39;</span>,<span class="w"> </span><span class="s1">&#39;-lhub: newschool&#39;</span>,<span class="w"> </span><span class="s1">&#39;-b Add newschool deployment.&#39;</span><span class="o">]</span>
+<span class="o">[</span><span class="s1">&#39;gh&#39;</span>,<span class="w"> </span><span class="s1">&#39;pr&#39;</span>,<span class="w"> </span><span class="s1">&#39;new&#39;</span>,<span class="w"> </span><span class="s1">&#39;-t Add `newschool` deployment.&#39;</span>,<span class="w"> </span><span class="s1">&#39;-Rcal-icor/cal-icor-hubs&#39;</span>,<span class="w"> </span><span class="s1">&#39;-Hshaneknapp:add-newschool-deployment&#39;</span>,<span class="w"> </span><span class="s1">&#39;-Bstaging&#39;</span>,<span class="w"> </span><span class="s1">&#39;-lhub: newschool&#39;</span>,<span class="w"> </span><span class="s1">&#39;-b Add `newschool` deployment, brought to you by `create_deployment.py`.&#39;</span><span class="o">]</span>
 
 Creating<span class="w"> </span>pull<span class="w"> </span>request<span class="w"> </span><span class="k">for</span><span class="w"> </span>shaneknapp:add-newschool-deployment<span class="w"> </span>into<span class="w"> </span>staging<span class="w"> </span><span class="k">in</span><span class="w"> </span>cal-icor/cal-icor-hubs
 
-https://github.com/cal-icor/cal-icor-hubs/pull/124
+https://github.com/cal-icor/cal-icor-hubs/pull/135
 </pre></div>
 </div>
 <p>If you pass the <code class="docutils literal notranslate"><span class="pre">-m</span></code> flag to the script, the cookiecutter template will be read
@@ -669,8 +658,11 @@ following information:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;project_name&gt;</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code>, do not change.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;cluster_name&gt;</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">spring-2025</span></code>, do not change.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;pool_name&gt;</span></code>: Name of the node pool (shared or individual) to deploy on.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hub_filestore_instance</span></code>: Defaults to<code class="docutils literal notranslate"><span class="pre">shared-filestore</span></code>, change if you use a different
+filestore instance.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hub_filestore_ip</span></code>: Defaults to <code class="docutils literal notranslate"><span class="pre">10.183.114.2</span></code>, change if you use a different
+filestore instance.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">hub_filestore_share</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">shares</span></code>, do not change.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hub_filestore_ip</span></code>: Enter the IP address of the filestore instance. This is available from the web console.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">hub_filestore_capacity</span></code>: Enter the allocated storage capacity. This is available from the web console.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">authenticator_class</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">cilogon</span></code>, do not change unless the hub requires a different authentication method.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">authenticator_class_instance</span></code>: Default is <code class="docutils literal notranslate"><span class="pre">CILogonOAuthenticator</span></code>, do not change unless the hub requires a different authentication method.</p></li>

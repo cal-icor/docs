@@ -164,27 +164,6 @@ mkdir /export/<hubname>-filestore
 mount <filestore share IP>:/shares /export/<hubname>-filestore
 ```
 
-Create `staging` and `prod` directories owned by `1000:1000` under
-`/export/<hubname>-filestore/<hubname>`. The path *might* differ if your
-hub has special home directory storage needs. Consult admins if that's
-the case. Here is the command to create the directory with appropriate
-permissions:
-
-``` bash
-install -d -o 1000 -g 1000 \
-  /export/<hubname>-filestore/<hubname>/staging \
-  /export/<hubname>-filestore/<hubname>/prod
-```
-
-Check whether the directories have permissions similar to the below
-directories:
-
-``` bash
-drwxr-xr-x 4 ubuntu ubuntu     45 Apr  3 20:33 jupyter-filestore
-drwxr-xr-x 4 ubuntu ubuntu     33 Apr  4  2025 dvc-filestore
-drwxr-xr-x 4 ubuntu ubuntu  16384 May 16 18:45 lacc-filestore
-```
-
 ### Create the hub deployment in the repo
 
 First, you will need to create a new hub deployment configuration file in
@@ -197,7 +176,7 @@ authentication bits, please refer to the
 [authentication section below](#authentication)).
 
 From the root `cal-icor-hubs/` directory, you will run
-`create_deployment.sh <institution or hubname>`. This sets up the hub's
+`create_deployment.sh -g <github username> <institution or hubname>`. This sets up the hub's
 configuration directory in `cal-icor-hubs/deployments/`.
 
 :::{admonition} Important note about `create_deployment.sh`!
@@ -218,6 +197,8 @@ $ cat _deploy_configs/newschool.yaml
 # This file should be renamed to <name of deployment>.yaml and kept in the
 # _deploy_configs directory.
 hub_name: newschool
+hub_filestore_instance: shared-filestore
+hub_filestore_ip: 10.183.114.2
 institution: newschool
 institution_url: https://example.edu
 institution_logo_url: https://example.edu/logo.png
@@ -237,25 +218,27 @@ idp_url:   http://login.microsoftonline.com/common/oauth2/v2.0/authorize
 idp_allowed_domains:
   - example.edu
   - whee.edu
-```
+allow_all: ""```
 
 ``` bash
 ./create_deployment.sh -g shaneknapp newschool
+Creating directories for newschool on filestore.
 Switched to a new branch 'add-newschool-deployment'
 Created new branch: add-newschool-deployment
-newschool cookiecutter template configured successfully.
+Populating deployment config for newschool.
+Generating newschool cookiecutter template.
+Generating and encrypting secrets for newschool.
+Secret file generation and encryption beginning.
 Encrypted file saved as: deployments/newschool/secrets/prod.yaml
 Deleted file: deployments/newschool/secrets/prod.plain.yaml
-Secret file generation and encryption completed.
+Secret file generation and encryption beginning.
 Encrypted file saved as: deployments/newschool/secrets/staging.yaml
 Deleted file: deployments/newschool/secrets/staging.plain.yaml
-Secret file generation and encryption completed.
+Creating repo and github labels for newschool.
 Added newschool to the labeler.yml file.
 ✓ Label "hub: newschool" created in cal-icor/cal-icor-hubs
 Created GitHub label for newschool.
-Adding all changes for newschool to feature branch:
-M .github/labeler.yml
-?? deployments/newschool/
+Staging new deployment files for newschool.
 Adding deployments/newschool/ to staging.
 Adding .github/labeler.yml to staging.
 Committing changes for newschool with message Add newschool deployment..
@@ -272,7 +255,7 @@ fix end of files.........................................................Passed
 fix requirements.txt.................................(no files to check)Skipped
 check for case conflicts.................................................Passed
 check that executables have shebangs.................(no files to check)Skipped
-[add-newschool-deployment 745c6fd] Add newschool deployment.
+[add-newschool-deployment 51f7d02] Add newschool deployment.
  9 files changed, 274 insertions(+)
  create mode 100644 deployments/newschool/config/common.yaml
  create mode 100644 deployments/newschool/config/filestore/squash-flags.json
@@ -296,12 +279,13 @@ remote:      https://github.com/shaneknapp/cal-icor-hubs/pull/new/add-newschool-
 remote:
 To github.com:shaneknapp/cal-icor-hubs.git
  * [new branch]      add-newschool-deployment -> add-newschool-deployment
+Creating pull request for newschool.
 Creating a pull request for newschool on branch add-newschool-deployment
-['gh', 'pr', 'new', '-t Add newschool deployment.', '-Rcal-icor/cal-icor-hubs', '-Hshaneknapp:add-newschool-deployment', '-Bstaging', '-lhub: newschool', '-b Add newschool deployment.']
+['gh', 'pr', 'new', '-t Add `newschool` deployment.', '-Rcal-icor/cal-icor-hubs', '-Hshaneknapp:add-newschool-deployment', '-Bstaging', '-lhub: newschool', '-b Add `newschool` deployment, brought to you by `create_deployment.py`.']
 
 Creating pull request for shaneknapp:add-newschool-deployment into staging in cal-icor/cal-icor-hubs
 
-https://github.com/cal-icor/cal-icor-hubs/pull/124
+https://github.com/cal-icor/cal-icor-hubs/pull/135
 ```
 
 If you pass the `-m` flag to the script, the cookiecutter template will be read
@@ -316,8 +300,11 @@ following information:
 - `<project_name>`: Default is `cal-icor-hubs`, do not change.
 - `<cluster_name>`: Default is `spring-2025`, do not change.
 - `<pool_name>`: Name of the node pool (shared or individual) to deploy on.
+- `hub_filestore_instance`: Defaults to`shared-filestore`, change if you use a different
+  filestore instance.
+- `hub_filestore_ip`: Defaults to `10.183.114.2`, change if you use a different
+  filestore instance.
 - `hub_filestore_share`: Default is `shares`, do not change.
-- `hub_filestore_ip`: Enter the IP address of the filestore instance. This is available from the web console.
 - `hub_filestore_capacity`: Enter the allocated storage capacity. This is available from the web console.
 - `authenticator_class`: Default is `cilogon`, do not change unless the hub requires a different authentication method.
 - `authenticator_class_instance`: Default is `CILogonOAuthenticator`, do not change unless the hub requires a different authentication method.
