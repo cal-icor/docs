@@ -219,7 +219,8 @@ idp_url:   http://login.microsoftonline.com/common/oauth2/v2.0/authorize
 idp_allowed_domains:
   - example.edu
   - whee.edu
-allow_all: ""```
+allow_all: ""
+```
 
 ``` bash
 ./create_deployment.sh -g shaneknapp newschool
