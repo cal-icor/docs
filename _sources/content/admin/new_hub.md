@@ -34,6 +34,22 @@ Proper access to the following systems:
 
 ## Configuring a New Hub
 
+### TL;DR
+
+1. [Choose a new hub name](#name-the-hub).
+2. [Determine deployment needs](#determine-deployment-needs), and create a new node pool and/or filestore instance if necessary.
+3. [Create the hub's `staging` and `prod` directories in the filestore](#create-hubs-staging-and-prod-directories-in-the-filestore).
+4. [Create a new hub deployment configuration file](#create-the-hub-deployment-configuration) in `cal-icor-hubs/_deploy_configs/`.
+5. [Determine the authentication method](#authentication) and create a new CILogon or Github OAuth application.
+6. Run `create_deployment.sh -g <github username> <institution or hubname>`.
+7. Review the generated `hubploy.yaml` file.
+8. If using a custom single-user server image, create the [new image and repository](new_image).
+9. [Create a node placeholder scaler entry](#create-node-placeholder-scaler-entry) if needed (only if a [new node pool was created](#creating-a-new-node-pool)).
+10. Commit and deploy to `staging`.
+11. Test the staging hub.
+12. Commit and deploy to `prod`.
+13. [Create the alerts](#create-the-alerts-for-the-new-hub) for `prod` deployment of the new hub.
+
 ### Name the hub
 
 Choose the hub name, which is typically the name of the institution joining our
@@ -71,11 +87,11 @@ packages/libraries that need to be installed, as well as what
 language(s) the course will be using. This will determine which image to
 use, and if we will need to add additional packages to the image build.
 
-#### Placing this hub on shared resourses (node pool and filestore)
+#### Placing this hub on shared resourses (node pool and/or filestore)
 
 If you're going to use an existing node pool and/or filestore instance,
 you can skip either or both of the following steps and pick back up at
-[Create the hub deployment in the `cal-icor-hubs` repo](#create-the-hub-deployment-in-the-repo).
+[Create the hub deployment in the `cal-icor-hubs` repo](#create-the-hub-deployment-configuration).
 
 When creating a new hub, we also make sure to label the filestore and
 GKE/node pool resources with both `hub` and
@@ -112,29 +128,15 @@ instructing the course and determine how much they think they will need.
 We can easily scale capacity up, but not down.
 
 From the command line, first fill in the instance name
-(`<hubname>-<YYYY-MM-DD>`) and `<capacity>`, and then execute the
+(`<filestore-instance-name>-<YYYY-MM-DD>`) and `<capacity>`, and then execute the
 following command:
 
 ``` bash
-gcloud filestore instances create <hubname>-<YYYY-MM-DD> \
+gcloud filestore instances create <filestore-instance-name>-<YYYY-MM-DD> \
   --zone "us-central1-b" --tier="BASIC_HDD" \
-  --file-share=capacity=1TiB,name=shares \
+  --file-share=capacity=<capacity>,name=shares \
   --network=name=default,connect-mode=DIRECT_PEERING
 ```
-
-Or, from the web console, click on the horizontal bar icon at the top
-left corner.
-
-1. Access "Filestore" > "Instances" and click on "Create Instance".
-2. Name the instance `<hubname>-<YYYY-MM-DD>`
-3. Instance Type is `Basic`, Storage Type is `HDD`.
-4. Allocate capacity.
-5. Set the region to `us-central1` and Zone to `us-central1-b`.
-6. Set the VPC network to `default`.
-7. Set the File share name to `shares`.
-8. Click "Create" and wait for it to be deployed.
-9. Once it's deployed, select the instance and copy the "NFS mount
-   point".
 
 Your new (but empty) NFS filestore must be seeded with a pair of
 directories. We run a utility VM for NFS filestore management; follow
@@ -148,32 +150,70 @@ NFS utility VM:
 gcloud compute ssh nfsserver --zone=us-central1-b --tunnel-through-iap
 ```
 
-Alternatively, launch console.cloud.google.com > Select *cal-icor-hubs* as the
-project name.
-
-1. Click on the three horizontal bar icon at the top left corner.
-2. Access "Compute Engine" > "VM instances" > and search for
-   "nfs-server-01".
-3. Select "Open in browser window" option to access NFS server via
-   GUI.
-
-Back in the NFS utility VM shell, mount the new share:
+Now, mount the new filestore instance:
 
 ``` bash
-mkdir /export/<hubname>-filestore
-mount <filestore share IP>:/shares /export/<hubname>-filestore
+mkdir /export/<filestore-instance-name>-filestore
+mount <filestore share IP>:/shares /export/<filestore-instance-name>-filestore
 ```
 
-### Create the hub deployment in the repo
+### Create hub's `staging` and `prod` directories in the filestore
+
+Next, you will need to create the `staging` and `prod` directories
+inside the filestore instance.  This is where the users' home directories will
+be located.
+
+``` bash
+install -d -o 1000 -g 1000 \
+  /export/<filestore-instance-name>-filestore/<hubname>/staging \
+  /export/<filestore-instance-name>-filestore/<hubname>/prod
+```
+
+### Configure filestore security settings and GCP billing labels
+
+:::{admonition} Skip this step if you are using an existing/shared filestore!
+:class: warning
+This step is only necessary if you are creating a new filestore instance. An
+existing filestore instance will already have the `ROOT_SQUASH` settings
+applied, and the labels will already be set.
+:::
+
+If you have created a new filestore instance, you will now need to apply
+the `ROOT_SQUASH` settings. Please ensure that you've already
+[created the hub's root directory and both `staging` and `prod`](#create-hubs-staging-and-prod-directories-in-the-filestore)
+directories, otherwise you will lose write access to the share. We also attach
+labels to a new filestore instance for tracking individual and full hub costs.
+
+``` bash
+gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b  \
+       --update-labels=hub=<hubname>,filestore-deployment=<hubname> \
+       --flags-file=<hubname>/config/filestore/squash-flags.json
+```
+
+### Authentication
+
+Go to the [CILogon](https://cilogon.org/) website and create a new
+application.  This will give you a client ID and secret that you will
+need to add to the `hub_name.yaml` file you created earlier.  The
+application name should be the name of the hub, and the redirect URL
+should be `https://<hubname>-staging.cal-icor.org/hub/oauth_callback`
+and `https://<hubname>.cal-icor.org/hub/oauth_callback`.  The
+application type should be `Web application`.
+
+You will need to create two applications, one for the staging hub and one for the
+production hub.
+
+TODO: Add instructions for creating a Github OAuth app.
+
+### Create the hub deployment configuration
 
 First, you will need to create a new hub deployment configuration file in
 `cal-icor-hubs/_deploy_configs/`.  In that directory, there will be a template
 named `institution-example.yaml`, and you can just `cp` that and name the new
 file `<institution or hubnname>.yaml`.
 
-After you create the new config, edit it and fill in the blanks (for the
-authentication bits, please refer to the
-[authentication section below](#authentication)).
+Be sure to include the [authentication bits](#authentication) that you created
+via either CILogon or Github OAuth in the configuration file.
 
 From the root `cal-icor-hubs/` directory, you will run
 `create_deployment.sh -g <github username> <institution or hubname>`. This sets up the hub's
@@ -182,7 +222,7 @@ configuration directory in `cal-icor-hubs/deployments/`.
 :::{admonition} Important note about `create_deployment.sh`!
 :class: warning
 If this hub is being deployed on the default shared resources (base-pool and
-shared Filestore) you just need to pass the deployment name to the script.
+shared filestore) you just need to pass the deployment name to the script.
 
 If you are deploying to a new node pool or different Filestore instance, you
 can change the `hub_filestore_instance` and `hub_filestore_ip` in the
@@ -322,37 +362,6 @@ following information:
 This will generate a directory with the name of the hub you provided
 with a skeleton configuration and all the necessary secrets.
 
-### Configure filestore security settings and GCP billing labels
-
-Skip this step if you are using an existing/shared filestore.
-
-If you have created a new filestore instance, you will now need to apply
-the `ROOT_SQUASH` settings. Please ensure that you've already created
-the hub's root directory and both `staging` and `prod` directories,
-otherwise you will lose write access to the share. We also attach labels
-to a new filestore instance for tracking individual and full hub costs.
-
-``` bash
-gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b  \
-       --update-labels=hub=<hubname>,filestore-deployment=<hubname> \
-       --flags-file=<hubname>/config/filestore/squash-flags.json
-```
-
-### Authentication
-
-Go to the [CILogon](https://cilogon.org/) website and create a new
-application.  This will give you a client ID and secret that you will
-need to add to the `hub_name.yaml` file you created earlier.  The
-application name should be the name of the hub, and the redirect URL
-should be `https://<hubname>-staging.cal-icor.org/hub/oauth_callback`
-and `https://<hubname>.cal-icor.org/hub/oauth_callback`.  The
-application type should be `Web application`.
-
-You will need to create two applications, one for the staging hub and one for the
-production hub.
-
-TODO: Add instructions for creating a Github OAuth app.
-
 ### CI/CD and single-user server image
 
 CI/CD is managed through Github Actions, and the relevant workflows are located
@@ -361,6 +370,17 @@ Labels, which are applied automatically on PR creation.
 
 This label will be created automatically when you run
 `create_deployment.sh`, and will look like `hub: <hubname>`.
+
+#### Hubs inheriting an existing single-user server image
+
+If this hub will inherit an existing image, the `create_deployment.sh`
+script will have created a `hubploy.yaml` file in the `deployments/<hubname>/`
+directory.  This file will have the image tag from an existing deployment which
+will contain the latest image hash.
+
+The image specification is found in the cookiecutter template, located here:
+
+`cal-icor-hubs/deployments/template/{{cookiecutter.hub_name}}/hubploy.yaml`
 
 #### Hubs using a custom single-user server image
 
@@ -375,13 +395,6 @@ is due to the image building/pushing workflow requiring this deployment's
 `hubploy.yaml` to be present in the `deployments/<hubname>/` subdirectory, as
 it updates the image tag.
 
-#### Hubs inheriting an existing single-user server image
-
-If this hub will inherit an existing image, the `create_deployment.sh`
-script will have created a `hubploy.yaml` file in the `deployments/<hubname>/`
-directory.  This file will have the image tag from an existing deployment which
-will contain the latest image hash.
-
 #### Review the deployment's `hubploy.yaml`
 
 Next, review `hubploy.yaml` inside your project directory to confirm that
@@ -393,7 +406,7 @@ images:
     - name: us-central1-docker.pkg.dev/cal-icor-hubs/user-images/base-user-image:<image tag OR "PLACEHOLDER">
 ```
 
-### Create placeholder node pool
+### Create node placeholder scaler entry
 
 If you are deploying to a shared node pool, there is no need to perform
 this step.
@@ -486,28 +499,6 @@ aside for predicatable periods of heavy ramp up.
 Commit the hub directory, and make a PR to the the `staging` branch in
 the GitHub repo.
 
-#### Hubs using a custom single-user server image
-
-If this hub is using a custom image, and you're using `PLACEHOLDER` for the
-image tag in `hubploy.yaml`, be sure to remove the hub-specific Github
-label that is automatically attached to this pull request.  It will look
-something like `hub: <hubname>`.  If you don't do this the deployment will
-fail as the image sha of `PLACEHOLDER` doesn't exist.
-
-After this PR is merged, perform the `git push` in your image repo.  This will
-trigger the workflow that builds the image, pushes it to the Artifact Registry,
-and finally creates a commit that updates the image hash in `hubploy.yaml` and
-pushes to the `cal-icor-hubs` repo.  Once this is merged in to `staging`, the
-deployment pipeline will run and your hub will finally be deployed.
-
-#### Hubs inheriting an existing single-user server image
-
-Your hub's deployment will proceed automatically through the CI/CD pipeline.
-
-It might take a few minutes for HTTPS to work, but after that you
-can log into it at `https://<hub_name>-staging.cal-icor.org`.
-Test it out and make sure things work as you think they should.
-
 ### Commit and deploy to `prod`
 
 Make a PR from the `staging` branch to the `prod` branch. When this
@@ -518,15 +509,11 @@ sure things work as you think they should.
 
 ### Create the alerts for the new hub
 
-From the `scripts` directory, run the following command to create the
-alerts for the new hub:
+Once you've deployed the new hub to `prod`, you must create the uptime alerts
+for the hub. From the `scripts` directory, run the following commands to create
+and enable the alerts for the new hub:
 
 ``` bash
-./create_alerts.py --create --namespaces <hubname>
-```
-
-After that's done, you need to enable the alerts in GCP:
-
-``` bash
-./create_alerts.py --enable --namespaces <hubname>
+./create_alerts.py --create --namespaces <hubname>-prod
+./create_alerts.py --enable --namespaces <hubname>-prod
 ```

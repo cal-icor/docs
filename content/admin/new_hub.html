@@ -342,28 +342,26 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-create-a-new-hub">Why create a new hub?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-a-new-hub">Configuring a New Hub</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tl-dr">TL;DR</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name-the-hub">Name the hub</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-deployment-needs">Determine deployment needs</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#placing-this-hub-on-shared-resourses-node-pool-and-filestore">Placing this hub on shared resourses (node pool and filestore)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#placing-this-hub-on-shared-resourses-node-pool-and-or-filestore">Placing this hub on shared resourses (node pool and/or filestore)</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-node-pool">Creating a new node pool</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-filestore-instance">Creating a new filestore instance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-in-the-repo">Create the hub deployment in the repo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-hub-s-staging-and-prod-directories-in-the-filestore">Create hub’s <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories in the filestore</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentication">Authentication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-configuration">Create the hub deployment configuration</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-deployment-s-hubploy-yaml">Review the deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-placeholder-node-pool">Create placeholder node pool</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-staging">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Hubs using a custom single-user server image</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Hubs inheriting an existing single-user server image</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-node-placeholder-scaler-entry">Create node placeholder scaler entry</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-staging">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-prod">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-alerts-for-the-new-hub">Create the alerts for the new hub</a></li>
 </ul>
@@ -415,6 +413,24 @@ repo.</p>
 </section>
 <section id="configuring-a-new-hub">
 <h2>Configuring a New Hub<a class="headerlink" href="#configuring-a-new-hub" title="Link to this heading">#</a></h2>
+<section id="tl-dr">
+<h3>TL;DR<a class="headerlink" href="#tl-dr" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#name-the-hub"><span class="xref myst">Choose a new hub name</span></a>.</p></li>
+<li><p><a class="reference internal" href="#determine-deployment-needs"><span class="xref myst">Determine deployment needs</span></a>, and create a new node pool and/or filestore instance if necessary.</p></li>
+<li><p><a class="reference internal" href="#create-hubs-staging-and-prod-directories-in-the-filestore"><span class="xref myst">Create the hub’s <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories in the filestore</span></a>.</p></li>
+<li><p><a class="reference internal" href="#create-the-hub-deployment-configuration"><span class="xref myst">Create a new hub deployment configuration file</span></a> in <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/_deploy_configs/</span></code>.</p></li>
+<li><p><a class="reference internal" href="#authentication"><span class="xref myst">Determine the authentication method</span></a> and create a new CILogon or Github OAuth application.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span> <span class="pre">-g</span> <span class="pre">&lt;github</span> <span class="pre">username&gt;</span> <span class="pre">&lt;institution</span> <span class="pre">or</span> <span class="pre">hubname&gt;</span></code>.</p></li>
+<li><p>Review the generated <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> file.</p></li>
+<li><p>If using a custom single-user server image, create the <a class="reference internal" href="new_image.html"><span class="doc std std-doc">new image and repository</span></a>.</p></li>
+<li><p><a class="reference internal" href="#create-node-placeholder-scaler-entry"><span class="xref myst">Create a node placeholder scaler entry</span></a> if needed (only if a <a class="reference internal" href="#creating-a-new-node-pool"><span class="xref myst">new node pool was created</span></a>).</p></li>
+<li><p>Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code>.</p></li>
+<li><p>Test the staging hub.</p></li>
+<li><p>Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code>.</p></li>
+<li><p><a class="reference internal" href="#create-the-alerts-for-the-new-hub"><span class="xref myst">Create the alerts</span></a> for <code class="docutils literal notranslate"><span class="pre">prod</span></code> deployment of the new hub.</p></li>
+</ol>
+</section>
 <section id="name-the-hub">
 <h3>Name the hub<a class="headerlink" href="#name-the-hub" title="Link to this heading">#</a></h3>
 <p>Choose the hub name, which is typically the name of the institution joining our
@@ -445,11 +461,11 @@ instances start at 1T).</p>
 packages/libraries that need to be installed, as well as what
 language(s) the course will be using. This will determine which image to
 use, and if we will need to add additional packages to the image build.</p>
-<section id="placing-this-hub-on-shared-resourses-node-pool-and-filestore">
-<h4>Placing this hub on shared resourses (node pool and filestore)<a class="headerlink" href="#placing-this-hub-on-shared-resourses-node-pool-and-filestore" title="Link to this heading">#</a></h4>
+<section id="placing-this-hub-on-shared-resourses-node-pool-and-or-filestore">
+<h4>Placing this hub on shared resourses (node pool and/or filestore)<a class="headerlink" href="#placing-this-hub-on-shared-resourses-node-pool-and-or-filestore" title="Link to this heading">#</a></h4>
 <p>If you’re going to use an existing node pool and/or filestore instance,
 you can skip either or both of the following steps and pick back up at
-<a class="reference internal" href="#create-the-hub-deployment-in-the-repo"><span class="xref myst">Create the hub deployment in the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code> repo</span></a>.</p>
+<a class="reference internal" href="#create-the-hub-deployment-configuration"><span class="xref myst">Create the hub deployment in the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code> repo</span></a>.</p>
 <p>When creating a new hub, we also make sure to label the filestore and
 GKE/node pool resources with both <code class="docutils literal notranslate"><span class="pre">hub</span></code> and
 <code class="docutils literal notranslate"><span class="pre">&lt;nodepool|filestore&gt;-deployment</span></code>. 99.999% of the time, the values for
@@ -483,28 +499,14 @@ larger hubs may require more. Confer with the admins and people
 instructing the course and determine how much they think they will need.</p>
 <p>We can easily scale capacity up, but not down.</p>
 <p>From the command line, first fill in the instance name
-(<code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;</span></code>) and <code class="docutils literal notranslate"><span class="pre">&lt;capacity&gt;</span></code>, and then execute the
+(<code class="docutils literal notranslate"><span class="pre">&lt;filestore-instance-name&gt;-&lt;YYYY-MM-DD&gt;</span></code>) and <code class="docutils literal notranslate"><span class="pre">&lt;capacity&gt;</span></code>, and then execute the
 following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>filestore<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>filestore<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span>&lt;filestore-instance-name&gt;-&lt;YYYY-MM-DD&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--zone<span class="w"> </span><span class="s2">&quot;us-central1-b&quot;</span><span class="w"> </span>--tier<span class="o">=</span><span class="s2">&quot;BASIC_HDD&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--file-share<span class="o">=</span><span class="nv">capacity</span><span class="o">=</span>1TiB,name<span class="o">=</span>shares<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--file-share<span class="o">=</span><span class="nv">capacity</span><span class="o">=</span>&lt;capacity&gt;,name<span class="o">=</span>shares<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--network<span class="o">=</span><span class="nv">name</span><span class="o">=</span>default,connect-mode<span class="o">=</span>DIRECT_PEERING
 </pre></div>
 </div>
-<p>Or, from the web console, click on the horizontal bar icon at the top
-left corner.</p>
-<ol class="arabic simple">
-<li><p>Access “Filestore” &gt; “Instances” and click on “Create Instance”.</p></li>
-<li><p>Name the instance <code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;-&lt;YYYY-MM-DD&gt;</span></code></p></li>
-<li><p>Instance Type is <code class="docutils literal notranslate"><span class="pre">Basic</span></code>, Storage Type is <code class="docutils literal notranslate"><span class="pre">HDD</span></code>.</p></li>
-<li><p>Allocate capacity.</p></li>
-<li><p>Set the region to <code class="docutils literal notranslate"><span class="pre">us-central1</span></code> and Zone to <code class="docutils literal notranslate"><span class="pre">us-central1-b</span></code>.</p></li>
-<li><p>Set the VPC network to <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p></li>
-<li><p>Set the File share name to <code class="docutils literal notranslate"><span class="pre">shares</span></code>.</p></li>
-<li><p>Click “Create” and wait for it to be deployed.</p></li>
-<li><p>Once it’s deployed, select the instance and copy the “NFS mount
-point”.</p></li>
-</ol>
 <p>Your new (but empty) NFS filestore must be seeded with a pair of
 directories. We run a utility VM for NFS filestore management; follow
 the steps below to connect to this utility VM, mount your new filestore,
@@ -514,37 +516,70 @@ NFS utility VM:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>compute<span class="w"> </span>ssh<span class="w"> </span>nfsserver<span class="w"> </span>--zone<span class="o">=</span>us-central1-b<span class="w"> </span>--tunnel-through-iap
 </pre></div>
 </div>
-<p>Alternatively, launch <a class="reference external" href="http://console.cloud.google.com">console.cloud.google.com</a> &gt; Select <em>cal-icor-hubs</em> as the
-project name.</p>
-<ol class="arabic simple">
-<li><p>Click on the three horizontal bar icon at the top left corner.</p></li>
-<li><p>Access “Compute Engine” &gt; “VM instances” &gt; and search for
-“nfs-server-01”.</p></li>
-<li><p>Select “Open in browser window” option to access NFS server via
-GUI.</p></li>
-</ol>
-<p>Back in the NFS utility VM shell, mount the new share:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>/export/&lt;hubname&gt;-filestore
-mount<span class="w"> </span>&lt;filestore<span class="w"> </span>share<span class="w"> </span>IP&gt;:/shares<span class="w"> </span>/export/&lt;hubname&gt;-filestore
+<p>Now, mount the new filestore instance:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>/export/&lt;filestore-instance-name&gt;-filestore
+mount<span class="w"> </span>&lt;filestore<span class="w"> </span>share<span class="w"> </span>IP&gt;:/shares<span class="w"> </span>/export/&lt;filestore-instance-name&gt;-filestore
 </pre></div>
 </div>
 </section>
-<section id="create-the-hub-deployment-in-the-repo">
-<h3>Create the hub deployment in the repo<a class="headerlink" href="#create-the-hub-deployment-in-the-repo" title="Link to this heading">#</a></h3>
+<section id="create-hub-s-staging-and-prod-directories-in-the-filestore">
+<h3>Create hub’s <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories in the filestore<a class="headerlink" href="#create-hub-s-staging-and-prod-directories-in-the-filestore" title="Link to this heading">#</a></h3>
+<p>Next, you will need to create the <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories
+inside the filestore instance.  This is where the users’ home directories will
+be located.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>install<span class="w"> </span>-d<span class="w"> </span>-o<span class="w"> </span><span class="m">1000</span><span class="w"> </span>-g<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/export/&lt;filestore-instance-name&gt;-filestore/&lt;hubname&gt;/staging<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/export/&lt;filestore-instance-name&gt;-filestore/&lt;hubname&gt;/prod
+</pre></div>
+</div>
+</section>
+<section id="configure-filestore-security-settings-and-gcp-billing-labels">
+<h3>Configure filestore security settings and GCP billing labels<a class="headerlink" href="#configure-filestore-security-settings-and-gcp-billing-labels" title="Link to this heading">#</a></h3>
+<div class="warning admonition">
+<p class="admonition-title">Skip this step if you are using an existing/shared filestore!</p>
+<p>This step is only necessary if you are creating a new filestore instance. An
+existing filestore instance will already have the <code class="docutils literal notranslate"><span class="pre">ROOT_SQUASH</span></code> settings
+applied, and the labels will already be set.</p>
+</div>
+<p>If you have created a new filestore instance, you will now need to apply
+the <code class="docutils literal notranslate"><span class="pre">ROOT_SQUASH</span></code> settings. Please ensure that you’ve already
+<a class="reference internal" href="#create-hubs-staging-and-prod-directories-in-the-filestore"><span class="xref myst">created the hub’s root directory and both <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code></span></a>
+directories, otherwise you will lose write access to the share. We also attach
+labels to a new filestore instance for tracking individual and full hub costs.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>filestore<span class="w"> </span>instances<span class="w"> </span>update<span class="w"> </span>&lt;filestore-instance-name&gt;<span class="w"> </span>--zone<span class="o">=</span>us-central1-b<span class="w">  </span><span class="se">\</span>
+<span class="w">       </span>--update-labels<span class="o">=</span><span class="nv">hub</span><span class="o">=</span>&lt;hubname&gt;,filestore-deployment<span class="o">=</span>&lt;hubname&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>--flags-file<span class="o">=</span>&lt;hubname&gt;/config/filestore/squash-flags.json
+</pre></div>
+</div>
+</section>
+<section id="authentication">
+<h3>Authentication<a class="headerlink" href="#authentication" title="Link to this heading">#</a></h3>
+<p>Go to the <a class="reference external" href="https://cilogon.org/">CILogon</a> website and create a new
+application.  This will give you a client ID and secret that you will
+need to add to the <code class="docutils literal notranslate"><span class="pre">hub_name.yaml</span></code> file you created earlier.  The
+application name should be the name of the hub, and the redirect URL
+should be <code class="docutils literal notranslate"><span class="pre">https://&lt;hubname&gt;-staging.cal-icor.org/hub/oauth_callback</span></code>
+and <code class="docutils literal notranslate"><span class="pre">https://&lt;hubname&gt;.cal-icor.org/hub/oauth_callback</span></code>.  The
+application type should be <code class="docutils literal notranslate"><span class="pre">Web</span> <span class="pre">application</span></code>.</p>
+<p>You will need to create two applications, one for the staging hub and one for the
+production hub.</p>
+<p>TODO: Add instructions for creating a Github OAuth app.</p>
+</section>
+<section id="create-the-hub-deployment-configuration">
+<h3>Create the hub deployment configuration<a class="headerlink" href="#create-the-hub-deployment-configuration" title="Link to this heading">#</a></h3>
 <p>First, you will need to create a new hub deployment configuration file in
 <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/_deploy_configs/</span></code>.  In that directory, there will be a template
 named <code class="docutils literal notranslate"><span class="pre">institution-example.yaml</span></code>, and you can just <code class="docutils literal notranslate"><span class="pre">cp</span></code> that and name the new
 file <code class="docutils literal notranslate"><span class="pre">&lt;institution</span> <span class="pre">or</span> <span class="pre">hubnname&gt;.yaml</span></code>.</p>
-<p>After you create the new config, edit it and fill in the blanks (for the
-authentication bits, please refer to the
-<a class="reference internal" href="#authentication"><span class="xref myst">authentication section below</span></a>).</p>
+<p>Be sure to include the <a class="reference internal" href="#authentication"><span class="xref myst">authentication bits</span></a> that you created
+via either CILogon or Github OAuth in the configuration file.</p>
 <p>From the root <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/</span></code> directory, you will run
 <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span> <span class="pre">-g</span> <span class="pre">&lt;github</span> <span class="pre">username&gt;</span> <span class="pre">&lt;institution</span> <span class="pre">or</span> <span class="pre">hubname&gt;</span></code>. This sets up the hub’s
 configuration directory in <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/deployments/</span></code>.</p>
 <div class="warning admonition">
 <p class="admonition-title">Important note about <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span></code>!</p>
 <p>If this hub is being deployed on the default shared resources (base-pool and
-shared Filestore) you just need to pass the deployment name to the script.</p>
+shared filestore) you just need to pass the deployment name to the script.</p>
 <p>If you are deploying to a new node pool or different Filestore instance, you
 can change the <code class="docutils literal notranslate"><span class="pre">hub_filestore_instance</span></code> and <code class="docutils literal notranslate"><span class="pre">hub_filestore_ip</span></code> in the
 <code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;.yaml</span></code> file you created above. The script will then use the correct
@@ -679,33 +714,6 @@ filestore instance.</p></li>
 <p>This will generate a directory with the name of the hub you provided
 with a skeleton configuration and all the necessary secrets.</p>
 </section>
-<section id="configure-filestore-security-settings-and-gcp-billing-labels">
-<h3>Configure filestore security settings and GCP billing labels<a class="headerlink" href="#configure-filestore-security-settings-and-gcp-billing-labels" title="Link to this heading">#</a></h3>
-<p>Skip this step if you are using an existing/shared filestore.</p>
-<p>If you have created a new filestore instance, you will now need to apply
-the <code class="docutils literal notranslate"><span class="pre">ROOT_SQUASH</span></code> settings. Please ensure that you’ve already created
-the hub’s root directory and both <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories,
-otherwise you will lose write access to the share. We also attach labels
-to a new filestore instance for tracking individual and full hub costs.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>filestore<span class="w"> </span>instances<span class="w"> </span>update<span class="w"> </span>&lt;filestore-instance-name&gt;<span class="w"> </span>--zone<span class="o">=</span>us-central1-b<span class="w">  </span><span class="se">\</span>
-<span class="w">       </span>--update-labels<span class="o">=</span><span class="nv">hub</span><span class="o">=</span>&lt;hubname&gt;,filestore-deployment<span class="o">=</span>&lt;hubname&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>--flags-file<span class="o">=</span>&lt;hubname&gt;/config/filestore/squash-flags.json
-</pre></div>
-</div>
-</section>
-<section id="authentication">
-<h3>Authentication<a class="headerlink" href="#authentication" title="Link to this heading">#</a></h3>
-<p>Go to the <a class="reference external" href="https://cilogon.org/">CILogon</a> website and create a new
-application.  This will give you a client ID and secret that you will
-need to add to the <code class="docutils literal notranslate"><span class="pre">hub_name.yaml</span></code> file you created earlier.  The
-application name should be the name of the hub, and the redirect URL
-should be <code class="docutils literal notranslate"><span class="pre">https://&lt;hubname&gt;-staging.cal-icor.org/hub/oauth_callback</span></code>
-and <code class="docutils literal notranslate"><span class="pre">https://&lt;hubname&gt;.cal-icor.org/hub/oauth_callback</span></code>.  The
-application type should be <code class="docutils literal notranslate"><span class="pre">Web</span> <span class="pre">application</span></code>.</p>
-<p>You will need to create two applications, one for the staging hub and one for the
-production hub.</p>
-<p>TODO: Add instructions for creating a Github OAuth app.</p>
-</section>
 <section id="ci-cd-and-single-user-server-image">
 <h3>CI/CD and single-user server image<a class="headerlink" href="#ci-cd-and-single-user-server-image" title="Link to this heading">#</a></h3>
 <p>CI/CD is managed through Github Actions, and the relevant workflows are located
@@ -713,6 +721,15 @@ in <code class="docutils literal notranslate"><span class="pre">.github/workflow
 Labels, which are applied automatically on PR creation.</p>
 <p>This label will be created automatically when you run
 <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span></code>, and will look like <code class="docutils literal notranslate"><span class="pre">hub:</span> <span class="pre">&lt;hubname&gt;</span></code>.</p>
+<section id="hubs-inheriting-an-existing-single-user-server-image">
+<h4>Hubs inheriting an existing single-user server image<a class="headerlink" href="#hubs-inheriting-an-existing-single-user-server-image" title="Link to this heading">#</a></h4>
+<p>If this hub will inherit an existing image, the <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span></code>
+script will have created a <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> file in the <code class="docutils literal notranslate"><span class="pre">deployments/&lt;hubname&gt;/</span></code>
+directory.  This file will have the image tag from an existing deployment which
+will contain the latest image hash.</p>
+<p>The image specification is found in the cookiecutter template, located here:</p>
+<p><code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/deployments/template/{{cookiecutter.hub_name}}/hubploy.yaml</span></code></p>
+</section>
 <section id="hubs-using-a-custom-single-user-server-image">
 <h4>Hubs using a custom single-user server image<a class="headerlink" href="#hubs-using-a-custom-single-user-server-image" title="Link to this heading">#</a></h4>
 <p>If this hub will be using its own image, then follow the
@@ -725,13 +742,6 @@ is due to the image building/pushing workflow requiring this deployment’s
 <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> to be present in the <code class="docutils literal notranslate"><span class="pre">deployments/&lt;hubname&gt;/</span></code> subdirectory, as
 it updates the image tag.</p>
 </section>
-<section id="hubs-inheriting-an-existing-single-user-server-image">
-<h4>Hubs inheriting an existing single-user server image<a class="headerlink" href="#hubs-inheriting-an-existing-single-user-server-image" title="Link to this heading">#</a></h4>
-<p>If this hub will inherit an existing image, the <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span></code>
-script will have created a <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> file in the <code class="docutils literal notranslate"><span class="pre">deployments/&lt;hubname&gt;/</span></code>
-directory.  This file will have the image tag from an existing deployment which
-will contain the latest image hash.</p>
-</section>
 <section id="review-the-deployment-s-hubploy-yaml">
 <h4>Review the deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code><a class="headerlink" href="#review-the-deployment-s-hubploy-yaml" title="Link to this heading">#</a></h4>
 <p>Next, review <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> inside your project directory to confirm that
@@ -743,8 +753,8 @@ looks cromulent.  An example from the <code class="docutils literal notranslate"
 </div>
 </section>
 </section>
-<section id="create-placeholder-node-pool">
-<h3>Create placeholder node pool<a class="headerlink" href="#create-placeholder-node-pool" title="Link to this heading">#</a></h3>
+<section id="create-node-placeholder-scaler-entry">
+<h3>Create node placeholder scaler entry<a class="headerlink" href="#create-node-placeholder-scaler-entry" title="Link to this heading">#</a></h3>
 <p>If you are deploying to a shared node pool, there is no need to perform
 this step.</p>
 <p>Node pools have a configured minimum size, but our cluster has the
@@ -827,26 +837,6 @@ aside for predicatable periods of heavy ramp up.</p>
 <h3>Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code><a class="headerlink" href="#commit-and-deploy-to-staging" title="Link to this heading">#</a></h3>
 <p>Commit the hub directory, and make a PR to the the <code class="docutils literal notranslate"><span class="pre">staging</span></code> branch in
 the GitHub repo.</p>
-<section id="id1">
-<h4>Hubs using a custom single-user server image<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
-<p>If this hub is using a custom image, and you’re using <code class="docutils literal notranslate"><span class="pre">PLACEHOLDER</span></code> for the
-image tag in <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code>, be sure to remove the hub-specific Github
-label that is automatically attached to this pull request.  It will look
-something like <code class="docutils literal notranslate"><span class="pre">hub:</span> <span class="pre">&lt;hubname&gt;</span></code>.  If you don’t do this the deployment will
-fail as the image sha of <code class="docutils literal notranslate"><span class="pre">PLACEHOLDER</span></code> doesn’t exist.</p>
-<p>After this PR is merged, perform the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> in your image repo.  This will
-trigger the workflow that builds the image, pushes it to the Artifact Registry,
-and finally creates a commit that updates the image hash in <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> and
-pushes to the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code> repo.  Once this is merged in to <code class="docutils literal notranslate"><span class="pre">staging</span></code>, the
-deployment pipeline will run and your hub will finally be deployed.</p>
-</section>
-<section id="id2">
-<h4>Hubs inheriting an existing single-user server image<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
-<p>Your hub’s deployment will proceed automatically through the CI/CD pipeline.</p>
-<p>It might take a few minutes for HTTPS to work, but after that you
-can log into it at <code class="docutils literal notranslate"><span class="pre">https://&lt;hub_name&gt;-staging.cal-icor.org</span></code>.
-Test it out and make sure things work as you think they should.</p>
-</section>
 </section>
 <section id="commit-and-deploy-to-prod">
 <h3>Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code><a class="headerlink" href="#commit-and-deploy-to-prod" title="Link to this heading">#</a></h3>
@@ -858,13 +848,11 @@ sure things work as you think they should.</p>
 </section>
 <section id="create-the-alerts-for-the-new-hub">
 <h3>Create the alerts for the new hub<a class="headerlink" href="#create-the-alerts-for-the-new-hub" title="Link to this heading">#</a></h3>
-<p>From the <code class="docutils literal notranslate"><span class="pre">scripts</span></code> directory, run the following command to create the
-alerts for the new hub:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./create_alerts.py<span class="w"> </span>--create<span class="w"> </span>--namespaces<span class="w"> </span>&lt;hubname&gt;
-</pre></div>
-</div>
-<p>After that’s done, you need to enable the alerts in GCP:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./create_alerts.py<span class="w"> </span>--enable<span class="w"> </span>--namespaces<span class="w"> </span>&lt;hubname&gt;
+<p>Once you’ve deployed the new hub to <code class="docutils literal notranslate"><span class="pre">prod</span></code>, you must create the uptime alerts
+for the hub. From the <code class="docutils literal notranslate"><span class="pre">scripts</span></code> directory, run the following commands to create
+and enable the alerts for the new hub:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./create_alerts.py<span class="w"> </span>--create<span class="w"> </span>--namespaces<span class="w"> </span>&lt;hubname&gt;-prod
+./create_alerts.py<span class="w"> </span>--enable<span class="w"> </span>--namespaces<span class="w"> </span>&lt;hubname&gt;-prod
 </pre></div>
 </div>
 </section>
@@ -938,28 +926,26 @@ alerts for the new hub:</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-create-a-new-hub">Why create a new hub?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-a-new-hub">Configuring a New Hub</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tl-dr">TL;DR</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name-the-hub">Name the hub</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-deployment-needs">Determine deployment needs</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#placing-this-hub-on-shared-resourses-node-pool-and-filestore">Placing this hub on shared resourses (node pool and filestore)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#placing-this-hub-on-shared-resourses-node-pool-and-or-filestore">Placing this hub on shared resourses (node pool and/or filestore)</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-node-pool">Creating a new node pool</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-filestore-instance">Creating a new filestore instance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-in-the-repo">Create the hub deployment in the repo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-hub-s-staging-and-prod-directories-in-the-filestore">Create hub’s <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories in the filestore</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentication">Authentication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-configuration">Create the hub deployment configuration</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-deployment-s-hubploy-yaml">Review the deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-placeholder-node-pool">Create placeholder node pool</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-staging">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Hubs using a custom single-user server image</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Hubs inheriting an existing single-user server image</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-node-placeholder-scaler-entry">Create node placeholder scaler entry</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-staging">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-deploy-to-prod">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-alerts-for-the-new-hub">Create the alerts for the new hub</a></li>
 </ul>

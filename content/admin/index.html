@@ -366,28 +366,26 @@ is the inspiration for the CAL-ICOR JupyterHub deployment.</p>
 <li class="toctree-l2"><a class="reference internal" href="new_hub.html#why-create-a-new-hub">Why create a new hub?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="new_hub.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="new_hub.html#configuring-a-new-hub">Configuring a New Hub</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="new_hub.html#tl-dr">TL;DR</a></li>
 <li class="toctree-l3"><a class="reference internal" href="new_hub.html#name-the-hub">Name the hub</a></li>
 <li class="toctree-l3"><a class="reference internal" href="new_hub.html#determine-deployment-needs">Determine deployment needs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="new_hub.html#placing-this-hub-on-shared-resourses-node-pool-and-filestore">Placing this hub on shared resourses (node pool and filestore)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="new_hub.html#placing-this-hub-on-shared-resourses-node-pool-and-or-filestore">Placing this hub on shared resourses (node pool and/or filestore)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="new_hub.html#creating-a-new-node-pool">Creating a new node pool</a></li>
 <li class="toctree-l3"><a class="reference internal" href="new_hub.html#creating-a-new-filestore-instance">Creating a new filestore instance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#create-the-hub-deployment-in-the-repo">Create the hub deployment in the repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="new_hub.html#create-hub-s-staging-and-prod-directories-in-the-filestore">Create hub’s <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories in the filestore</a></li>
 <li class="toctree-l3"><a class="reference internal" href="new_hub.html#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
 <li class="toctree-l3"><a class="reference internal" href="new_hub.html#authentication">Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="new_hub.html#create-the-hub-deployment-configuration">Create the hub deployment configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="new_hub.html#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="new_hub.html#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
 <li class="toctree-l4"><a class="reference internal" href="new_hub.html#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="new_hub.html#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
 <li class="toctree-l4"><a class="reference internal" href="new_hub.html#review-the-deployment-s-hubploy-yaml">Review the deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#create-placeholder-node-pool">Create placeholder node pool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="new_hub.html#commit-and-deploy-to-staging">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="new_hub.html#id1">Hubs using a custom single-user server image</a></li>
-<li class="toctree-l4"><a class="reference internal" href="new_hub.html#id2">Hubs inheriting an existing single-user server image</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="new_hub.html#create-node-placeholder-scaler-entry">Create node placeholder scaler entry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="new_hub.html#commit-and-deploy-to-staging">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="new_hub.html#commit-and-deploy-to-prod">Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="new_hub.html#create-the-alerts-for-the-new-hub">Create the alerts for the new hub</a></li>
 </ul>
