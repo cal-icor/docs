@@ -352,7 +352,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-filestore-instance">Creating a new filestore instance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-hub-s-staging-and-prod-directories-in-the-filestore">Create hub’s <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories in the filestore</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentication">Authentication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentication">Authentication</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cilogon-auth">CiLogon Auth</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#github-auth">GitHub Auth</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-configuration">Create the hub deployment configuration</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>
@@ -418,17 +422,25 @@ repo.</p>
 <ol class="arabic simple">
 <li><p><a class="reference internal" href="#name-the-hub"><span class="xref myst">Choose a new hub name</span></a>.</p></li>
 <li><p><a class="reference internal" href="#determine-deployment-needs"><span class="xref myst">Determine deployment needs</span></a>, and create a new node pool and/or filestore instance if necessary.</p></li>
-<li><p><a class="reference internal" href="#create-hubs-staging-and-prod-directories-in-the-filestore"><span class="xref myst">Create the hub’s <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories in the filestore</span></a>.</p></li>
-<li><p><a class="reference internal" href="#create-the-hub-deployment-configuration"><span class="xref myst">Create a new hub deployment configuration file</span></a> in <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/_deploy_configs/</span></code>.</p></li>
-<li><p><a class="reference internal" href="#authentication"><span class="xref myst">Determine the authentication method</span></a> and create a new CILogon or Github OAuth application.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span> <span class="pre">-g</span> <span class="pre">&lt;github</span> <span class="pre">username&gt;</span> <span class="pre">&lt;institution</span> <span class="pre">or</span> <span class="pre">hubname&gt;</span></code>.</p></li>
-<li><p>Review the generated <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> file.</p></li>
+<li><p>Be sure your gcloud config is set to the cal-icor-hubs gcloud project: <code class="docutils literal notranslate"><span class="pre">gcloud</span> <span class="pre">config</span> <span class="pre">set</span> <span class="pre">project</span> <span class="pre">cal-icor-hubs</span></code></p></li>
 <li><p>If using a custom single-user server image, create the <a class="reference internal" href="new_image.html"><span class="doc std std-doc">new image and repository</span></a>.</p></li>
-<li><p><a class="reference internal" href="#create-node-placeholder-scaler-entry"><span class="xref myst">Create a node placeholder scaler entry</span></a> if needed (only if a <a class="reference internal" href="#creating-a-new-node-pool"><span class="xref myst">new node pool was created</span></a>).</p></li>
-<li><p>Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code>.</p></li>
+<li><p>If needed, <a class="reference internal" href="#create-node-placeholder-scaler-entry"><span class="xref myst">create a node placeholder scaler entry</span></a> (only if a <a class="reference internal" href="#creating-a-new-node-pool"><span class="xref myst">new node pool was created</span></a>).</p></li>
+<li><p><a class="reference internal" href="#create-the-hub-deployment-configuration"><span class="xref myst">Create a new hub deployment configuration file</span></a> in <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/_deploy_configs/</span></code>.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#authentication"><span class="xref myst">Determine the authentication method</span></a> and create a new CILogon or Github OAuth application.</p></li>
+</ul>
+</li>
+<li><p>Execute the file: <code class="docutils literal notranslate"><span class="pre">./create_deployment.sh</span> <span class="pre">-g</span> <span class="pre">&lt;github</span> <span class="pre">username&gt;</span> <span class="pre">&lt;institution</span> <span class="pre">or</span> <span class="pre">hubname&gt;</span></code>. This script automatically:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#create-hubs-staging-and-prod-directories-in-the-filestore"><span class="xref myst">Create the hub’s <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories in the filestore</span></a>.</p></li>
+<li><p>Commit and create the PR in <code class="docutils literal notranslate"><span class="pre">staging</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Review the PR created on GitHub by reviewing the new files</p></li>
+<li><p>Merge the PR. The Github Action executes the deployment to staging.</p></li>
 <li><p>Test the staging hub.</p></li>
-<li><p>Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code>.</p></li>
-<li><p><a class="reference internal" href="#create-the-alerts-for-the-new-hub"><span class="xref myst">Create the alerts</span></a> for <code class="docutils literal notranslate"><span class="pre">prod</span></code> deployment of the new hub.</p></li>
+<li><p>Create a PR from <code class="docutils literal notranslate"><span class="pre">staging</span></code> to <code class="docutils literal notranslate"><span class="pre">prod</span></code> and merge</p></li>
+<li><p><a class="reference internal" href="#create-the-alerts-for-the-new-hub"><span class="xref myst">Create the alerts</span></a> for the <code class="docutils literal notranslate"><span class="pre">prod</span></code> deployment of the new hub by executing: <code class="docutils literal notranslate"><span class="pre">./create-alerts.sh</span> <span class="pre">&lt;hub-name&gt;</span></code></p></li>
 </ol>
 </section>
 <section id="name-the-hub">
@@ -554,16 +566,60 @@ labels to a new filestore instance for tracking individual and full hub costs.</
 </section>
 <section id="authentication">
 <h3>Authentication<a class="headerlink" href="#authentication" title="Link to this heading">#</a></h3>
-<p>Go to the <a class="reference external" href="https://cilogon.org/">CILogon</a> website and create a new
-application.  This will give you a client ID and secret that you will
-need to add to the <code class="docutils literal notranslate"><span class="pre">hub_name.yaml</span></code> file you created earlier.  The
-application name should be the name of the hub, and the redirect URL
-should be <code class="docutils literal notranslate"><span class="pre">https://&lt;hubname&gt;-staging.cal-icor.org/hub/oauth_callback</span></code>
-and <code class="docutils literal notranslate"><span class="pre">https://&lt;hubname&gt;.cal-icor.org/hub/oauth_callback</span></code>.  The
-application type should be <code class="docutils literal notranslate"><span class="pre">Web</span> <span class="pre">application</span></code>.</p>
-<p>You will need to create two applications, one for the staging hub and one for the
-production hub.</p>
-<p>TODO: Add instructions for creating a Github OAuth app.</p>
+<section id="cilogon-auth">
+<h4>CiLogon Auth<a class="headerlink" href="#cilogon-auth" title="Link to this heading">#</a></h4>
+<p>Go to the <a class="reference external" href="https://cilogon.org/oauth2/register">CILogon Registration</a> page and create a new
+application.</p>
+<p>The page looks like this:
+<img alt="&quot;Image of CILogon Client Registration Page&quot;" src="../../_images/cilogon.png" /></p>
+<p>Here is an example, using CSU Long Beach, of how to complete the form for the <strong>staging</strong> hub:</p>
+<ul class="simple">
+<li><p>Client Application: California State University, Long Beach - Staging</p></li>
+<li><p>Contact Email: <a class="reference external" href="mailto:cal-icor-staff&#37;&#52;&#48;lists&#46;berkeley&#46;edu">cal-icor-staff<span>&#64;</span>lists<span>&#46;</span>berkeley<span>&#46;</span>edu</a></p></li>
+<li><p>Home Url: https://&lt;hubname&gt;-staging.jupyter.cal-icor.org</p></li>
+<li><p>Callback URLs: https://&lt;hubname&gt;-staging.jupyter.cal-icor.org/hub/oauth_callback</p></li>
+<li><p>Client Type: Confidential</p></li>
+<li><p>Scopes: email, openid, org.cilogon.userinfo</p></li>
+<li><p>Refresh Tokens: No</p></li>
+</ul>
+<p>After clicking the “Register Client” button, you are re-directed to a page that contains your
+Client ID and Secret; copy both of these to an appropriate place right away. You are going to insert them into the
+file <code class="docutils literal notranslate"><span class="pre">_deploy_configs/&lt;hub_name&gt;.yaml</span></code> you create in this <a class="reference internal" href="#create-the-hub-deployment-configuration"><span class="xref myst">step</span></a>.</p>
+<p>You will need to create two applications for each hub, one for the staging hub and one for the
+production hub. The example above is for staging. The changes for <strong>production</strong> are:</p>
+<ul class="simple">
+<li><p>Client Application: California State University, Long Beach</p></li>
+<li><p>Home Url: https://&lt;hubname&gt;.jupyter.cal-icor.org</p></li>
+<li><p>Callback URLs: https://&lt;hubname&gt;.jupyter.cal-icor.org/hub/oauth_callback</p></li>
+</ul>
+</section>
+<section id="github-auth">
+<h4>GitHub Auth<a class="headerlink" href="#github-auth" title="Link to this heading">#</a></h4>
+<p>Sometimes we can not set up CILogon for a particular institution. The other option is to use Github OAuth.</p>
+<ul class="simple">
+<li><p>Create an Github OAuth App at <a class="reference external" href="https://github.com/organizations/cal-icor/settings/applications">github.com/cal-icor</a></p></li>
+<li><p>Click the button: <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">OAuth</span> <span class="pre">App</span></code></p></li>
+<li><p>Complete the fields for the production OAuth</p>
+<ul>
+<li><p>Application Name: <hubname>-auth</p></li>
+<li><p>Homepage URL: https://<hubname>.jupyter.cal-icor.org</p></li>
+<li><p>Application Description:  This manages authentication for <hubname></p></li>
+<li><p>Authorization callback URL:  https://<hubname>.jupyter.cal-icor.org/hub/oauth_callback</p></li>
+<li><p>Enable Device Flow : Do not check this</p></li>
+<li><p>Click the green button: <code class="docutils literal notranslate"><span class="pre">Register</span> <span class="pre">Application</span></code></p></li>
+</ul>
+</li>
+<li><p>You will be given a Client ID and Secret. Copy them into the
+file <code class="docutils literal notranslate"><span class="pre">_deploy_configs/&lt;hub_name&gt;.yaml</span></code> you create in this <a class="reference internal" href="#create-the-hub-deployment-configuration"><span class="xref myst">step</span></a>.</p></li>
+<li><p>Create a OAuth App for the staging environment as well. The only changes from above are:</p>
+<ul>
+<li><p>Application Name: <hubname>-staging-auth</p></li>
+<li><p>Homepage URL: https://<hubname>-staging.jupyter.cal-icor.org</p></li>
+<li><p>Authorization callback URL:  https://<hubname>-staging.jupyter.cal-icor.org/hub/oauth_callback</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 <section id="create-the-hub-deployment-configuration">
 <h3>Create the hub deployment configuration<a class="headerlink" href="#create-the-hub-deployment-configuration" title="Link to this heading">#</a></h3>
@@ -936,7 +992,11 @@ and enable the alerts for the new hub:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-filestore-instance">Creating a new filestore instance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-hub-s-staging-and-prod-directories-in-the-filestore">Create hub’s <code class="docutils literal notranslate"><span class="pre">staging</span></code> and <code class="docutils literal notranslate"><span class="pre">prod</span></code> directories in the filestore</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-filestore-security-settings-and-gcp-billing-labels">Configure filestore security settings and GCP billing labels</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentication">Authentication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentication">Authentication</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cilogon-auth">CiLogon Auth</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#github-auth">GitHub Auth</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-configuration">Create the hub deployment configuration</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>

@@ -38,17 +38,19 @@ Proper access to the following systems:
 
 1. [Choose a new hub name](#name-the-hub).
 2. [Determine deployment needs](#determine-deployment-needs), and create a new node pool and/or filestore instance if necessary.
-3. [Create the hub's `staging` and `prod` directories in the filestore](#create-hubs-staging-and-prod-directories-in-the-filestore).
-4. [Create a new hub deployment configuration file](#create-the-hub-deployment-configuration) in `cal-icor-hubs/_deploy_configs/`.
-5. [Determine the authentication method](#authentication) and create a new CILogon or Github OAuth application.
-6. Run `create_deployment.sh -g <github username> <institution or hubname>`.
-7. Review the generated `hubploy.yaml` file.
-8. If using a custom single-user server image, create the [new image and repository](new_image).
-9. [Create a node placeholder scaler entry](#create-node-placeholder-scaler-entry) if needed (only if a [new node pool was created](#creating-a-new-node-pool)).
-10. Commit and deploy to `staging`.
-11. Test the staging hub.
-12. Commit and deploy to `prod`.
-13. [Create the alerts](#create-the-alerts-for-the-new-hub) for `prod` deployment of the new hub.
+3. Be sure your gcloud config is set to the cal-icor-hubs gcloud project: `gcloud config set project cal-icor-hubs`
+4. If using a custom single-user server image, create the [new image and repository](new_image).
+5. If needed, [create a node placeholder scaler entry](#create-node-placeholder-scaler-entry) (only if a [new node pool was created](#creating-a-new-node-pool)).
+6. [Create a new hub deployment configuration file](#create-the-hub-deployment-configuration) in `cal-icor-hubs/_deploy_configs/`.
+    - [Determine the authentication method](#authentication) and create a new CILogon or Github OAuth application.
+7. Execute the file: `./create_deployment.sh -g <github username> <institution or hubname>`. This script automatically:
+    - [Create the hub's `staging` and `prod` directories in the filestore](#create-hubs-staging-and-prod-directories-in-the-filestore).
+    - Commit and create the PR in `staging`.
+8. Review the PR created on GitHub by reviewing the new files
+9. Merge the PR. The Github Action executes the deployment to staging.
+10. Test the staging hub.
+11. Create a PR from `staging` to `prod` and merge
+12. [Create the alerts](#create-the-alerts-for-the-new-hub) for the `prod` deployment of the new hub by executing: `./create-alerts.sh <hub-name>`
 
 ### Name the hub
 
@@ -192,18 +194,50 @@ gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b
 
 ### Authentication
 
-Go to the [CILogon](https://cilogon.org/) website and create a new
-application.  This will give you a client ID and secret that you will
-need to add to the `hub_name.yaml` file you created earlier.  The
-application name should be the name of the hub, and the redirect URL
-should be `https://<hubname>-staging.cal-icor.org/hub/oauth_callback`
-and `https://<hubname>.cal-icor.org/hub/oauth_callback`.  The
-application type should be `Web application`.
+#### CiLogon Auth
+Go to the [CILogon Registration](https://cilogon.org/oauth2/register) page and create a new
+application.  
 
-You will need to create two applications, one for the staging hub and one for the
-production hub.
+The page looks like this:
+!["Image of CILogon Client Registration Page"](cilogon.png)
 
-TODO: Add instructions for creating a Github OAuth app.
+Here is an example, using CSU Long Beach, of how to complete the form for the **staging** hub:
+- Client Application: California State University, Long Beach - Staging
+- Contact Email: cal-icor-staff@lists.berkeley.edu
+- Home Url: https://\<hubname\>-staging.jupyter.cal-icor.org
+- Callback URLs: https://\<hubname\>-staging.jupyter.cal-icor.org/hub/oauth_callback
+- Client Type: Confidential
+- Scopes: email, openid, org.cilogon.userinfo
+- Refresh Tokens: No
+
+After clicking the "Register Client" button, you are re-directed to a page that contains your
+Client ID and Secret; copy both of these to an appropriate place right away. You are going to insert them into the 
+file `_deploy_configs/<hub_name>.yaml` you create in this [step](#create-the-hub-deployment-configuration).
+
+You will need to create two applications for each hub, one for the staging hub and one for the
+production hub. The example above is for staging. The changes for **production** are:
+- Client Application: California State University, Long Beach
+- Home Url: https://\<hubname\>.jupyter.cal-icor.org
+- Callback URLs: https://\<hubname\>.jupyter.cal-icor.org/hub/oauth_callback
+
+#### GitHub Auth
+Sometimes we can not set up CILogon for a particular institution. The other option is to use Github OAuth.
+- Create an Github OAuth App at [github.com/cal-icor](https://github.com/organizations/cal-icor/settings/applications) 
+- Click the button: `New OAuth App`
+- Complete the fields for the production OAuth
+  - Application Name: <hubname>-auth
+  - Homepage URL: https://<hubname>.jupyter.cal-icor.org
+  - Application Description:  This manages authentication for <hubname>
+  - Authorization callback URL:  https://<hubname>.jupyter.cal-icor.org/hub/oauth_callback
+  - Enable Device Flow : Do not check this
+  - Click the green button: `Register Application`
+- You will be given a Client ID and Secret. Copy them into the 
+file `_deploy_configs/<hub_name>.yaml` you create in this [step](#create-the-hub-deployment-configuration).
+
+- Create a OAuth App for the staging environment as well. The only changes from above are:
+  - Application Name: <hubname>-staging-auth
+  - Homepage URL: https://<hubname>-staging.jupyter.cal-icor.org
+  - Authorization callback URL:  https://<hubname>-staging.jupyter.cal-icor.org/hub/oauth_callback
 
 ### Create the hub deployment configuration
 
