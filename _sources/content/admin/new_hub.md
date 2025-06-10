@@ -225,19 +225,19 @@ Sometimes we can not set up CILogon for a particular institution. The other opti
 - Create an Github OAuth App at [github.com/cal-icor](https://github.com/organizations/cal-icor/settings/applications) 
 - Click the button: `New OAuth App`
 - Complete the fields for the production OAuth
-  - Application Name: <hubname>-auth
-  - Homepage URL: https://<hubname>.jupyter.cal-icor.org
-  - Application Description:  This manages authentication for <hubname>
-  - Authorization callback URL:  https://<hubname>.jupyter.cal-icor.org/hub/oauth_callback
+  - Application Name: \<hubname\>-auth
+  - Homepage URL: https://\<hubname\>.jupyter.cal-icor.org
+  - Application Description:  This manages authentication for \<hubname\>
+  - Authorization callback URL:  https://\<hubname\>.jupyter.cal-icor.org/hub/oauth_callback
   - Enable Device Flow : Do not check this
   - Click the green button: `Register Application`
 - You will be given a Client ID and Secret. Copy them into the 
 file `_deploy_configs/<hub_name>.yaml` you create in this [step](#create-the-hub-deployment-configuration).
 
 - Create a OAuth App for the staging environment as well. The only changes from above are:
-  - Application Name: <hubname>-staging-auth
-  - Homepage URL: https://<hubname>-staging.jupyter.cal-icor.org
-  - Authorization callback URL:  https://<hubname>-staging.jupyter.cal-icor.org/hub/oauth_callback
+  - Application Name: \<hubname\>-staging-auth
+  - Homepage URL: https://\<hubname\>-staging.jupyter.cal-icor.org
+  - Authorization callback URL:  https://\<hubname\>-staging.jupyter.cal-icor.org/hub/oauth_callback
 
 ### Create the hub deployment configuration
 
