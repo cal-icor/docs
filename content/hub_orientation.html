@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>User Environments &#8212; Cal-ICOR Documentation</title>
+    <title>Hub Orientation &#8212; Cal-ICOR Documentation</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/user_environments';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/hub_orientation';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Notebooks and Material Sharing" href="notebooks_materials.html" />
-    <link rel="prev" title="Hub Orientation" href="hub_orientation.html" />
+    <link rel="next" title="User Environments" href="user_environments.html" />
+    <link rel="prev" title="Authentication" href="authentication.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -174,8 +174,8 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hub_orientation.html">Hub Orientation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">User Environments</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Hub Orientation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_environments.html">User Environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks_materials.html">Notebooks and Material Sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="course_creation_workflow.html">Typical Course Creation Workflow</a></li>
 
@@ -248,7 +248,7 @@
       
       
       
-      <li><a href="../_sources/content/user_environments.md" target="_blank"
+      <li><a href="../_sources/content/hub_orientation.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -319,7 +319,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -330,11 +332,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>User Environments</h1>
+    <h1>Hub Orientation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cal-icor-california-education-learning-lab-and-uc-berkeley">Cal-ICOR: California Education Learning Lab and UC Berkeley</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-big-picture">The Big Picture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterhub-configuration">JupyterHub Configuration</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -344,61 +356,53 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="user-environments">
-<h1>User Environments<a class="headerlink" href="#user-environments" title="Link to this heading">#</a></h1>
-<ul>
-<li><h4 class="rubric" id="resources">Resources</h4>
-<p>These are available to each user:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="hub-orientation">
+<h1>Hub Orientation<a class="headerlink" href="#hub-orientation" title="Link to this heading">#</a></h1>
+<section id="cal-icor-california-education-learning-lab-and-uc-berkeley">
+<h2>Cal-ICOR: California Education Learning Lab and UC Berkeley<a class="headerlink" href="#cal-icor-california-education-learning-lab-and-uc-berkeley" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://calearninglab.org/">California Education Learning Lab</a> and UC Berkeley are teaming up to provide browser-based computing environments for Data and Computer Science courses in California Higher Education.</p>
+<p><strong>Website:</strong> <a class="reference external" href="https://cal-icor.org/">https://cal-icor.org/</a></p>
+</section>
+<hr class="docutils" />
+<section id="the-big-picture">
+<h2>The Big Picture<a class="headerlink" href="#the-big-picture" title="Link to this heading">#</a></h2>
+<p>The JupyterHub deployments are addressing various challenges in teaching Data and Computer Science:</p>
 <ul class="simple">
-<li><p><strong>RAM:</strong> 2 GB</p></li>
-<li><p><strong>CPU:</strong> 1</p></li>
-<li><p><strong>Storage Limits:</strong> TBD (Flexible based on course needs)</p></li>
+<li><p><strong>Consistent versions and environments</strong> ensure every student works with the same package/library versions.</p></li>
+<li><p><strong>Consistent processing power and memory</strong> eliminate dependency on students’ personal computer configurations.</p></li>
+<li><p><strong>No configuration required by students</strong>, allowing them to access materials and start working immediately.</p></li>
+<li><p><strong>Authentication via your institution’s credentials</strong>, avoiding the need for separate accounts.</p></li>
+<li><p><strong>Streamlined material distribution</strong> for easy and reliable access.</p></li>
+<li><p><strong>Persistent student storage</strong>, removing the need for constant downloads of work.</p></li>
 </ul>
-</li>
-<li><h4 class="rubric" id="kernels">Kernels</h4>
-<p>The base image includes both Python and R kernels.</p>
-</li>
-<li><h4 class="rubric" id="development-environments">Development Environments</h4>
+</section>
+<hr class="docutils" />
+<section id="jupyterhub-configuration">
+<h2>JupyterHub Configuration<a class="headerlink" href="#jupyterhub-configuration" title="Link to this heading">#</a></h2>
+<p>The JupyterHub is tied to your institution:<br />
+<code class="docutils literal notranslate"><span class="pre">&lt;institution&gt;.jupyter.cal-icor.org</span></code></p>
+<p>The following is provided:</p>
 <ul class="simple">
-<li><p>JupyterLab</p></li>
-<li><p>Jupyter Notebook</p></li>
-<li><p>VS Code</p></li>
+<li><p><strong>Custom Environment (Docker image):</strong> You can maintain your own image or use ours. This image defines the compute environment students use.</p></li>
+<li><p><strong>Computing Resources:</strong> By default, each user is allocated 1 CPU and 4 GB of memory. These limits can be customized as needed.</p></li>
+<li><p><strong>Development Tools:</strong></p>
+<ul>
+<li><p>JupyterLab (with Python and R kernels)</p></li>
+<li><p>VSCode</p></li>
 <li><p>RStudio</p></li>
 <li><p>Shiny</p></li>
+<li><p>Terminal access, enabling students to run scripts outside of an IDE</p></li>
 </ul>
 </li>
-<li><h4 class="rubric" id="python-packages">Python Packages</h4>
-<p>The following Python packages are pre-installed. Versions are available in the <a class="reference external" href="https://github.com/cal-icor/base-user-image/blob/main/environment.yml">repository</a>:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">datascience</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">jupyter-shiny-proxy</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">jupysql</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">openpyxl</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">otter-grader</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plotly</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">scipy</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">seaborn</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code></p></li>
-</ul>
-</li>
-<li><h4 class="rubric" id="r-packages">R Packages</h4>
-<p>The following R packages are pre-installed. Versions are available in the <a class="reference external" href="https://github.com/cal-icor/base-user-image/blob/main/install.R">repository</a>:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">gdalcubes</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mapgl</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">minioclient</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">rstac</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sf</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">stars</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">terra</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tidyverse</span></code></p></li>
+<li><p><strong>Language Support:</strong></p>
+<ul>
+<li><p>Python</p></li>
+<li><p>R</p></li>
+<li><p>C++</p></li>
 </ul>
 </li>
 </ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -432,20 +436,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="hub_orientation.html"
+       href="authentication.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Hub Orientation</p>
+        <p class="prev-next-title">Authentication</p>
       </div>
     </a>
     <a class="right-next"
-       href="notebooks_materials.html"
+       href="user_environments.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Notebooks and Material Sharing</p>
+        <p class="prev-next-title">User Environments</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -455,6 +459,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cal-icor-california-education-learning-lab-and-uc-berkeley">Cal-ICOR: California Education Learning Lab and UC Berkeley</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-big-picture">The Big Picture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterhub-configuration">JupyterHub Configuration</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
