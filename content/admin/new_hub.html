@@ -172,11 +172,11 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../hub_orientation.html">What is the Hub?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../authentication.html">Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hub_orientation.html">Hub Orientation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../course_creation_workflow.html">Typical Course Creation Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../course_creation_workflow.html">Course Creation Workflow</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_environments.html">User Environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks_materials.html">Notebooks and Material Sharing</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../policy/index.html">User policies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -360,7 +360,11 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#github-auth">GitHub Auth</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-configuration">Create the hub deployment configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-configuration">Create the hub deployment configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment-config">Deployment Config</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#output-of-deployment-script-using-config-above">Output of deployment script using config above</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
@@ -571,6 +575,8 @@ labels to a new filestore instance for tracking individual and full hub costs.</
 <h3>Authentication<a class="headerlink" href="#authentication" title="Link to this heading">#</a></h3>
 <section id="cilogon-auth">
 <h4>CiLogon Auth<a class="headerlink" href="#cilogon-auth" title="Link to this heading">#</a></h4>
+<p>We use <a class="reference external" href="https://www.cilogon.org/faq">CiLogon</a> to manage most authentication for higher education institutions.</p>
+<p>You’ll need CILogon credentials if the institution uses Shibboleth, InCommon, Microsoft, or Google as its identity provider. This covers nearly all our use cases. In rare instances, an institution’s IT department might restrict CILogon from providing identity information through Microsoft or Google. If this happens, you can use GitHub OAuth instead; instructions are provided below.</p>
 <p>Go to the <a class="reference external" href="https://cilogon.org/oauth2/register">CILogon Registration</a> page and create a new
 application.</p>
 <p>The page looks like this:
@@ -632,6 +638,7 @@ named <code class="docutils literal notranslate"><span class="pre">institution-e
 file <code class="docutils literal notranslate"><span class="pre">&lt;institution</span> <span class="pre">or</span> <span class="pre">hubnname&gt;.yaml</span></code>.</p>
 <p>Be sure to include the <a class="reference internal" href="#authentication"><span class="xref myst">authentication bits</span></a> that you created
 via either CILogon or Github OAuth in the configuration file.</p>
+<p>Below is an <a class="reference internal" href="#output-of-deployment-script-using-config-above"><span class="xref myst">example</span></a> with comments. Some attributes are left empty or assigned specific values depending on the authentication scheme (CILogon or GitHub). Further, if CILogon is used, these values also vary based on whether the identity provider is Microsoft, Google, or an institution-specific one (via Shibboleth or InCommon).</p>
 <p>From the root <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/</span></code> directory, you will run
 <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span> <span class="pre">-g</span> <span class="pre">&lt;github</span> <span class="pre">username&gt;</span> <span class="pre">&lt;institution</span> <span class="pre">or</span> <span class="pre">hubname&gt;</span></code>. This sets up the hub’s
 configuration directory in <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/deployments/</span></code>.</p>
@@ -644,7 +651,9 @@ can change the <code class="docutils literal notranslate"><span class="pre">hub_
 <code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;.yaml</span></code> file you created above. The script will then use the correct
 filestore instance and IP address when creating the deployment.</p>
 </div>
-<p>Here’s an example for a hub being deployed on the default shared resouces:</p>
+<p>Here’s an example for a hub being deployed on the default shared resources:</p>
+<section id="deployment-config">
+<h4>Deployment Config<a class="headerlink" href="#deployment-config" title="Link to this heading">#</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>_deploy_configs/newschool.yaml
 <span class="c1"># This is an example of a configuration file for a JupyterHub deployment.</span>
 <span class="c1"># This file should be renamed to &lt;name of deployment&gt;.yaml and kept in the</span>
@@ -665,15 +674,19 @@ staging:
 admin_emails:
 <span class="w">  </span>-<span class="w"> </span>sknapp@berkeley.edu
 <span class="w">  </span>-<span class="w"> </span>sean.smorris@berkeley.edu
-authenticator_class:<span class="w"> </span>cilogon
-authenticator_class_instance:<span class="w"> </span><span class="s2">&quot;CILogonOAuthenticator&quot;</span>
-idp_url:<span class="w">   </span>http://login.microsoftonline.com/common/oauth2/v2.0/authorize
-idp_allowed_domains:
+authenticator_class:<span class="w"> </span>cilogon<span class="w"> </span><span class="c1"># This is either cilogon or github</span>
+authenticator_class_instance:<span class="w"> </span><span class="s2">&quot;CILogonOAuthenticator&quot;</span><span class="w"> </span><span class="c1"># This is either &quot;CILogonOAuthenticator&quot; or &quot;GitHubOAuthenticator&quot;</span>
+idp_url:<span class="w"> </span>http://login.microsoftonline.com/common/oauth2/v2.0/authorize<span class="w"> </span><span class="c1"># cilogon only: if github set this to empty string: &quot;&quot;</span>
+idp_allowed_domains:<span class="w"> </span><span class="c1"># cilogon only: Microsoft or Google Auth Schemes only  e.g, This is an empty string or a yaml list</span>
 <span class="w">  </span>-<span class="w"> </span>example.edu
 <span class="w">  </span>-<span class="w"> </span>whee.edu
-allow_all:<span class="w"> </span><span class="s2">&quot;&quot;</span>
+allow_all:<span class="w"> </span><span class="s2">&quot;&quot;</span>,<span class="w"> </span><span class="c1"># cilogon only: Shibboleth or inCommon auth schemes set allow_all to true; otherwise empty string: &quot;&quot;</span>
+allowed_organizations:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># github only: This is an empty string or a yaml list e.g. - LACC-Statistical-Data-Analytics</span>
 </pre></div>
 </div>
+</section>
+<section id="output-of-deployment-script-using-config-above">
+<h4>Output of deployment script using config above<a class="headerlink" href="#output-of-deployment-script-using-config-above" title="Link to this heading">#</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./create_deployment.sh<span class="w"> </span>-g<span class="w"> </span>shaneknapp<span class="w"> </span>newschool
 Creating<span class="w"> </span>directories<span class="w"> </span><span class="k">for</span><span class="w"> </span>newschool<span class="w"> </span>on<span class="w"> </span>filestore.
 Switched<span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>branch<span class="w"> </span><span class="s1">&#39;add-newschool-deployment&#39;</span>
@@ -772,6 +785,7 @@ filestore instance.</p></li>
 </ul>
 <p>This will generate a directory with the name of the hub you provided
 with a skeleton configuration and all the necessary secrets.</p>
+</section>
 </section>
 <section id="ci-cd-and-single-user-server-image">
 <h3>CI/CD and single-user server image<a class="headerlink" href="#ci-cd-and-single-user-server-image" title="Link to this heading">#</a></h3>
@@ -1000,7 +1014,11 @@ and enable the alerts for the new hub:</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#github-auth">GitHub Auth</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-configuration">Create the hub deployment configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-hub-deployment-configuration">Create the hub deployment configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment-config">Deployment Config</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#output-of-deployment-script-using-config-above">Output of deployment script using config above</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>

@@ -1,4 +1,4 @@
-# Typical Course Creation Workflow
+# Course Creation Workflow
 
 Below is a typical set of steps for creating a course that uses JupyterHub:
 

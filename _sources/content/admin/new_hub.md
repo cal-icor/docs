@@ -195,6 +195,10 @@ gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b
 ### Authentication
 
 #### CiLogon Auth
+We use [CiLogon](https://www.cilogon.org/faq) to manage most authentication for higher education institutions.
+
+You'll need CILogon credentials if the institution uses Shibboleth, InCommon, Microsoft, or Google as its identity provider. This covers nearly all our use cases. In rare instances, an institution's IT department might restrict CILogon from providing identity information through Microsoft or Google. If this happens, you can use GitHub OAuth instead; instructions are provided below.
+
 Go to the [CILogon Registration](https://cilogon.org/oauth2/register) page and create a new
 application.  
 
@@ -249,6 +253,8 @@ file `<institution or hubnname>.yaml`.
 Be sure to include the [authentication bits](#authentication) that you created
 via either CILogon or Github OAuth in the configuration file.
 
+Below is an [example](#output-of-deployment-script-using-config-above) with comments. Some attributes are left empty or assigned specific values depending on the authentication scheme (CILogon or GitHub). Further, if CILogon is used, these values also vary based on whether the identity provider is Microsoft, Google, or an institution-specific one (via Shibboleth or InCommon).
+
 From the root `cal-icor-hubs/` directory, you will run
 `create_deployment.sh -g <github username> <institution or hubname>`. This sets up the hub's
 configuration directory in `cal-icor-hubs/deployments/`.
@@ -264,8 +270,9 @@ can change the `hub_filestore_instance` and `hub_filestore_ip` in the
 filestore instance and IP address when creating the deployment.
 :::
 
-Here's an example for a hub being deployed on the default shared resouces:
+Here's an example for a hub being deployed on the default shared resources:
 
+#### Deployment Config
 ``` bash
 $ cat _deploy_configs/newschool.yaml
 # This is an example of a configuration file for a JupyterHub deployment.
@@ -287,15 +294,17 @@ staging:
 admin_emails:
   - sknapp@berkeley.edu
   - sean.smorris@berkeley.edu
-authenticator_class: cilogon
-authenticator_class_instance: "CILogonOAuthenticator"
-idp_url:   http://login.microsoftonline.com/common/oauth2/v2.0/authorize
-idp_allowed_domains:
+authenticator_class: cilogon # This is either cilogon or github
+authenticator_class_instance: "CILogonOAuthenticator" # This is either "CILogonOAuthenticator" or "GitHubOAuthenticator"
+idp_url: http://login.microsoftonline.com/common/oauth2/v2.0/authorize # cilogon only: if github set this to empty string: ""
+idp_allowed_domains: # cilogon only: Microsoft or Google Auth Schemes only  e.g, This is an empty string or a yaml list
   - example.edu
   - whee.edu
-allow_all: ""
-```
+allow_all: "", # cilogon only: Shibboleth or inCommon auth schemes set allow_all to true; otherwise empty string: ""
+allowed_organizations: "" # github only: This is an empty string or a yaml list e.g. - LACC-Statistical-Data-Analytics
 
+```
+#### Output of deployment script using config above
 ``` bash
 ./create_deployment.sh -g shaneknapp newschool
 Creating directories for newschool on filestore.

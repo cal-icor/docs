@@ -11,8 +11,10 @@ development work through JupyterLab, VS Code, Shiny, and RStudio.
 
 This documentation is a living resource covering the following topics:
 
+- **[What is the Hub?](hub_orientation)**
 - **[Getting Started](getting_started)**
 - **[Authentication](authentication)**
+- **[Course Creation Workflow](course_creation_workflow)**
 - **[User Environments](user_environments)**
 - **[Notebook and Material Sharing](notebooks_materials)**
 - **[Acceptable Use and Privacy Policies](policy/index)**

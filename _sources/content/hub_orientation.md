@@ -1,4 +1,4 @@
-# Hub Orientation
+# What is the Hub?
 
 ## Cal-ICOR: California Education Learning Lab and UC Berkeley
 
@@ -29,7 +29,7 @@ The JupyterHub is tied to your institution:
 The following is provided:
 
 - **Custom Environment (Docker image):** You can maintain your own image or use ours. This image defines the compute environment students use.
-- **Computing Resources:** By default, each user is allocated 1 CPU and 4 GB of memory. These limits can be customized as needed.
+- **Computing Resources:** By default, each user is allocated 1 CPU and 2 GB of memory. These limits can be customized as needed.
 - **Development Tools:**
   - JupyterLab (with Python and R kernels)
   - VSCode
