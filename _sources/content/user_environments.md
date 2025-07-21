@@ -1,17 +1,18 @@
 # User Environments
 
-- #### Resources
+## Resources
 
-    These are available to each user:
+These are available to each user:
+
 - **RAM:** 2 GB
 - **CPU:** 1
 - **Storage Limits:** TBD (Flexible based on course needs)
 
-- #### Kernels
+## Kernels
 
 The base image includes both Python and R kernels.
 
-- #### Development Environments
+## Development Environments
 
 - JupyterLab
 - Jupyter Notebook
@@ -19,7 +20,7 @@ The base image includes both Python and R kernels.
 - RStudio
 - Shiny
 
-- #### Python Packages
+## Python Packages
 
 The following Python packages are pre-installed. Versions are available in the [repository](https://github.com/cal-icor/base-user-image/blob/main/environment.yml):
 
@@ -37,7 +38,7 @@ The following Python packages are pre-installed. Versions are available in the [
 - `seaborn`
 - `statsmodels`
 
-- #### R Packages
+## R Packages
 
 The following R packages are pre-installed. Versions are available in the [repository](https://github.com/cal-icor/base-user-image/blob/main/install.R):
 

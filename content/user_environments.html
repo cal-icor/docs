@@ -319,7 +319,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -335,6 +337,18 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernels">Kernels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-environments">Development Environments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-packages">Python Packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r-packages">R Packages</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -346,30 +360,33 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="user-environments">
 <h1>User Environments<a class="headerlink" href="#user-environments" title="Link to this heading">#</a></h1>
-<ul>
-<li><h4 class="rubric" id="resources">Resources</h4>
+<section id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h2>
 <p>These are available to each user:</p>
-</li>
+<ul class="simple">
 <li><p><strong>RAM:</strong> 2 GB</p></li>
 <li><p><strong>CPU:</strong> 1</p></li>
 <li><p><strong>Storage Limits:</strong> TBD (Flexible based on course needs)</p></li>
-<li><h4 class="rubric" id="kernels">Kernels</h4>
-</li>
 </ul>
+</section>
+<section id="kernels">
+<h2>Kernels<a class="headerlink" href="#kernels" title="Link to this heading">#</a></h2>
 <p>The base image includes both Python and R kernels.</p>
-<ul>
-<li><h4 class="rubric" id="development-environments">Development Environments</h4>
-</li>
+</section>
+<section id="development-environments">
+<h2>Development Environments<a class="headerlink" href="#development-environments" title="Link to this heading">#</a></h2>
+<ul class="simple">
 <li><p>JupyterLab</p></li>
 <li><p>Jupyter Notebook</p></li>
 <li><p>VS Code</p></li>
 <li><p>RStudio</p></li>
 <li><p>Shiny</p></li>
-<li><h4 class="rubric" id="python-packages">Python Packages</h4>
-</li>
 </ul>
+</section>
+<section id="python-packages">
+<h2>Python Packages<a class="headerlink" href="#python-packages" title="Link to this heading">#</a></h2>
 <p>The following Python packages are pre-installed. Versions are available in the <a class="reference external" href="https://github.com/cal-icor/base-user-image/blob/main/environment.yml">repository</a>:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">datascience</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">jupyter-shiny-proxy</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">jupysql</span></code></p></li>
@@ -383,9 +400,10 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">scipy</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">seaborn</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code></p></li>
-<li><h4 class="rubric" id="r-packages">R Packages</h4>
-</li>
 </ul>
+</section>
+<section id="r-packages">
+<h2>R Packages<a class="headerlink" href="#r-packages" title="Link to this heading">#</a></h2>
 <p>The following R packages are pre-installed. Versions are available in the <a class="reference external" href="https://github.com/cal-icor/base-user-image/blob/main/install.R">repository</a>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">gdalcubes</span></code></p></li>
@@ -397,6 +415,7 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">terra</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tidyverse</span></code></p></li>
 </ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -453,6 +472,25 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernels">Kernels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-environments">Development Environments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-packages">Python Packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#r-packages">R Packages</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
