@@ -41,4 +41,3 @@ The following is provided:
   - Python
   - R
   - C++
-

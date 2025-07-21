@@ -27,7 +27,7 @@ to provide computing resources to Authorized Users.  This includes, but is not
 limited to, Amazon Web Services (AWS), Google Cloud Platform (GCP), and
 Microsoft Azure (Azure).
 
-**Cal-ICOR Managed Infrastructure**: Also referred to as Infrastruture.  Any
+**Cal-ICOR Managed Infrastructure**: Also referred to as Infrastructure.  Any
 web service, program, or cloud infrastructure that Cal-ICOR manages on behalf
 of a participating Institution and hosted by a Cloud Provider.
 

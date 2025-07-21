@@ -56,7 +56,7 @@ Proper access to the following systems:
 
 Choose the hub name, which is typically the name of the institution joining our
 community.  It may also include the name of a course or department.  This is a
-permanant name, so be sure to check with the instructor and/or department
+permanent name, so be sure to check with the instructor and/or department
 before proceeding.  The name should be all lowercase, and can include
 letters, numbers, and hyphens.  The name should not include any spaces or
 special characters.  The name should be unique within the CAL-ICOR
@@ -89,7 +89,7 @@ packages/libraries that need to be installed, as well as what
 language(s) the course will be using. This will determine which image to
 use, and if we will need to add additional packages to the image build.
 
-#### Placing this hub on shared resourses (node pool and/or filestore)
+#### Placing this hub on shared resources (node pool and/or filestore)
 
 If you're going to use an existing node pool and/or filestore instance,
 you can skip either or both of the following steps and pick back up at
