@@ -1,9 +1,9 @@
 # Support Resources
 
 ## Hub-Related Issues:
-  - **Authentication Issues:** If you are having trouble logging in, submit an issue [here](https://github.com/cal-icor/cal-icor-hubs/issues)
-  - **R or Python packages:** If you need a R or Python package installed, first check [here](user_environments.md) to see if it is already included in the default environment and, if the package is not installed, submit an issue [here](https://github.com/cal-icor/base-user-image/issues)
-  - **Other Technical Issues:** IF you are having problems with deployment or other technical issues, submit an issue [here](https://github.com/cal-icor/cal-icor-hubs/issues)
+  - **Authentication Issues:** If you are having trouble logging in, submit an issue [here](https://github.com/cal-icor/cal-icor-hubs/issues/new?template=BLANK_ISSUE).
+  - **R or Python packages:** If you need a R or Python package installed, first check [here](user_environments.md) to see if it is already included in the default environment and, if the package is not installed, submit an issue [here](https://github.com/cal-icor/base-user-image/issues).
+  - **Other Technical Issues:** IF you are having problems with deployment or other technical issues, submit an issue [here](https://github.com/cal-icor/cal-icor-hubs/issues/new/choose).
   - **Custom environments:** While our images contain many of the popular development tools, programming languages and libraries(packages), we may be able to create a specific user image to suit your needs.
   
 ## Authoring Notebooks:  
