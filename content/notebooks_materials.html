@@ -319,7 +319,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -335,6 +337,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebooks">Notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#materials-sharing">Materials Sharing</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -346,8 +357,28 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="notebooks-and-material-sharing">
 <h1>Notebooks and Material Sharing<a class="headerlink" href="#notebooks-and-material-sharing" title="Link to this heading">#</a></h1>
+<section id="notebooks">
+<h2>Notebooks<a class="headerlink" href="#notebooks" title="Link to this heading">#</a></h2>
 <p>We showcase Jupyter Notebook-based courses that highlight interactive and data-driven learning. Our goal is to build a collaborative community where educators contribute, share, and refine courses designed around Jupyter notebooks. By fostering an open and supportive environment, we aim to make high-quality, interactive learning materials more accessible and widely available.</p>
 <p>Our current courses and documentation related to creating Jupyter notebooks are found <a class="reference external" href="https://cal-icor.github.io/textbook/intro.html">here</a>.</p>
+</section>
+<section id="materials-sharing">
+<h2>Materials Sharing<a class="headerlink" href="#materials-sharing" title="Link to this heading">#</a></h2>
+<p>For sharing datasets for coursework, we have shared folders available on your institution’s JupyterHub deployment. These folders are designed to facilitate easy access to datasets for students and instructors alike.</p>
+<p>Two folders are available:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">shared</span></code></strong>: This folder is <strong>read only</strong>, and accessible to all students and instructors on a given Jupyerhub. This is where students will access datasets that are commonly used across various courses instead of downloading them individually.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">shared_readwrite</span></code></strong>: This folder is <strong>read and write</strong>, and accessible to instructors only. Instructors can use this folder to upload datasets that are specific to their courses, allowing students to access them directly from the shared location.</p></li>
+</ul>
+<p>As an instructor, you should have Administrator access before using these shared folders. If you are not an Administrator and need access to the <code class="docutils literal notranslate"><span class="pre">shared_readwrite</span></code> folder, please <a class="reference external" href="https://github.com/cal-icor/cal-icor-hubs/issues/new?template=admin_request.yaml">open an issue here</a>.</p>
+<p>To best use these shared folders, we recommend the following steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Create a subfolder in the <code class="docutils literal notranslate"><span class="pre">shared_readwrite</span></code> folder</strong> for your course. This helps keep datasets organized and easily accessible.</p></li>
+<li><p><strong>Upload datasets to your course subfolder</strong> in the <code class="docutils literal notranslate"><span class="pre">shared_readwrite</span></code> folder. This allows students to access them directly from the <code class="docutils literal notranslate"><span class="pre">shared</span></code> folder without needing to download them individually.</p></li>
+<li><p><strong>Include the <code class="docutils literal notranslate"><span class="pre">shared</span></code> folder path in any notebooks that you plan on sharing with the students.</strong> This will allow you to test the notebooks with the correct paths to any datasets you have uploaded before you share them with students.</p></li>
+</ol>
+<p>We encourage you to use these shared folders to streamline the process of providing datasets to your students, ensuring they have easy access to the materials they need for their coursework.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -404,6 +435,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebooks">Notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#materials-sharing">Materials Sharing</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
