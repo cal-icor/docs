@@ -4,7 +4,7 @@
 
 We showcase Jupyter Notebook-based courses that highlight interactive and data-driven learning. Our goal is to build a collaborative community where educators contribute, share, and refine courses designed around Jupyter notebooks. By fostering an open and supportive environment, we aim to make high-quality, interactive learning materials more accessible and widely available.
 
-Our current courses and documentation related to creating Jupyter notebooks are found [here](https://cal-icor.github.io/textbook/intro.html).
+Our current courses and documentation related to creating Jupyter notebooks are found [in our modules showcase](https://cal-icor.github.io/textbook/intro.html).  After selecting a module from the front page, you can then launch the notebook by clicking on the "Play" button in the top right corner of the module page and entering the URL of your JupyterHub deployment under "Private".
 
 ## Materials Sharing
 
