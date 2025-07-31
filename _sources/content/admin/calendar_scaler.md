@@ -165,13 +165,13 @@ to change/add/update any packages, you'll need to do the following:
 You can monitor the scaling by watching for events:
 
 ``` bash
-kubectl -n node-placeholder get events -w
+kubectl -n support get events -w
 ```
 
 And by tailing the logs of the pod with the scalar process:
 
 ``` bash
-kubectl -n node-placeholder logs -l app.kubernetes.io/name=node-placeholder-scaler -f
+kubectl -n support logs -l app.kubernetes.io/name=node-placeholder-scaler -f
 ```
 
 For example if you set `epsilon: 2`, you might see in the

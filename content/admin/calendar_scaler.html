@@ -512,11 +512,11 @@ necessary.</p></li>
 <section id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Link to this heading">#</a></h2>
 <p>You can monitor the scaling by watching for events:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>-n<span class="w"> </span>node-placeholder<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-w
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>-n<span class="w"> </span>support<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-w
 </pre></div>
 </div>
 <p>And by tailing the logs of the pod with the scalar process:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>-n<span class="w"> </span>node-placeholder<span class="w"> </span>logs<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/name<span class="o">=</span>node-placeholder-scaler<span class="w"> </span>-f
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>-n<span class="w"> </span>support<span class="w"> </span>logs<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/name<span class="o">=</span>node-placeholder-scaler<span class="w"> </span>-f
 </pre></div>
 </div>
 <p>For example if you set <code class="docutils literal notranslate"><span class="pre">epsilon:</span> <span class="pre">2</span></code>, you might see in the
