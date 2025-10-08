@@ -369,7 +369,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-deployment-s-hubploy-yaml">Review the deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-node-placeholder-scaler-entry">Create node placeholder scaler entry</a></li>
@@ -485,9 +484,10 @@ use, and if we will need to add additional packages to the image build.</p>
 <h4>Placing this hub on shared resources (node pool and/or filestore)<a class="headerlink" href="#placing-this-hub-on-shared-resources-node-pool-and-or-filestore" title="Link to this heading">#</a></h4>
 <p>If you’re going to use an existing node pool and/or filestore instance,
 you can skip either or both of the following steps and pick back up at
+<a class="reference internal" href="#authentication"><span class="xref myst">Authentication</span></a> and then
 <a class="reference internal" href="#create-the-hub-deployment-configuration"><span class="xref myst">Create the hub deployment in the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code> repo</span></a>.</p>
-<p>When creating a new hub, we also make sure to label the filestore and
-GKE/node pool resources with both <code class="docutils literal notranslate"><span class="pre">hub</span></code> and
+<p>When creating a new hub with either/both a new node pool and filestore
+instance, we also make sure to label these resources with both <code class="docutils literal notranslate"><span class="pre">hub</span></code> and
 <code class="docutils literal notranslate"><span class="pre">&lt;nodepool|filestore&gt;-deployment</span></code>. 99.999% of the time, the values for
 all three of these labels will be <code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;</span></code>.</p>
 </section>
@@ -795,14 +795,27 @@ in <code class="docutils literal notranslate"><span class="pre">.github/workflow
 Labels, which are applied automatically on PR creation.</p>
 <p>This label will be created automatically when you run
 <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span></code>, and will look like <code class="docutils literal notranslate"><span class="pre">hub:</span> <span class="pre">&lt;hubname&gt;</span></code>.</p>
+<p>The single-user server image is built and pushed to the Google Container Registry
+via the <code class="docutils literal notranslate"><span class="pre">build-and-push-image.yaml</span></code> workflow in the respective image repository.</p>
+<p>The definition for this image is located in <code class="docutils literal notranslate"><span class="pre">deployment/&lt;hubname&gt;/config/common.yaml</span></code>
+and looks like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">jupyterhub</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># a bunch of hub config here...</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">singleuser</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-central1-docker.pkg.dev/cal-icor-hubs/user-images/base-user-image</span>
+<span class="w">      </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;some hash&gt;</span>
+</pre></div>
+</div>
 <section id="hubs-inheriting-an-existing-single-user-server-image">
 <h4>Hubs inheriting an existing single-user server image<a class="headerlink" href="#hubs-inheriting-an-existing-single-user-server-image" title="Link to this heading">#</a></h4>
 <p>If this hub will inherit an existing image, the <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span></code>
-script will have created a <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> file in the <code class="docutils literal notranslate"><span class="pre">deployments/&lt;hubname&gt;/</span></code>
+script will have created <code class="docutils literal notranslate"><span class="pre">common.yaml</span></code> file in the <code class="docutils literal notranslate"><span class="pre">deployments/&lt;hubname&gt;/config/</span></code>
 directory.  This file will have the image tag from an existing deployment which
 will contain the latest image hash.</p>
 <p>The image specification is found in the cookiecutter template, located here:</p>
-<p><code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/deployments/template/{{cookiecutter.hub_name}}/hubploy.yaml</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">cal-icor-hubs/deployments/template/{{cookiecutter.hub_name}}/config/common.yaml</span></code></p>
 </section>
 <section id="hubs-using-a-custom-single-user-server-image">
 <h4>Hubs using a custom single-user server image<a class="headerlink" href="#hubs-using-a-custom-single-user-server-image" title="Link to this heading">#</a></h4>
@@ -813,18 +826,8 @@ case, the image tag will be <code class="docutils literal notranslate"><span cla
 <p><em>NOTE:</em> The changes to the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code> repo are required to be merged
 BEFORE the new image configuration is pushed to <code class="docutils literal notranslate"><span class="pre">main</span></code> in the image repo.  This
 is due to the image building/pushing workflow requiring this deployment’s
-<code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> to be present in the <code class="docutils literal notranslate"><span class="pre">deployments/&lt;hubname&gt;/</span></code> subdirectory, as
+<code class="docutils literal notranslate"><span class="pre">common.yaml</span></code> to be present in the <code class="docutils literal notranslate"><span class="pre">deployments/&lt;hubname&gt;/config</span></code> subdirectory, as
 it updates the image tag.</p>
-</section>
-<section id="review-the-deployment-s-hubploy-yaml">
-<h4>Review the deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code><a class="headerlink" href="#review-the-deployment-s-hubploy-yaml" title="Link to this heading">#</a></h4>
-<p>Next, review <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> inside your project directory to confirm that
-looks cromulent.  An example from the <code class="docutils literal notranslate"><span class="pre">jupyter</span></code> hub:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">images</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">images</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-central1-docker.pkg.dev/cal-icor-hubs/user-images/base-user-image:&lt;image tag OR &quot;PLACEHOLDER&quot;&gt;</span>
-</pre></div>
-</div>
 </section>
 </section>
 <section id="create-node-placeholder-scaler-entry">
@@ -836,7 +839,7 @@ ability to set aside additional placeholder nodes. These are nodes that
 get spun up in anticipation of the pool needing to suddenly grow in
 size, for example when large classes begin.</p>
 <p>Otherwise, you’ll need to add the placeholder settings in
-<code class="docutils literal notranslate"><span class="pre">node-placeholder/values.yaml</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">support/values.yaml</span></code>.</p>
 <p>The node placeholder pod should have enough RAM allocated to it that it
 needs to be kicked out to get even a single user pod on the node - but
 not so big that it can’t run on a node where other system pods are
@@ -909,15 +912,16 @@ aside for predicatable periods of heavy ramp up.</p>
 </section>
 <section id="commit-and-deploy-to-staging">
 <h3>Commit and deploy to <code class="docutils literal notranslate"><span class="pre">staging</span></code><a class="headerlink" href="#commit-and-deploy-to-staging" title="Link to this heading">#</a></h3>
-<p>Commit the hub directory, and make a PR to the the <code class="docutils literal notranslate"><span class="pre">staging</span></code> branch in
-the GitHub repo.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">create_deployment.sh</span></code> script will have automatically created a new branch
+and PR for staging automatically.</p>
 </section>
 <section id="commit-and-deploy-to-prod">
 <h3>Commit and deploy to <code class="docutils literal notranslate"><span class="pre">prod</span></code><a class="headerlink" href="#commit-and-deploy-to-prod" title="Link to this heading">#</a></h3>
-<p>Make a PR from the <code class="docutils literal notranslate"><span class="pre">staging</span></code> branch to the <code class="docutils literal notranslate"><span class="pre">prod</span></code> branch. When this
-PR is merged, it’ll deploy the production hub. It might take a few
+<p>After your PR to <code class="docutils literal notranslate"><span class="pre">staging</span></code> is merged, next create a new PR from the <code class="docutils literal notranslate"><span class="pre">staging</span></code>
+branch to the <code class="docutils literal notranslate"><span class="pre">prod</span></code> branch (<a class="reference external" href="https://github.com/cal-icor/cal-icor-hubs/compare/prod...staging">https://github.com/cal-icor/cal-icor-hubs/compare/prod…staging</a>).
+When this PR is merged, it will deploy the production hub. It might take a few
 minutes for HTTPS to work, but after that you can log into it at
-<a class="reference external" href="https://">https://</a>&lt;hub_name&gt;.cal-icor.org. Test it out and make
+<code class="docutils literal notranslate"><span class="pre">https://&lt;hub_name&gt;.jupyter.cal-icor.org</span></code>. Test it out and make
 sure things work as you think they should.</p>
 </section>
 <section id="create-the-alerts-for-the-new-hub">
@@ -1023,7 +1027,6 @@ and enable the alerts for the new hub:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd-and-single-user-server-image">CI/CD and single-user server image</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-inheriting-an-existing-single-user-server-image">Hubs inheriting an existing single-user server image</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubs-using-a-custom-single-user-server-image">Hubs using a custom single-user server image</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-deployment-s-hubploy-yaml">Review the deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-node-placeholder-scaler-entry">Create node placeholder scaler entry</a></li>

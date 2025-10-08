@@ -93,10 +93,11 @@ use, and if we will need to add additional packages to the image build.
 
 If you're going to use an existing node pool and/or filestore instance,
 you can skip either or both of the following steps and pick back up at
+[Authentication](#authentication) and then
 [Create the hub deployment in the `cal-icor-hubs` repo](#create-the-hub-deployment-configuration).
 
-When creating a new hub, we also make sure to label the filestore and
-GKE/node pool resources with both `hub` and
+When creating a new hub with either/both a new node pool and filestore
+instance, we also make sure to label these resources with both `hub` and
 `<nodepool|filestore>-deployment`. 99.999% of the time, the values for
 all three of these labels will be `<hubname>`.
 
@@ -195,6 +196,7 @@ gcloud filestore instances update <filestore-instance-name> --zone=us-central1-b
 ### Authentication
 
 #### CiLogon Auth
+
 We use [CiLogon](https://www.cilogon.org/faq) to manage most authentication for higher education institutions.
 
 You'll need CILogon credentials if the institution uses Shibboleth, InCommon, Microsoft, or Google as its identity provider. This covers nearly all our use cases. In rare instances, an institution's IT department might restrict CILogon from providing identity information through Microsoft or Google. If this happens, you can use GitHub OAuth instead; instructions are provided below.
@@ -206,8 +208,9 @@ The page looks like this:
 !["Image of CILogon Client Registration Page"](cilogon.png)
 
 Here is an example, using CSU Long Beach, of how to complete the form for the **staging** hub:
+
 - Client Application: California State University, Long Beach - Staging
-- Contact Email: cal-icor-staff@lists.berkeley.edu
+- Contact Email: <cal-icor-staff@lists.berkeley.edu>
 - Home Url: https://\<hubname\>-staging.jupyter.cal-icor.org
 - Callback URLs: https://\<hubname\>-staging.jupyter.cal-icor.org/hub/oauth_callback
 - Client Type: Confidential
@@ -220,12 +223,15 @@ file `_deploy_configs/<hub_name>.yaml` you create in this [step](#create-the-hub
 
 You will need to create two applications for each hub, one for the staging hub and one for the
 production hub. The example above is for staging. The changes for **production** are:
+
 - Client Application: California State University, Long Beach
 - Home Url: https://\<hubname\>.jupyter.cal-icor.org
 - Callback URLs: https://\<hubname\>.jupyter.cal-icor.org/hub/oauth_callback
 
 #### GitHub Auth
+
 Sometimes we can not set up CILogon for a particular institution. The other option is to use Github OAuth.
+
 - Create an Github OAuth App at [github.com/cal-icor](https://github.com/organizations/cal-icor/settings/applications) 
 - Click the button: `New OAuth App`
 - Complete the fields for the production OAuth
@@ -273,6 +279,7 @@ filestore instance and IP address when creating the deployment.
 Here's an example for a hub being deployed on the default shared resources:
 
 #### Deployment Config
+
 ``` bash
 $ cat _deploy_configs/newschool.yaml
 # This is an example of a configuration file for a JupyterHub deployment.
@@ -302,9 +309,10 @@ idp_allowed_domains: # cilogon only: Microsoft or Google Auth Schemes only  e.g,
   - whee.edu
 allow_all: "", # cilogon only: Shibboleth or inCommon auth schemes set allow_all to true; otherwise empty string: ""
 allowed_organizations: "" # github only: This is an empty string or a yaml list e.g. - LACC-Statistical-Data-Analytics
-
 ```
+
 #### Output of deployment script using config above
+
 ``` bash
 ./create_deployment.sh -g shaneknapp newschool
 Creating directories for newschool on filestore.
@@ -414,16 +422,32 @@ Labels, which are applied automatically on PR creation.
 This label will be created automatically when you run
 `create_deployment.sh`, and will look like `hub: <hubname>`.
 
+The single-user server image is built and pushed to the Google Container Registry
+via the `build-and-push-image.yaml` workflow in the respective image repository.
+
+The definition for this image is located in `deployment/<hubname>/config/common.yaml`
+and looks like this:
+
+``` yaml
+jupyterhub:
+  # a bunch of hub config here...
+  # ...
+  singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/cal-icor-hubs/user-images/base-user-image
+      tag: <some hash>
+```
+
 #### Hubs inheriting an existing single-user server image
 
 If this hub will inherit an existing image, the `create_deployment.sh`
-script will have created a `hubploy.yaml` file in the `deployments/<hubname>/`
+script will have created `common.yaml` file in the `deployments/<hubname>/config/`
 directory.  This file will have the image tag from an existing deployment which
 will contain the latest image hash.
 
 The image specification is found in the cookiecutter template, located here:
 
-`cal-icor-hubs/deployments/template/{{cookiecutter.hub_name}}/hubploy.yaml`
+`cal-icor-hubs/deployments/template/{{cookiecutter.hub_name}}/config/common.yaml`
 
 #### Hubs using a custom single-user server image
 
@@ -435,19 +459,8 @@ case, the image tag will be `PLACEHOLDER` and will be updated AFTER your PR to
 *NOTE:* The changes to the `cal-icor-hubs` repo are required to be merged
 BEFORE the new image configuration is pushed to `main` in the image repo.  This
 is due to the image building/pushing workflow requiring this deployment's
-`hubploy.yaml` to be present in the `deployments/<hubname>/` subdirectory, as
+`common.yaml` to be present in the `deployments/<hubname>/config` subdirectory, as
 it updates the image tag.
-
-#### Review the deployment's `hubploy.yaml`
-
-Next, review `hubploy.yaml` inside your project directory to confirm that
-looks cromulent.  An example from the `jupyter` hub:
-
-``` yaml
-images:
-  images:
-    - name: us-central1-docker.pkg.dev/cal-icor-hubs/user-images/base-user-image:<image tag OR "PLACEHOLDER">
-```
 
 ### Create node placeholder scaler entry
 
@@ -460,7 +473,7 @@ get spun up in anticipation of the pool needing to suddenly grow in
 size, for example when large classes begin.
 
 Otherwise, you'll need to add the placeholder settings in
-`node-placeholder/values.yaml`.
+`support/values.yaml`.
 
 The node placeholder pod should have enough RAM allocated to it that it
 needs to be kicked out to get even a single user pod on the node - but
@@ -539,15 +552,16 @@ aside for predicatable periods of heavy ramp up.
 
 ### Commit and deploy to `staging`
 
-Commit the hub directory, and make a PR to the the `staging` branch in
-the GitHub repo.
+The `create_deployment.sh` script will have automatically created a new branch
+and PR for staging automatically.
 
 ### Commit and deploy to `prod`
 
-Make a PR from the `staging` branch to the `prod` branch. When this
-PR is merged, it'll deploy the production hub. It might take a few
+After your PR to `staging` is merged, next create a new PR from the `staging`
+branch to the `prod` branch (<https://github.com/cal-icor/cal-icor-hubs/compare/prod...staging>).
+When this PR is merged, it will deploy the production hub. It might take a few
 minutes for HTTPS to work, but after that you can log into it at
-<https://>\<hub_name\>.cal-icor.org. Test it out and make
+`https://<hub_name>.jupyter.cal-icor.org`. Test it out and make
 sure things work as you think they should.
 
 ### Create the alerts for the new hub

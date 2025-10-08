@@ -344,9 +344,9 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-repository-settings">Image Repository Settings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-fork-s-repository-settings">Your Fork’s Repository Settings</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disable-your-fork-s-repository-settings">Disable Your Fork’s Repository Settings</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-artifact-registry-pushing">Enable Artifact Registry Pushing</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-hubploy">Configure <code class="docutils literal notranslate"><span class="pre">hubploy</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-common-yaml">Configure <code class="docutils literal notranslate"><span class="pre">common.yaml</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subscribe-to-github-repo-in-slack">Subscribe to GitHub Repo in Slack</a></li>
@@ -379,7 +379,7 @@ from a shared single user server image. We use
 to the repo.</p>
 <p>There are two approaches to pre-populate the image’s assets:</p>
 <ol class="arabic simple">
-<li><p>Fork <a class="reference external" href="https://github.com/cal-icor/base-user-image">hub-user-image-template</a>.
+<li><p>Fork our <a class="reference external" href="https://github.com/cal-icor/base-user-image">base-user-image</a>.
 Click “Use this template” &gt; “Create a new repository”. Be sure to follow
 convention and name the repo <code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;-user-image</span></code>, and the owner needs to be
 <code class="docutils literal notranslate"><span class="pre">cal-icor</span></code>. When that is done, create your own fork of the new repo.</p></li>
@@ -404,8 +404,8 @@ always be <code class="docutils literal notranslate"><span class="pre">us-centra
 image name will always be the same as the repo:  <code class="docutils literal notranslate"><span class="pre">&lt;hubname&gt;-user-image</span></code>.</p></li>
 </ol>
 </section>
-<section id="your-fork-s-repository-settings">
-<h2>Your Fork’s Repository Settings<a class="headerlink" href="#your-fork-s-repository-settings" title="Link to this heading">#</a></h2>
+<section id="disable-your-fork-s-repository-settings">
+<h2>Disable Your Fork’s Repository Settings<a class="headerlink" href="#disable-your-fork-s-repository-settings" title="Link to this heading">#</a></h2>
 <p>Now you will want to disable Github Actions for your fork of the image repo.
 If you don’t, whenever you push PRs to the root repo the workflows <em>in your
 fork</em> will attempt to run, but don’t have the proper permissions to
@@ -423,26 +423,22 @@ as well as to push a branch to the <a class="reference external" href="https://g
 <p>Edit both <code class="docutils literal notranslate"><span class="pre">IMAGE_BUILDER_CREATE_PR</span></code> and <code class="docutils literal notranslate"><span class="pre">GAR_SECRET_KEY</span></code>, and click on the gear icon,
 search for your repo name, check the box and save.</p>
 </section>
-<section id="configure-hubploy">
-<h3>Configure <code class="docutils literal notranslate"><span class="pre">hubploy</span></code><a class="headerlink" href="#configure-hubploy" title="Link to this heading">#</a></h3>
-<p>You need to let <code class="docutils literal notranslate"><span class="pre">hubploy</span></code> know the specifics of the image by updating your
-deployment’s <code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code>. Change the <code class="docutils literal notranslate"><span class="pre">name</span></code> of the image in
-<code class="docutils literal notranslate"><span class="pre">deployments/&lt;hubname&gt;/hubploy.yaml</span></code> to point to your new image name, and after
-the name add <code class="docutils literal notranslate"><span class="pre">:PLACEHOLDER</span></code> in place of the image sha.  This will be
-automatically updated after your new image is built and pushed to the Artifact
-Registry.</p>
+<section id="configure-common-yaml">
+<h3>Configure <code class="docutils literal notranslate"><span class="pre">common.yaml</span></code><a class="headerlink" href="#configure-common-yaml" title="Link to this heading">#</a></h3>
+<p>You need to let <code class="docutils literal notranslate"><span class="pre">helm</span></code> (via running <code class="docutils literal notranslate"><span class="pre">hubploy</span></code>) know the specifics of the image
+by updating your deployment’s chart in <code class="docutils literal notranslate"><span class="pre">common.yaml</span></code>. Change the <code class="docutils literal notranslate"><span class="pre">name</span></code> of the
+image in <code class="docutils literal notranslate"><span class="pre">deployments/&lt;hubname&gt;/config/common.yaml</span></code> to point to your new image
+name, and after the name add <code class="docutils literal notranslate"><span class="pre">PLACEHOLDER</span></code> in place of the image sha.  This
+will be automatically updated after your new image is built and pushed to the
+Artifact Registry.</p>
 <p>Example:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">images</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">images</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-central1-docker.pkg.dev/cal-icor-hubs/user-images//fancynewhub-user-image:PLACEHOLDER</span>
-
-<span class="nt">cluster</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcloud</span>
-<span class="w">  </span><span class="nt">gcloud</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">project</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cal-icor-hubs</span>
-<span class="w">    </span><span class="nt">service_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gke-key.json</span>
-<span class="w">    </span><span class="nt">cluster</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spring-2025</span>
-<span class="w">    </span><span class="nt">zone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-central1</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">jupyterhub</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># a bunch of hub config here...</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">singleuser</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-central1-docker.pkg.dev/cal-icor-hubs/user-images/&lt;hubname&gt;-user-image</span>
+<span class="w">      </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PLACEHOLDER</span>
 </pre></div>
 </div>
 <p>Create a PR and merge to staging.  You can cancel the
@@ -483,7 +479,7 @@ create a new pull request at
 <li><p>After the build passes, merge your PR in to <code class="docutils literal notranslate"><span class="pre">main</span></code> and the image will
 be built again and pushed to the Artifact Registry.  If that succeeds,
 then a commit will be crafted that will update the <code class="docutils literal notranslate"><span class="pre">PLACEHOLDER</span></code> field in
-<code class="docutils literal notranslate"><span class="pre">hubploy.yaml</span></code> with the image’s SHA and pushed to the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code> repo.
+<code class="docutils literal notranslate"><span class="pre">common.yaml</span></code> with the image’s SHA and pushed to the <code class="docutils literal notranslate"><span class="pre">cal-icor-hubs</span></code> repo.
 You can check on the progress of this workflow in your root image repo’s
 <code class="docutils literal notranslate"><span class="pre">Actions</span></code> tab.</p></li>
 <li><p>After the previous step is completed successfully, go to the
@@ -563,9 +559,9 @@ deployed!  You can watch the progress in the <a class="reference external" href=
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-repository-settings">Image Repository Settings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-fork-s-repository-settings">Your Fork’s Repository Settings</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disable-your-fork-s-repository-settings">Disable Your Fork’s Repository Settings</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-artifact-registry-pushing">Enable Artifact Registry Pushing</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-hubploy">Configure <code class="docutils literal notranslate"><span class="pre">hubploy</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-common-yaml">Configure <code class="docutils literal notranslate"><span class="pre">common.yaml</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subscribe-to-github-repo-in-slack">Subscribe to GitHub Repo in Slack</a></li>

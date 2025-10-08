@@ -17,7 +17,7 @@ to the repo.
 
 There are two approaches to pre-populate the image's assets:
 
-1. Fork [hub-user-image-template](https://github.com/cal-icor/base-user-image).
+1. Fork our [base-user-image](https://github.com/cal-icor/base-user-image).
 Click "Use this template" > "Create a new repository". Be sure to follow
 convention and name the repo `<hubname>-user-image`, and the owner needs to be
 `cal-icor`. When that is done, create your own fork of the new repo.
@@ -46,7 +46,7 @@ will be adding two new variables:
 always be `us-central1-docker.pkg.dev/cal-icor-hubs/user-images/<image-name>` and the
 image name will always be the same as the repo:  `<hubname>-user-image`.
 
-## Your Fork's Repository Settings
+## Disable Your Fork's Repository Settings
 
 Now you will want to disable Github Actions for your fork of the image repo.
 If you don't, whenever you push PRs to the root repo the workflows *in your
@@ -68,29 +68,25 @@ as well as to push a branch to the [cal-icor-hubs repo](https://github.com/cal-i
 Edit both `IMAGE_BUILDER_CREATE_PR` and `GAR_SECRET_KEY`, and click on the gear icon,
 search for your repo name, check the box and save.
 
-### Configure `hubploy`
+### Configure `common.yaml`
 
-You need to let `hubploy` know the specifics of the image by updating your
-deployment's `hubploy.yaml`. Change the `name` of the image in
-`deployments/<hubname>/hubploy.yaml` to point to your new image name, and after
-the name add `:PLACEHOLDER` in place of the image sha.  This will be
-automatically updated after your new image is built and pushed to the Artifact
-Registry.
+You need to let `helm` (via running `hubploy`) know the specifics of the image
+by updating your deployment's chart in `common.yaml`. Change the `name` of the
+image in `deployments/<hubname>/config/common.yaml` to point to your new image
+name, and after the name add `PLACEHOLDER` in place of the image sha.  This
+will be automatically updated after your new image is built and pushed to the
+Artifact Registry.
 
 Example:
 
 ```yaml
-images:
-  images:
-    - name: us-central1-docker.pkg.dev/cal-icor-hubs/user-images//fancynewhub-user-image:PLACEHOLDER
-
-cluster:
-  provider: gcloud
-  gcloud:
-    project: cal-icor-hubs
-    service_key: gke-key.json
-    cluster: spring-2025
-    zone: us-central1
+jupyterhub:
+  # a bunch of hub config here...
+  # ...
+  singleuser:
+    image:
+      name: us-central1-docker.pkg.dev/cal-icor-hubs/user-images/<hubname>-user-image
+      tag: PLACEHOLDER
 ```
 
 Create a PR and merge to staging.  You can cancel the
@@ -133,7 +129,7 @@ contributing
 5. After the build passes, merge your PR in to `main` and the image will
     be built again and pushed to the Artifact Registry.  If that succeeds,
     then a commit will be crafted that will update the `PLACEHOLDER` field in
-    `hubploy.yaml` with the image's SHA and pushed to the `cal-icor-hubs` repo.
+    `common.yaml` with the image's SHA and pushed to the `cal-icor-hubs` repo.
     You can check on the progress of this workflow in your root image repo's
     `Actions` tab.
 6. After the previous step is completed successfully, go to the
