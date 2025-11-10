@@ -1,20 +1,12 @@
 # Cal-ICOR Privacy Policy
 
-:::{admonition} This is not a legal document
-:class: warning
-The following document is not a legal document, and is not legally binding.
-
-It is instead provided to provide guidelines, set expectations and a general
-understanding of the policies as applied to Cal-ICOR's Jupyterhub service and
-Cal-ICOR Managed Infrastructure.
-:::
-
 ## Terminology
 
 **Cal-ICOR**: The Cal-ICOR project, which is a collaboration between the University
 of California, Berkeley and the California Learning Lab.
 
-**Institution**: Any institution that is a participant in the Cal-ICOR project.
+**Partnered or Participating Institution**: Any institution that is a participant
+in the Cal-ICOR project.
 
 **Authorized User**: Any individual who has been granted access to Cal-ICOR Managed
 Infrastructure by a participating Institution.
@@ -33,13 +25,14 @@ of a participating Institution and hosted by a Cloud Provider.
 
 ## Summary
 
-Cal-ICOR does not store or retains and personally identifiable information
+Cal-ICOR does not store or retain any personally identifiable information
 about its partners or users, or the information that is created or placed on
 the Infrastructure we run.
 
 Access to the Cal-ICOR Managed Infrastructure is required by Cal-ICOR staff,
-but if a partnered Institution stops working with Cal-ICOR the information and
-access is not retained.
+but if a participating Institution stops working with Cal-ICOR the information
+and access is not retained. This access and information will be deleted within
+30 days of the end of the partnership.
 
 ## While partnered with an Institution
 
@@ -69,7 +62,7 @@ We do not retain or share any information as described below:
     configurations.
   - All user accounts, including but not limited to the email addresses used
     for authentication.
-- The Cloud Inmfrastructure will be deleted, and all access to the
+- The Cloud Infrastructure will be deleted, and all access to the
   infrastructure will be removed.
 - If the Institution has a new partner or Cloud Provider, the data can
   potentially be transferred to the new partner or Cloud Provider.
@@ -77,5 +70,5 @@ We do not retain or share any information as described below:
     Cal-ICOR staff will work with the Institution to transfer the data.
   - This will be done in a secure manner, and all data will be deleted from
     the Cal-ICOR Managed Infrastructure.
-  - If amount of data is large, the transfer may take some time or not be
+  - If amount of data is large, the transfer may take some time or may not be
     possible.

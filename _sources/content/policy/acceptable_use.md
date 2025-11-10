@@ -1,14 +1,5 @@
 # Cal-ICOR Acceptable Use Policy
 
-:::{admonition} This is not a legal document
-:class: warning
-The following document is not a legal document, and is not legally binding.
-
-It is instead provided to provide guidelines, set expectations and a general
-understanding of the policies as applied to Cal-ICOR's Jupyterhub service and
-Cal-ICOR Managed Infrastructure.
-:::
-
 ## Terminology
 
 **Cal-ICOR**: The Cal-ICOR project, which is a collaboration between the University
@@ -43,6 +34,7 @@ When other policies that you are bound by are more restrictive than this
 policy, the more restrictive policy takes precedence.
 
 As an Authorized User of Cal-ICOR Managed Infrastructure, you are expected to:
+
 - Use only the Cal-ICOR Managed Infrastructure and accounts for which you have
   authorization.
 - Not store, process or transmit any sensitive data (e.g., grades, personally
@@ -55,7 +47,7 @@ As an Authorized User of Cal-ICOR Managed Infrastructure, you are expected to:
 - Be individually responsible for appropriate use of all resources
   provided to you, including your interactive computing session, networking
   infrastructure on your hub, and the software and hardware you use.
-- Comply with and contractual and licence agreements that Cal-ICOR is bound to
+- Comply with any contractual and license agreements that Cal-ICOR is bound to
   respecting certain third party resources.
 - Make a reasonable effort to protect your passwords and to secure resources
   against unauthorized use or access.  Where applicable you must configure
@@ -79,9 +71,9 @@ As an Authorized User of Cal-ICOR Managed Infrastructure, you are expected to:
   reasonably be expected to disrupt) other computer or network users, or damage
   or degrade performance, software or hardware components of a system.
 - Not use the Cal-ICOR Managed Infrastructure to distribute or facilitate the
-  sending of unsolicited or unlawful (i) email or other messages, or (ii)
+  sending of (i) unsolicited or unlawful email or other messages, or (ii)
   promotions of any kind;
-- Not use the Cal-ICOR Managed Infrastructure to engage in or promote any other
+- Not use the Cal-ICOR Managed Infrastructure to engage in or promote
   fraudulent, deceptive or illegal activities.
 - Not use the Cal-ICOR Managed Infrastructure to process, store or transmit
   material, including any Customer Data, in violation of any Law or any third
