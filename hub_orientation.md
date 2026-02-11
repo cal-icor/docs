@@ -41,3 +41,8 @@ The following is provided:
   - Python
   - R
   - C++
+
+- **User Experience:**
+  - Each user gets the same Python and R packages pre-installed
+  - Shared directories (read/write for admins/instructors, read-only for everyone else)
+  - *Important!* All user sessions have a hard limit of 12 hours.  If a user session is automatically killed at 12 hours, the user will need to re-authenticate to pick up where they were last at!
