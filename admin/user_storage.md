@@ -26,6 +26,18 @@ Sometimes you need the quota enforcer to ignore a directory (or directories).  T
 
 ## NFS diagnostics, troubleshooting and admin tasks
 
+### Disk usage, monitoring and alerting
+
+There is a policy named `NFS home-dir disk >=90% full (jupyterhub-homedirs-2026-04-08)` that will send alerts to both email and PagerDuty when the underlying disk hit 90% capacity.  You should check the [Grafana Home Directory Usage](https://grafana.jupyter.cal-icor.org/d/e2984e42-dfa8-4155-a956-a5bc1c710d3f/home-directory-usage-dashboard?orgId=1&from=now-6h&to=now&timezone=utc&var-PROMETHEUS_DS=P1809F7CD0C75ACF3&var-hub=$__all) panel to see if this is a shared directory, or [shell in to the NFS server](#shell-access-to-the-nfs-server) and look around in `/export` to find the offending folder.
+
+If it's just due to the general growth of data stored on the drive, you can grow the underlying disk with the following command:
+
+``` bash
+gcloud compute disks resize jupyterhub-homedirs-2026-04-08 --zone=us-central1-b --size=<new-GB>
+```
+
+The auto-xfs-resizer sidecar runs `xfs_growfs /export` every 5 min and expands XFS to the new size automatically.
+
 ### Shell access to the NFS server
 
 If you need to connect to the NFS server to debug a user's filesystem or perform any tasks, there are two methods to get a shell on the `nfs-server` container:
