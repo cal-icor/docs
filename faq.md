@@ -2,11 +2,11 @@
 
 ## Can I see my students servers?
 
-Yes! You need to navigate to Admin section of the server. To request administrator access, please create a (GitHub Issue for your hub deployment[https://github.com/cal-icor/cal-icor-hubs/issues/new?template=admin_request.yaml] and we will get that deployed immediately.
+Yes! You need to navigate to Admin section of the server. To request administrator access, please create a [GitHub Issue for your hub deployment](https://github.com/cal-icor/cal-icor-hubs/issues/new?template=admin_request.yaml) and we will get that deployed immediately.
 
 1. Navigate to the Admin Section:
     - From a notebook: File > Hub Control Panel;
-    - From a url: [your_server].jupyter.cal-icor.org/hub/admin (e.g. csumb.jupyter.cal-icor.org/hub/admin)
+    - From a url: `[your_server].jupyter.cal-icor.org/hub/admin` (e.g. `csumb.jupyter.cal-icor.org/hub/admin`)
 2. Search for the User Name in Search box
 3. Click Start Server (You may have to refresh the page)
 4. Click Access Server
@@ -28,6 +28,6 @@ The user should refresh the browser tab every time they begin to work in R Studi
 
 Yes. If you add the packages to your VM via pip install or the R package manager they will disappear between sessions.
 
-If you would like the packages to be permanently available for all users on your hub, please fill out the Package Request (GitHub issue)[https://github.com/cal-icor/cal-icor-hubs/issues/new?template=package_request.yml]. In most cases, we should be able to install the desired package(s).
+If you would like the packages to be permanently available for all users on your hub, please fill out the Package Request [GitHub issue](https://github.com/cal-icor/cal-icor-hubs/issues/new?template=package_request.yml). In most cases, we should be able to install the desired package(s).
 
-If you have a lot of packages you need installed you can fill a normal (GitHub Issue)[https://github.com/cal-icor/cal-icor-hubs/issues/new?template=BLANK_ISSUE] instead of package-by-package in the Package Request issue template.
+If you have a lot of packages you need installed you can fill a normal [GitHub Issue](https://github.com/cal-icor/cal-icor-hubs/issues/new?template=BLANK_ISSUE) instead of package-by-package in the Package Request issue template.
