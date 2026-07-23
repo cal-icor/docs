@@ -1,7 +1,9 @@
 # Frequently Asked Questions
 
 ## Can I see my students servers?
-Yes! You need to navigate to Admin section of the server.
+
+Yes! You need to navigate to Admin section of the server. To request administrator access, please create a (GitHub Issue for your hub deployment[https://github.com/cal-icor/cal-icor-hubs/issues/new?template=admin_request.yaml] and we will get that deployed immediately.
+
 1. Navigate to the Admin Section:
     - From a notebook: File > Hub Control Panel;
     - From a url: [your_server].jupyter.cal-icor.org/hub/admin (e.g. csumb.jupyter.cal-icor.org/hub/admin)
@@ -13,6 +15,7 @@ Yes! You need to navigate to Admin section of the server.
 * Be careful! Best Practice is to then logout so you do not mistakenly start working in the student files.
 
 ## R-Studio is giving a 403 error when it tries to save
+
 This is most likely happening when a users has had over thirty minutes of inactivity; the system shuts the server down but 
 user interface still looks like a session is active. 
 
@@ -22,6 +25,7 @@ see the R-Studio interface and start "working". The work will not be saved and 4
 The user should refresh the browser tab every time they begin to work in R Studio if they have been away from the computer for more than 30 minutes.
 
 ## Can I add packages for R or Python?
+
 Yes. If you add the packages to your VM via pip install or the R package manager they will disappear between sessions.
 
 If you would like the packages to be permanently available for all users on your hub, please fill out the Package Request (GitHub issue)[https://github.com/cal-icor/cal-icor-hubs/issues/new?template=package_request.yml]. In most cases, we should be able to install the desired package(s).
