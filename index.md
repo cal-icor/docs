@@ -5,9 +5,12 @@ documentation.
 
 ## What We Offer
 
-Our goal is to provide California educational institutions with a free, online
+Cal-ICOR provides California educational institutions with a free, online
 computing resource using JupyterHub. This platform supports data science and
-development work through JupyterLab, VS Code, Shiny, and RStudio.
+development work through JupyterLab, VSCode, Shiny, and RStudio.
+
+The platform comes pre-installed with many Python (via `conda`) and R packages,
+which are detailed in the [User Environments section](https://docs.cal-icor.org/user-environments/#default-packages-installed-for-users).
 
 This documentation is a living resource covering the following topics:
 
