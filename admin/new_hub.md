@@ -266,6 +266,22 @@ script will learn to clean up after itself 'soon'):
 git clean -fd deployments/<name>
 ```
 
+### Add the deployment URL to the relevant GitHub Issue Templates
+
+Until shane automates this, don't forget to add the new hub's fully qualified
+URL to the following GitHub Issue Templates:
+
+``` bash
+.github/ISSUE_TEMPLATE/additional_storage_request.yaml
+.github/ISSUE_TEMPLATE/admin_request.yaml
+.github/ISSUE_TEMPLATE/cpu_template.yml
+.github/ISSUE_TEMPLATE/memory_request.yml
+.github/ISSUE_TEMPLATE/package_request.yml
+```
+
+Please keep the order alphabetical, and push this change to `origin/<feature-branch>`
+before you merge the PR.
+
 ## Review and merge
 
 Read the generated files before merging, particularly `config/prod.yaml`, where
