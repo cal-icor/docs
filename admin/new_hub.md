@@ -135,24 +135,44 @@ Shibboleth, InCommon, Microsoft and Google identity providers. Occasionally an
 institution's IT department blocks CILogon from returning identity through
 Microsoft or Google, and then you fall back to GitHub.
 
-Register one application at
-[cilogon.org/oauth2/register](https://cilogon.org/oauth2/register):
+Clients are created from the command line, not the web registration form. From
+your `cal-icor-hubs` clone:
 
-!["Image of CILogon Client Registration Page"](cilogon.png)
+```bash
+./scripts/cilogon_clients.py add <hubname>
+```
 
-Using CSU Long Beach as the example:
+One client per hub, production only — staging authenticates with
+`DummyAuthenticator` (`authenticator_class: dummy`) and needs none. The script
+derives everything from the hub name, so there is no form to fill in: the client
+is named `cal-icor-<hubname>` with the callback
+`https://<hubname>.jupyter.cal-icor.org/hub/oauth_callback`.
 
-- Client Application: California State University, Long Beach
-- Contact Email: <cal-icor-staff@lists.berkeley.edu>
-- Home Url: `https://<hubname>.jupyter.cal-icor.org`
-- Callback URLs: `https://<hubname>.jupyter.cal-icor.org/hub/oauth_callback`
-- Client Type: Confidential
-- Scopes: email, openid, org.cilogon.userinfo
-- Refresh Tokens: No
+The command prints a Client ID and Secret. Copy both somewhere safe
+immediately — CILogon shows the secret once and never stores it. They go into
+`_deploy_configs/<name>.yaml`. For a hub that already has
+`deployments/<hubname>/secrets/prod.yaml`, `--write` patches them straight in
+and re-encrypts with SOPS.
 
-Registering redirects you to a page with the Client ID and Secret. Copy both
-somewhere safe immediately; they go into `_deploy_configs/<name>.yaml` and the
-page does not come back.
+The other commands:
+
+```bash
+./scripts/cilogon_clients.py list                     # every client we administer
+./scripts/cilogon_clients.py get    <hubname>         # full record
+./scripts/cilogon_clients.py update <hubname> --callback <url>
+./scripts/cilogon_clients.py remove <hubname>
+```
+
+Add `--dry-run` to `add` or `update` to see what would be sent. Admin-credential
+setup is documented in the `cal-icor-hubs` README.
+
+```{note}
+The CLI only manages clients it created. Anything registered through the old web
+form at `cilogon.org/oauth2/register` is invisible to it — it will not appear in
+`list`, and `get`/`update`/`remove` report *"this admin client does not
+administer the client with ID ..."*. Such hubs need a replacement client created
+with `add` and their secrets repointed.
+```
 
 ### GitHub OAuth
 
