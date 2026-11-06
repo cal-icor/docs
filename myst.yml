@@ -42,7 +42,8 @@ project:
 site:
   template: book-theme
   options:
-    logo: assets/logo-trans.png
+    logo: assets/cal-icor-mark.png
+    logo_dark: assets/cal-icor-mark-dark.png
     logo_text: Cal-ICOR Documentation
     home_page_in_navbar: false
     use_repository_button: true

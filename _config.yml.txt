@@ -1,6 +1,6 @@
 title : Cal-ICOR Documentation
 author: Cal-ICOR gang
-logo: 'assets/logo-trans.png'
+logo: 'assets/cal-icor-mark.png'
 
 # Short description about the book
 description: >-
