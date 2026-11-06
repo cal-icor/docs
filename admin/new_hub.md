@@ -133,7 +133,21 @@ provider.
 [CILogon](https://www.cilogon.org/faq) handles almost every institution, covering
 Shibboleth, InCommon, Microsoft and Google identity providers. Occasionally an
 institution's IT department blocks CILogon from returning identity through
-Microsoft or Google, and then you fall back to GitHub.
+Microsoft or Google, and then you fall back to [GitHub OAuth](#github-oauth).
+
+Before creating a client, look the institution up in CILogon's list of identity
+providers. That's where the value for `idp_url` comes from.
+
+1. Open <https://cilogon.org/idplist/>. It's one long line of JSON, so click the
+   **Pretty-print** checkbox in the top left to make it readable.
+2. Search the page (`Cmd+F` / `Ctrl+F`) for a distinctive part of the
+   institution's name. Entries use the official name, and an abbreviation can
+   match unrelated institutions.
+3. Copy the entry's `EntityID` into `idp_url` in `_deploy_configs/<name>.yaml`.
+
+If the institution signs in through Microsoft or Google, use the shared
+`Microsoft` or `Google` entry's `EntityID` instead, with its email domains in
+`idp_allowed_domains`.
 
 Clients are created from the command line, not the web registration form. From
 your `cal-icor-hubs` clone:
@@ -209,7 +223,7 @@ This file is the script's input and nothing else. Nothing deploys from it.
 | `admin_emails` | YAML list, appended to the standing infrastructure admins |
 | `authenticator_class` | `cilogon` or `github` |
 | `authenticator_class_instance` | `CILogonOAuthenticator` or `GitHubOAuthenticator` |
-| `idp_url` | CILogon only. Empty string for GitHub |
+| `idp_url` | CILogon only. The institution's `EntityID` from the [IdP list](#cilogon). Unused for GitHub; leave it `""` |
 | `idp_allowed_domains` | CILogon with Microsoft or Google. A YAML list, otherwise an empty string |
 | `allow_all` | CILogon with Shibboleth or InCommon. `true`, otherwise an empty string |
 | `allowed_organizations` | GitHub only. A YAML list, otherwise an empty string |
