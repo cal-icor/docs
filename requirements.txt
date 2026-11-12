@@ -1,3 +1,3 @@
-jupyter-book==2.0.2
+jupyter-book==2.1.7
 mystmd
 ghp-import==2.1.0
