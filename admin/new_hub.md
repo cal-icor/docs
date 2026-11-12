@@ -18,6 +18,7 @@ Working installs of:
 - [gcloud](https://cloud.google.com/sdk/docs/install)
 - [gh](https://cli.github.com/)
 - [hubploy](https://github.com/berkeley-dsep-infra/hubploy)
+- [helm v4](https://helm.sh/docs/intro/install/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [sops](https://github.com/getsops/sops/releases)
 
